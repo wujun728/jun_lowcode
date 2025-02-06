@@ -21,11 +21,14 @@ bin
 classes
 .settings
 .factorypath
+doc1
 doc2
-*bak
+doc3
+log
+logs
 target
-
-node_modules
+*.zip
+*.rar
 
 # Idea
 .idea

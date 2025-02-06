@@ -1,9 +1,0 @@
-此版本是光年3.0版本
-光年的后台管理文档
-http://www.bixiaguangnian.com/manual/lyearadmin/12.html
-
-gitee
-http://www.bixiaguangnian.com/manual/lyearadmin/12.html
-
-演示
-http://lyear.itshubao.com/

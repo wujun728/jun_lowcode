@@ -1,7 +1,0 @@
-<!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<label th:each="role:${roles}" class="check-box">
-	<input name="role_id" type="checkbox" th:value="${role.roleId}" th:text="${role.roleName}" th:checked="${role.flag}"/>
-</label>
-<script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
-<script th:src="@{/ruoyi/js/common.js?v=4.6.1}"></script>

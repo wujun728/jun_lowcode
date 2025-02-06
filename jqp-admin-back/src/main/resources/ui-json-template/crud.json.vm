@@ -1,5 +1,0 @@
-{
-    "type": "crud",
-    "name": "${pageCode}Table",
-    #parse("ui-json-template/common/crudCommon.vm")
-}
