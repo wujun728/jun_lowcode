@@ -96,7 +96,7 @@ public interface CommonConstant {
     /**
      * 首页提示语
      */
-    String INDEX_TIPS = "Welcome To Snowy";
+    String INDEX_TIPS = "Welcome To Qixing";
 
     /**
      * 未知标识

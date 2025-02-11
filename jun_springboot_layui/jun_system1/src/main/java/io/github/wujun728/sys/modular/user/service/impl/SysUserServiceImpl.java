@@ -417,7 +417,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public void export(SysUserParam sysUserParam) {
         List<SysUser> list = this.list();
-        PoiUtil.exportExcelWithStream("SnowyUsers.xls", SysUser.class, list);
+        PoiUtil.exportExcelWithStream("QixingUsers.xls", SysUser.class, list);
     }
 
     @Override

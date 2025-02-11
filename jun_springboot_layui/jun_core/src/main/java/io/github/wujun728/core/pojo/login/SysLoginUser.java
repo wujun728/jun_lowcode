@@ -144,12 +144,12 @@ public class SysLoginUser implements UserDetails, Serializable {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<SnowyAuthority> grantedAuthorities = CollectionUtil.newArrayList();
+        ArrayList<QixingAuthority> grantedAuthorities = CollectionUtil.newArrayList();
         if (ObjectUtil.isNotEmpty(roles)) {
             roles.forEach(dict -> {
                 String roleName = dict.getStr(CommonConstant.NAME);
-                SnowyAuthority snowyAuthority = new SnowyAuthority(roleName);
-                grantedAuthorities.add(snowyAuthority);
+                QixingAuthority qixingAuthority = new QixingAuthority(roleName);
+                grantedAuthorities.add(qixingAuthority);
             });
         }
         return grantedAuthorities;

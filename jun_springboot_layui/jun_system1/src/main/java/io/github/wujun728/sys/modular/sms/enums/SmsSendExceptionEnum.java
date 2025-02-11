@@ -10,7 +10,7 @@ import io.github.wujun728.sys.core.consts.SysExpEnumConstant;
  * 短信发送相关异常枚举
  * @date 2020/7/7 11:30
  */
-@ExpEnumType(module = SysExpEnumConstant.SNOWY_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SMS_EXCEPTION_ENUM)
+@ExpEnumType(module = SysExpEnumConstant.QIXING_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SMS_EXCEPTION_ENUM)
 public enum SmsSendExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

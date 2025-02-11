@@ -12,7 +12,7 @@ import java.util.Map;
  * 错误视图解析器
  * @date 2020/11/6 14:20
  */
-public class SnowyErrorView implements View {
+public class QixingErrorView implements View {
 
     @Override
     public String getContentType() {

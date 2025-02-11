@@ -10,7 +10,7 @@ import io.github.wujun728.core.factory.ExpEnumCodeFactory;
  * 请求方法相关异常枚举
  * @date 2020/3/11 15:33
  */
-@ExpEnumType(module = ExpEnumConstant.SNOWY_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.REQUEST_METHOD_EXCEPTION_ENUM)
+@ExpEnumType(module = ExpEnumConstant.QIXING_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.REQUEST_METHOD_EXCEPTION_ENUM)
 public enum RequestMethodExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

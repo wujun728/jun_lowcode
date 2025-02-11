@@ -13,13 +13,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @MapperScan(value = {"io.github.wujun.*.mapper","io.github.wujun728.*.mapper"}/*,annotationClass = Repository.class*/)
 @SpringBootApplication(scanBasePackages = {"io.github.wujun","io.github.wujun728"})
-public class SnowyApplication {
+public class QixingApplication {
 
     private static final Log log = Log.get();
 
     public static void main(String[] args) {
-        SpringApplication.run(SnowyApplication.class, args);
-        log.info(">>> " + SnowyApplication.class.getSimpleName() + " is success!");
+        SpringApplication.run(QixingApplication.class, args);
+        log.info(">>> " + QixingApplication.class.getSimpleName() + " is success!");
     }
 
 }

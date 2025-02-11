@@ -17,9 +17,9 @@ public interface SysExpEnumConstant {
     /**
      * 模块分类编码（2位）
      * <p>
-     * snowy-system模块异常枚举编码
+     * qixing-system模块异常枚举编码
      */
-    int SNOWY_SYS_MODULE_EXP_CODE = 20;
+    int QIXING_SYS_MODULE_EXP_CODE = 20;
 
     /* 分类编码（4位） */
     /**

@@ -16,7 +16,7 @@ import io.github.wujun728.core.factory.ExpEnumCodeFactory;
  *
  * @date 2019/7/18 22:22
  */
-@ExpEnumType(module = ExpEnumConstant.SNOWY_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.AUTH_EXCEPTION_ENUM)
+@ExpEnumType(module = ExpEnumConstant.QIXING_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.AUTH_EXCEPTION_ENUM)
 public enum AuthExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

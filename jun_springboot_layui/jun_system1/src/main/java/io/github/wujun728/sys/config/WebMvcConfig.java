@@ -2,10 +2,10 @@
 package io.github.wujun728.sys.config;
 
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import io.github.wujun728.sys.core.error.SnowyErrorAttributes;
-import io.github.wujun728.sys.core.error.SnowyErrorView;
+import io.github.wujun728.sys.core.error.QixingErrorAttributes;
+import io.github.wujun728.sys.core.error.QixingErrorView;
 import io.github.wujun728.sys.core.filter.RequestNoFilter;
-import io.github.wujun728.sys.core.validator.SnowyValidator;
+import io.github.wujun728.sys.core.validator.QixingValidator;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import io.github.wujun728.core.web.SnowyRequestResponseBodyMethodProcessor;
+import io.github.wujun728.core.web.QixingRequestResponseBodyMethodProcessor;
 import io.github.wujun728.sys.core.filter.xss.XssFilter;
 
 import javax.annotation.PostConstruct;
@@ -40,8 +40,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @date 2020/4/14 22:27
      */
     @Bean
-    public SnowyErrorAttributes snowyErrorAttributes() {
-        return new SnowyErrorAttributes();
+    public QixingErrorAttributes qixingErrorAttributes() {
+        return new QixingErrorAttributes();
     }
 
     /**
@@ -51,8 +51,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @date 2020/4/14 22:27
      */
     @Bean("error")
-    public SnowyErrorView snowyErrorView() {
-        return new SnowyErrorView();
+    public QixingErrorView qixingErrorView() {
+        return new QixingErrorView();
     }
 
     /**
@@ -119,13 +119,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @date 2020/8/12 20:18
      */
     @Bean
-    public SnowyValidator snowyValidator() {
-        return new SnowyValidator();
+    public QixingValidator qixingValidator() {
+        return new QixingValidator();
     }
 
 
     /**
-     * 自定义的SnowyRequestResponseBodyMethodProcessor，放在所有resolvers之前
+     * 自定义的QixingRequestResponseBodyMethodProcessor，放在所有resolvers之前
      *
      * @author xuyuxiang
      * @date 2020/8/21 21:09
@@ -139,7 +139,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         @PostConstruct
         public void injectSelfMethodArgumentResolver() {
             List<HandlerMethodArgumentResolver> argumentResolvers = new ArrayList<>();
-            argumentResolvers.add(new SnowyRequestResponseBodyMethodProcessor(adapter.getMessageConverters()));
+            argumentResolvers.add(new QixingRequestResponseBodyMethodProcessor(adapter.getMessageConverters()));
             argumentResolvers.addAll(Objects.requireNonNull(adapter.getArgumentResolvers()));
             adapter.setArgumentResolvers(argumentResolvers);
         }

@@ -11,7 +11,7 @@ import io.github.wujun728.core.factory.ExpEnumCodeFactory;
  *
  * @date 2020/4/30 22:45
  */
-@ExpEnumType(module = ExpEnumConstant.SNOWY_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.STATUS_EXCEPTION_ENUM)
+@ExpEnumType(module = ExpEnumConstant.QIXING_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.STATUS_EXCEPTION_ENUM)
 public enum StatusExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

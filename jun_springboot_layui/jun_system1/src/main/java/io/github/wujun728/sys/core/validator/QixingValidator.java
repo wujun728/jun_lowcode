@@ -17,7 +17,7 @@ import java.beans.PropertyDescriptor;
  * 因为ConstraintValidator的自定义校验中获取不到当前进行的group
  * @date 2020/8/12 20:07
  */
-public class SnowyValidator extends LocalValidatorFactoryBean {
+public class QixingValidator extends LocalValidatorFactoryBean {
 
     private static final Log log = Log.get();
 

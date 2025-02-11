@@ -13,7 +13,7 @@ import java.util.Properties;
  *
  * @date 2019/3/30 22:26
  */
-public class SnowyDatabaseIdProvider implements DatabaseIdProvider {
+public class QixingDatabaseIdProvider implements DatabaseIdProvider {
 
     @Override
     public void setProperties(Properties p) {

@@ -16,9 +16,9 @@ public interface GenExpEnumConstant {
     /**
      * 模块分类编码（2位）
      * <p>
-     * snowy-gen模块异常枚举编码
+     * qixing-gen模块异常枚举编码
      */
-    int SNOWY_GEN_MODULE_EXP_CODE = 60;
+    int QIXING_GEN_MODULE_EXP_CODE = 60;
 
     /* 分类编码（4位） */
     /**

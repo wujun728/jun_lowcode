@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 @Data
 @AllArgsConstructor
-public class SnowyAuthority implements GrantedAuthority {
+public class QixingAuthority implements GrantedAuthority {
 
     private String authority;
 

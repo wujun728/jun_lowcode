@@ -29,8 +29,8 @@ public enum TableFilteredFieldsEnum {
      * @date 2020年12月17日00:11:40
      */
     public static boolean contains(String propertyName) {
-        for (TableFilteredFieldsEnum xiaonuoFilteredFieldsEnum : TableFilteredFieldsEnum.values()) {
-            if (xiaonuoFilteredFieldsEnum.propertyName.equals(propertyName)) {
+        for (TableFilteredFieldsEnum companyFilteredFieldsEnum : TableFilteredFieldsEnum.values()) {
+            if (companyFilteredFieldsEnum.propertyName.equals(propertyName)) {
                 return true;
             }
         }

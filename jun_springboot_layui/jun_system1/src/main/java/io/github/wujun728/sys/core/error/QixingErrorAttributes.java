@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @date 2020/4/14 22:21
  */
-public class SnowyErrorAttributes extends DefaultErrorAttributes {
+public class QixingErrorAttributes extends DefaultErrorAttributes {
 
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions attributeOptions) {

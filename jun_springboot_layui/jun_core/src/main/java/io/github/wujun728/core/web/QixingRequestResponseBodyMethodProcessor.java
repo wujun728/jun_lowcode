@@ -20,9 +20,9 @@ import java.util.List;
  * 拓展原有RequestResponseBodyMethodProcessor，只为缓存临时参数
  * @date 2020/8/21 20:51
  */
-public class SnowyRequestResponseBodyMethodProcessor extends RequestResponseBodyMethodProcessor {
+public class QixingRequestResponseBodyMethodProcessor extends RequestResponseBodyMethodProcessor {
 
-    public SnowyRequestResponseBodyMethodProcessor(List<HttpMessageConverter<?>> converters) {
+    public QixingRequestResponseBodyMethodProcessor(List<HttpMessageConverter<?>> converters) {
         super(converters);
     }
 

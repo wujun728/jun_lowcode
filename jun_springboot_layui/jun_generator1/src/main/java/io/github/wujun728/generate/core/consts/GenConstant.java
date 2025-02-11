@@ -38,7 +38,7 @@ public class GenConstant {
     /**
      * 大模块名称（生成到代码中哪个模块下）
      */
-    public static String BASE_MODULAR_NAME = "snowy-main";
+    public static String BASE_MODULAR_NAME = "qixing-main";
 
     /**
      * java文件夹

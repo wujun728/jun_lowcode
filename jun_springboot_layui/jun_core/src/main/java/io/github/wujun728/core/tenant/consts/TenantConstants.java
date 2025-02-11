@@ -10,7 +10,7 @@ public interface TenantConstants {
     /**
      * 租户数据源标识前缀
      */
-    String TENANT_DB_PREFIX = "snowy_tenant_db_";
+    String TENANT_DB_PREFIX = "qixing_tenant_db_";
 
     /**
      * 初始化租户的sql文件名称

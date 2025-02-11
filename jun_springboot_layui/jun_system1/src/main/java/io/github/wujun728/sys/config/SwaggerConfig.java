@@ -61,10 +61,10 @@ public class SwaggerConfig {
 
     private ApiInfo defaultApiInfo() {
         return new ApiInfoBuilder()
-                .title("Snowy Doc")
-                .description("Snowy Doc文档")
-                .termsOfServiceUrl("https://www.xiaonuo.vip")
-                .contact(new Contact("xuyuxiang, yubaoshan, dongxiayu", "https://www.xiaonuo.vip", ""))
+                .title("Qixing Doc")
+                .description("Qixing Doc文档")
+                .termsOfServiceUrl("https://www.company.com")
+                .contact(new Contact("xuyuxiang, yubaoshan, dongxiayu", "https://www.company.com", ""))
                 .version("1.0")
                 .build();
     }

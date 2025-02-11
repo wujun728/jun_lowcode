@@ -15,7 +15,7 @@ import io.github.wujun728.core.factory.ExpEnumCodeFactory;
  * 鉴权可以证明你有系统的哪些权限，鉴权的过程是校验角色是否包含某些接口的权限
  * @date 2020/3/12 10:14
  */
-@ExpEnumType(module = ExpEnumConstant.SNOWY_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.PERMISSION_EXCEPTION_ENUM)
+@ExpEnumType(module = ExpEnumConstant.QIXING_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.PERMISSION_EXCEPTION_ENUM)
 public enum PermissionExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

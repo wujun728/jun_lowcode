@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import io.github.wujun728.sys.core.mybatis.dbid.SnowyDatabaseIdProvider;
+import io.github.wujun728.sys.core.mybatis.dbid.QixingDatabaseIdProvider;
 import io.github.wujun728.sys.core.mybatis.fieldfill.CustomMetaObjectHandler;
 import io.github.wujun728.sys.core.mybatis.sqlfilter.DemoProfileSqlInterceptor;
 
@@ -64,8 +64,8 @@ public class MybatisConfig {
      * @date 2020/6/20 21:23
      */
     @Bean
-    public SnowyDatabaseIdProvider snowyDatabaseIdProvider() {
-        return new SnowyDatabaseIdProvider();
+    public QixingDatabaseIdProvider qixingDatabaseIdProvider() {
+        return new QixingDatabaseIdProvider();
     }
 
 }

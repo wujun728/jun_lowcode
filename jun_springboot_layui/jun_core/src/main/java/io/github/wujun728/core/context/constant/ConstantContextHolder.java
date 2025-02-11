@@ -34,7 +34,7 @@ public class ConstantContextHolder {
      * @date 2020/9/3
      */
     public static Boolean getTenantOpenFlag() {
-        return getSysConfigWithDefault("SNOWY_TENANT_OPEN", Boolean.class, false);
+        return getSysConfigWithDefault("QIXING_TENANT_OPEN", Boolean.class, false);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ConstantContextHolder {
      * @date 2020/9/3
      */
     public static Boolean getCaptchaFlag() {
-        return getSysConfigWithDefault("SNOWY_CAPTCHA_OPEN", Boolean.class, false);
+        return getSysConfigWithDefault("QIXING_CAPTCHA_OPEN", Boolean.class, false);
     }
 
     /**
@@ -54,11 +54,11 @@ public class ConstantContextHolder {
      * @date 2020/6/20 22:13
      */
     public static List<String> getUnXssFilterUrl() {
-        String snowyUnXssFilterUrl = getSysConfigWithDefault("SNOWY_UN_XSS_FILTER_URL", String.class, null);
-        if (ObjectUtil.isEmpty(snowyUnXssFilterUrl)) {
+        String qixingUnXssFilterUrl = getSysConfigWithDefault("QIXING_UN_XSS_FILTER_URL", String.class, null);
+        if (ObjectUtil.isEmpty(qixingUnXssFilterUrl)) {
             return CollectionUtil.newArrayList();
         } else {
-            return CollectionUtil.toList(snowyUnXssFilterUrl.split(SymbolConstant.COMMA));
+            return CollectionUtil.toList(qixingUnXssFilterUrl.split(SymbolConstant.COMMA));
         }
     }
 
@@ -69,7 +69,7 @@ public class ConstantContextHolder {
      * @date 2020/6/20 22:13
      */
     public static Boolean getDemoEnvFlag() {
-        return getSysConfigWithDefault("SNOWY_DEMO_ENV_FLAG", Boolean.class, false);
+        return getSysConfigWithDefault("QIXING_DEMO_ENV_FLAG", Boolean.class, false);
     }
 
     /**
@@ -79,12 +79,12 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:08
      */
     public static EmailConfigs getEmailConfigs() {
-        String host = getSysConfig("SNOWY_EMAIL_HOST", String.class, true);
-        String username = getSysConfig("SNOWY_EMAIL_USERNAME", String.class, true);
-        String password = getSysConfig("SNOWY_EMAIL_PASSWORD", String.class, true);
-        Integer port = getSysConfig("SNOWY_EMAIL_PORT", Integer.class, true);
-        String from = getSysConfig("SNOWY_EMAIL_FROM", String.class, true);
-        Boolean ssl = getSysConfig("SNOWY_EMAIL_SSL", Boolean.class, true);
+        String host = getSysConfig("QIXING_EMAIL_HOST", String.class, true);
+        String username = getSysConfig("QIXING_EMAIL_USERNAME", String.class, true);
+        String password = getSysConfig("QIXING_EMAIL_PASSWORD", String.class, true);
+        Integer port = getSysConfig("QIXING_EMAIL_PORT", Integer.class, true);
+        String from = getSysConfig("QIXING_EMAIL_FROM", String.class, true);
+        Boolean ssl = getSysConfig("QIXING_EMAIL_SSL", Boolean.class, true);
 
         EmailConfigs emailConfigs = new EmailConfigs();
         emailConfigs.setHost(host);
@@ -103,16 +103,16 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:08
      */
     public static TencentSmsConfigs getTencentSmsConfigs() {
-        String snowyTencentSmsSecretId = getSysConfig("SNOWY_TENCENT_SMS_SECRET_ID", String.class, true);
-        String snowyTencentSmsSecretKey = getSysConfig("SNOWY_TENCENT_SMS_SECRET_KEY", String.class, true);
-        String snowyTencentSmsSdkAppId = getSysConfig("SNOWY_TENCENT_SMS_SDK_APP_ID", String.class, true);
-        String snowyTencentSmsSign = getSysConfig("SNOWY_TENCENT_SMS_SIGN", String.class, true);
+        String qixingTencentSmsSecretId = getSysConfig("QIXING_TENCENT_SMS_SECRET_ID", String.class, true);
+        String qixingTencentSmsSecretKey = getSysConfig("QIXING_TENCENT_SMS_SECRET_KEY", String.class, true);
+        String qixingTencentSmsSdkAppId = getSysConfig("QIXING_TENCENT_SMS_SDK_APP_ID", String.class, true);
+        String qixingTencentSmsSign = getSysConfig("QIXING_TENCENT_SMS_SIGN", String.class, true);
 
         TencentSmsConfigs tencentSmsConfigs = new TencentSmsConfigs();
-        tencentSmsConfigs.setSecretId(snowyTencentSmsSecretId);
-        tencentSmsConfigs.setSecretKey(snowyTencentSmsSecretKey);
-        tencentSmsConfigs.setSdkAppId(snowyTencentSmsSdkAppId);
-        tencentSmsConfigs.setSign(snowyTencentSmsSign);
+        tencentSmsConfigs.setSecretId(qixingTencentSmsSecretId);
+        tencentSmsConfigs.setSecretKey(qixingTencentSmsSecretKey);
+        tencentSmsConfigs.setSdkAppId(qixingTencentSmsSdkAppId);
+        tencentSmsConfigs.setSign(qixingTencentSmsSign);
         return tencentSmsConfigs;
     }
 
@@ -123,12 +123,12 @@ public class ConstantContextHolder {
      * @date 2022/5/16
      */
     public static DruidProperties getDruidLoginConfigs() {
-        String snowyDruidLoginUsername = getSysConfigWithDefault("SNOWY_DRUID_LOGIN_USERNAME", String.class, RandomUtil.randomString(10));
-        String snowyDruidLoginPassword = getSysConfigWithDefault("SNOWY_DRUID_LOGIN_PASSWORD", String.class, RandomUtil.randomString(10));
+        String qixingDruidLoginUsername = getSysConfigWithDefault("QIXING_DRUID_LOGIN_USERNAME", String.class, RandomUtil.randomString(10));
+        String qixingDruidLoginPassword = getSysConfigWithDefault("QIXING_DRUID_LOGIN_PASSWORD", String.class, RandomUtil.randomString(10));
 
         DruidProperties druidProperties = new DruidProperties();
-        druidProperties.setLoginUsername(snowyDruidLoginUsername);
-        druidProperties.setLoginPassword(snowyDruidLoginPassword);
+        druidProperties.setLoginUsername(qixingDruidLoginUsername);
+        druidProperties.setLoginPassword(qixingDruidLoginPassword);
         return druidProperties;
     }
 
@@ -139,18 +139,18 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:08
      */
     public static AliyunSmsConfigs getAliyunSmsConfigs() {
-            String snowySmsAccesskeyId = getSysConfig("SNOWY_ALIYUN_SMS_ACCESSKEY_ID", String.class, true);
-        String snowySmsAccesskeySecret = getSysConfig("SNOWY_ALIYUN_SMS_ACCESSKEY_SECRET", String.class, true);
-        String snowySmsSignName = getSysConfig("SNOWY_ALIYUN_SMS_SIGN_NAME", String.class, true);
-        String snowySmsLoginTemplateCode = getSysConfig("SNOWY_ALIYUN_SMS_LOGIN_TEMPLATE_CODE", String.class, true);
-        String snowySmsInvalidateMinutes = getSysConfig("SNOWY_ALIYUN_SMS_INVALIDATE_MINUTES", String.class, true);
+            String qixingSmsAccesskeyId = getSysConfig("QIXING_ALIYUN_SMS_ACCESSKEY_ID", String.class, true);
+        String qixingSmsAccesskeySecret = getSysConfig("QIXING_ALIYUN_SMS_ACCESSKEY_SECRET", String.class, true);
+        String qixingSmsSignName = getSysConfig("QIXING_ALIYUN_SMS_SIGN_NAME", String.class, true);
+        String qixingSmsLoginTemplateCode = getSysConfig("QIXING_ALIYUN_SMS_LOGIN_TEMPLATE_CODE", String.class, true);
+        String qixingSmsInvalidateMinutes = getSysConfig("QIXING_ALIYUN_SMS_INVALIDATE_MINUTES", String.class, true);
 
         AliyunSmsConfigs aliyunSmsProperties = new AliyunSmsConfigs();
-        aliyunSmsProperties.setAccessKeyId(snowySmsAccesskeyId);
-        aliyunSmsProperties.setAccessKeySecret(snowySmsAccesskeySecret);
-        aliyunSmsProperties.setSignName(snowySmsSignName);
-        aliyunSmsProperties.setLoginTemplateCode(snowySmsLoginTemplateCode);
-        aliyunSmsProperties.setInvalidateMinutes(Convert.toInt(snowySmsInvalidateMinutes));
+        aliyunSmsProperties.setAccessKeyId(qixingSmsAccesskeyId);
+        aliyunSmsProperties.setAccessKeySecret(qixingSmsAccesskeySecret);
+        aliyunSmsProperties.setSignName(qixingSmsSignName);
+        aliyunSmsProperties.setLoginTemplateCode(qixingSmsLoginTemplateCode);
+        aliyunSmsProperties.setInvalidateMinutes(Convert.toInt(qixingSmsInvalidateMinutes));
         return aliyunSmsProperties;
     }
 
@@ -161,7 +161,7 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:08
      */
     public static String getJwtSecret() {
-        return getSysConfigWithDefault("SNOWY_JWT_SECRET", String.class, RandomUtil.randomString(32));
+        return getSysConfigWithDefault("QIXING_JWT_SECRET", String.class, RandomUtil.randomString(32));
     }
 
     /**
@@ -171,7 +171,7 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:08
      */
     public static String getDefaultPassWord() {
-        return getSysConfigWithDefault("SNOWY_DEFAULT_PASSWORD", String.class, CommonConstant.DEFAULT_PASSWORD);
+        return getSysConfigWithDefault("QIXING_DEFAULT_PASSWORD", String.class, CommonConstant.DEFAULT_PASSWORD);
     }
 
     /**
@@ -181,7 +181,7 @@ public class ConstantContextHolder {
      * @date 2020/7/9 16:18
      */
     public static Long getSessionTokenExpireSec() {
-        return getSysConfigWithDefault("SNOWY_SESSION_EXPIRE", Long.class, 2 * 60 * 60L);
+        return getSysConfigWithDefault("QIXING_SESSION_EXPIRE", Long.class, 2 * 60 * 60L);
     }
 
     /**
@@ -193,7 +193,7 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:08
      */
     public static Long getTokenExpireSec() {
-        return getSysConfigWithDefault("SNOWY_TOKEN_EXPIRE", Long.class, 86400L);
+        return getSysConfigWithDefault("QIXING_TOKEN_EXPIRE", Long.class, 86400L);
     }
 
     /**
@@ -203,7 +203,7 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:09
      */
     public static String getDefaultFileUploadPathForWindows() {
-        return getSysConfigWithDefault("SNOWY_FILE_UPLOAD_PATH_FOR_WINDOWS", String.class, "");
+        return getSysConfigWithDefault("QIXING_FILE_UPLOAD_PATH_FOR_WINDOWS", String.class, "");
     }
 
     /**
@@ -213,7 +213,7 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:09
      */
     public static String getDefaultFileUploadPathForLinux() {
-        return getSysConfigWithDefault("SNOWY_FILE_UPLOAD_PATH_FOR_LINUX", String.class, "");
+        return getSysConfigWithDefault("QIXING_FILE_UPLOAD_PATH_FOR_LINUX", String.class, "");
     }
 
     /**
@@ -223,7 +223,7 @@ public class ConstantContextHolder {
      * @date 2020/6/19 18:09
      */
     public static Boolean getEnableSingleLogin() {
-        return getSysConfigWithDefault("SNOWY_ENABLE_SINGLE_LOGIN", Boolean.class, false);
+        return getSysConfigWithDefault("QIXING_ENABLE_SINGLE_LOGIN", Boolean.class, false);
     }
 
     /**
@@ -233,7 +233,7 @@ public class ConstantContextHolder {
      * @date 2020/7/20 9:20
      **/
     public static String getIpGeoApi() {
-        return getSysConfig("SNOWY_IP_GEO_API", String.class, false);
+        return getSysConfig("QIXING_IP_GEO_API", String.class, false);
     }
 
     /**
@@ -243,7 +243,7 @@ public class ConstantContextHolder {
      * @date 2020/7/20 10:33
      **/
     public static String getIpGeoAppCode() {
-        return getSysConfig("SNOWY_IP_GEO_APP_CODE", String.class, false);
+        return getSysConfig("QIXING_IP_GEO_APP_CODE", String.class, false);
     }
 
     /**
@@ -253,14 +253,14 @@ public class ConstantContextHolder {
      * @date 2020/7/28 17:16
      **/
     public static OauthConfigs getGiteeOauthConfigs() {
-        String snowyClientId = getSysConfig("SNOWY_OAUTH_GITEE_CLIENT_ID", String.class, true);
-        String snowyClientSecret = getSysConfig("SNOWY_OAUTH_GITEE_CLIENT_SECRET", String.class, true);
-        String snowyRedirectUri = getSysConfig("SNOWY_OAUTH_GITEE_REDIRECT_URI", String.class, true);
+        String qixingClientId = getSysConfig("QIXING_OAUTH_GITEE_CLIENT_ID", String.class, true);
+        String qixingClientSecret = getSysConfig("QIXING_OAUTH_GITEE_CLIENT_SECRET", String.class, true);
+        String qixingRedirectUri = getSysConfig("QIXING_OAUTH_GITEE_REDIRECT_URI", String.class, true);
 
         OauthConfigs oauthConfigs = new OauthConfigs();
-        oauthConfigs.setClientId(snowyClientId);
-        oauthConfigs.setClientSecret(snowyClientSecret);
-        oauthConfigs.setRedirectUri(snowyRedirectUri);
+        oauthConfigs.setClientId(qixingClientId);
+        oauthConfigs.setClientSecret(qixingClientSecret);
+        oauthConfigs.setRedirectUri(qixingRedirectUri);
         return oauthConfigs;
     }
 
@@ -271,14 +271,14 @@ public class ConstantContextHolder {
      * @date 2020/7/28 17:16
      **/
     public static OauthConfigs getGithubOauthConfigs() {
-        String snowyClientId = getSysConfig("SNOWY_OAUTH_GITHUB_CLIENT_ID", String.class, true);
-        String snowyClientSecret = getSysConfig("SNOWY_OAUTH_GITHUB_CLIENT_SECRET", String.class, true);
-        String snowyRedirectUri = getSysConfig("SNOWY_OAUTH_GITHUB_REDIRECT_URI", String.class, true);
+        String qixingClientId = getSysConfig("QIXING_OAUTH_GITHUB_CLIENT_ID", String.class, true);
+        String qixingClientSecret = getSysConfig("QIXING_OAUTH_GITHUB_CLIENT_SECRET", String.class, true);
+        String qixingRedirectUri = getSysConfig("QIXING_OAUTH_GITHUB_REDIRECT_URI", String.class, true);
 
         OauthConfigs oauthConfigs = new OauthConfigs();
-        oauthConfigs.setClientId(snowyClientId);
-        oauthConfigs.setClientSecret(snowyClientSecret);
-        oauthConfigs.setRedirectUri(snowyRedirectUri);
+        oauthConfigs.setClientId(qixingClientId);
+        oauthConfigs.setClientSecret(qixingClientSecret);
+        oauthConfigs.setRedirectUri(qixingRedirectUri);
         return oauthConfigs;
     }
 
@@ -289,7 +289,7 @@ public class ConstantContextHolder {
      * @date 2020/7/28 16:37
      **/
     public static Boolean getEnableOauthLogin() {
-        return getSysConfigWithDefault("SNOWY_ENABLE_OAUTH_LOGIN", Boolean.class, false);
+        return getSysConfigWithDefault("QIXING_ENABLE_OAUTH_LOGIN", Boolean.class, false);
     }
 
     /**
@@ -299,7 +299,7 @@ public class ConstantContextHolder {
      * @date 2020/7/29 14:08
      **/
     public static String getWebUrl() {
-        return getSysConfig("SNOWY_WEB_URL", String.class, true);
+        return getSysConfig("QIXING_WEB_URL", String.class, true);
     }
 
     /**
@@ -309,7 +309,7 @@ public class ConstantContextHolder {
      * @date 2020/7/29 14:08
      **/
     public static String getAlipayReturnUrl() {
-        return getSysConfig("SNOWY_ALIPAY_RETURN_URL", String.class, true);
+        return getSysConfig("QIXING_ALIPAY_RETURN_URL", String.class, true);
     }
 
 
@@ -320,7 +320,7 @@ public class ConstantContextHolder {
      * @date 2020/7/29 14:08
      **/
     public static String getOnlyOfficeUrl() {
-        return getSysConfig("SNOWY_ONLY_OFFICE_SERVICE_URL", String.class, true);
+        return getSysConfig("QIXING_ONLY_OFFICE_SERVICE_URL", String.class, true);
     }
 
     /**

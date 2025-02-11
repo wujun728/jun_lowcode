@@ -10,7 +10,7 @@ import io.github.wujun728.sys.core.consts.SysExpEnumConstant;
  * 系统角色相关异常枚举
  * @date 2020/3/28 14:47
  */
-@ExpEnumType(module = SysExpEnumConstant.SNOWY_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.OAUTH_EXCEPTION_ENUM)
+@ExpEnumType(module = SysExpEnumConstant.QIXING_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.OAUTH_EXCEPTION_ENUM)
 public enum SysOauthExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

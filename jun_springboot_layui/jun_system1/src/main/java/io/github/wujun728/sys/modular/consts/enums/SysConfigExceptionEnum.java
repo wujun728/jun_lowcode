@@ -10,7 +10,7 @@ import io.github.wujun728.sys.core.consts.SysExpEnumConstant;
  * 系统参数配置相关异常枚举
  * @date 2020/4/14 11:24
  */
-@ExpEnumType(module = SysExpEnumConstant.SNOWY_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SYS_CONFIG_EXCEPTION_ENUM)
+@ExpEnumType(module = SysExpEnumConstant.QIXING_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SYS_CONFIG_EXCEPTION_ENUM)
 public enum SysConfigExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

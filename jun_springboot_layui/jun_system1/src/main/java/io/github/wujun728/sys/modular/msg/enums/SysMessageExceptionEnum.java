@@ -10,7 +10,7 @@ import io.github.wujun728.sys.core.consts.SysExpEnumConstant;
  * 消息表
  * @date 2021-01-21 17:50:51
  */
-@ExpEnumType(module = SysExpEnumConstant.SNOWY_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.MSG_EXCEPTION_ENUM)
+@ExpEnumType(module = SysExpEnumConstant.QIXING_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.MSG_EXCEPTION_ENUM)
 public enum SysMessageExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

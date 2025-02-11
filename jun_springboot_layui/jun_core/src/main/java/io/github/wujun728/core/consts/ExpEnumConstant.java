@@ -17,9 +17,9 @@ public interface ExpEnumConstant extends  CommonConstant{
     /**
      * 模块分类编码（2位）
      * <p>
-     * snowy-core模块异常枚举编码
+     * qixing-core模块异常枚举编码
      */
-    int SNOWY_CORE_MODULE_EXP_CODE = 10;
+    int QIXING_CORE_MODULE_EXP_CODE = 10;
 
     /* 分类编码（4位） */
     /**

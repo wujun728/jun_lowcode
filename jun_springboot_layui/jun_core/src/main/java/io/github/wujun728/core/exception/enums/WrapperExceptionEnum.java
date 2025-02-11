@@ -10,7 +10,7 @@ import io.github.wujun728.core.factory.ExpEnumCodeFactory;
  * 对象包装异常
  * @date 2020/7/24 14:36
  */
-@ExpEnumType(module = ExpEnumConstant.SNOWY_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.WRAPPER_EXCEPTION_ENUM)
+@ExpEnumType(module = ExpEnumConstant.QIXING_CORE_MODULE_EXP_CODE, kind = ExpEnumConstant.WRAPPER_EXCEPTION_ENUM)
 public enum WrapperExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**

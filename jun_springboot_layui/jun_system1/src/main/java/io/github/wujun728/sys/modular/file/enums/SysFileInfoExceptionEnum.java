@@ -11,7 +11,7 @@ import io.github.wujun728.sys.core.consts.SysExpEnumConstant;
  *
  * @date 2020/6/7 22:15
  */
-@ExpEnumType(module = SysExpEnumConstant.SNOWY_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SYS_FILE_INFO_EXCEPTION_ENUM)
+@ExpEnumType(module = SysExpEnumConstant.QIXING_SYS_MODULE_EXP_CODE, kind = SysExpEnumConstant.SYS_FILE_INFO_EXCEPTION_ENUM)
 public enum SysFileInfoExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**
