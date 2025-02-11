@@ -1,0 +1,193 @@
+
+package io.github.wujun728.sys.modular.consts.service.impl;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+import io.github.wujun728.core.consts.CommonConstant;
+import io.github.wujun728.core.context.constant.ConstantContext;
+import io.github.wujun728.core.enums.CommonStatusEnum;
+import io.github.wujun728.core.enums.YesOrNotEnum;
+import io.github.wujun728.core.exception.ServiceException;
+import io.github.wujun728.core.factory.PageFactory;
+import io.github.wujun728.core.pojo.page.PageResult;
+import io.github.wujun728.sys.modular.consts.entity.SysConfig;
+import io.github.wujun728.sys.modular.consts.enums.SysConfigExceptionEnum;
+import io.github.wujun728.sys.modular.consts.mapper.SysConfigMapper;
+import io.github.wujun728.sys.modular.consts.param.SysConfigParam;
+import io.github.wujun728.sys.modular.consts.service.SysConfigService;
+
+import java.util.List;
+
+
+/**
+ * 系统参数配置service接口实现类
+ * @date 2020/4/14 11:16
+ */
+@Service
+public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig> implements SysConfigService {
+
+    @Override
+    public PageResult<SysConfig> page(SysConfigParam sysConfigParam) {
+
+        //构造查询条件
+        QueryWrapper<SysConfig> queryWrapper = new QueryWrapper<>();
+
+        if (ObjectUtil.isNotNull(sysConfigParam)) {
+            //如果名称不为空，则带上名称搜素搜条件
+            if (ObjectUtil.isNotEmpty(sysConfigParam.getName())) {
+                queryWrapper.lambda().like(SysConfig::getName, sysConfigParam.getName());
+            }
+            //如果常量编码不为空，则带上常量编码搜素搜条件
+            if (ObjectUtil.isNotEmpty(sysConfigParam.getCode())) {
+                queryWrapper.lambda().like(SysConfig::getCode, sysConfigParam.getCode());
+            }
+            //如果分类编码不为空，则带上分类编码
+            if (ObjectUtil.isNotEmpty(sysConfigParam.getGroupCode())) {
+                queryWrapper.lambda().eq(SysConfig::getGroupCode, sysConfigParam.getGroupCode());
+            }
+            //排序
+            if(ObjectUtil.isAllNotEmpty(sysConfigParam.getSortBy(), sysConfigParam.getOrderBy())) {
+                queryWrapper.orderBy(true, sysConfigParam.getOrderBy().equals(CommonConstant.ASC), StrUtil.toUnderlineCase(sysConfigParam.getSortBy()));
+            } else {
+                //按类型升序排列，同类型的排在一起
+                queryWrapper.lambda().orderByDesc(SysConfig::getGroupCode);
+            }
+        }
+
+        //查询未删除的
+        queryWrapper.lambda().ne(SysConfig::getStatus, CommonStatusEnum.DELETED.getCode());
+
+        //查询分页结果
+        return new PageResult<>(this.page(PageFactory.defaultPage(), queryWrapper));
+    }
+
+    @Override
+    public List<SysConfig> list(SysConfigParam sysConfigParam) {
+
+        //构造条件
+        LambdaQueryWrapper<SysConfig> wrapper = new LambdaQueryWrapper<>();
+
+        //查询未删除的
+        wrapper.ne(SysConfig::getStatus, CommonStatusEnum.DELETED.getCode());
+
+        return this.list(wrapper);
+    }
+
+    @Override
+    public SysConfig detail(SysConfigParam sysConfigParam) {
+        return this.querySysConfig(sysConfigParam);
+    }
+
+    @Override
+    public void add(SysConfigParam sysConfigParam) {
+
+        //1.校验参数，是否有重复的名称和编码，不排除当前记录
+        checkRepeatParam(sysConfigParam, false);
+
+        //2.构造实体
+        SysConfig sysConfig = new SysConfig();
+        BeanUtil.copyProperties(sysConfigParam, sysConfig);
+        sysConfig.setStatus(CommonStatusEnum.ENABLE.getCode());
+
+        //3.保存到库中
+        this.save(sysConfig);
+
+        //4.添加对应context
+        ConstantContext.putConstant(sysConfigParam.getCode(), sysConfigParam.getValue());
+    }
+
+    @Override
+    public void delete(List<SysConfigParam> sysConfigParamList) {
+        sysConfigParamList.forEach(sysConfigParam -> {
+            //1.根据id获取常量
+            SysConfig sysConfig = this.querySysConfig(sysConfigParam);
+
+            //2.不能删除系统参数
+            if (YesOrNotEnum.Y.getCode().equals(sysConfig.getSysFlag())) {
+                throw new ServiceException(SysConfigExceptionEnum.CONFIG_SYS_CAN_NOT_DELETE);
+            }
+
+            //3.设置状态为已删除
+            sysConfig.setStatus(CommonStatusEnum.DELETED.getCode());
+            this.updateById(sysConfig);
+
+            //4.删除对应context
+            ConstantContext.deleteConstant(sysConfigParam.getCode());
+        });
+    }
+
+    @Override
+    public void edit(SysConfigParam sysConfigParam) {
+
+        //1.根据id获取常量信息
+        SysConfig sysConfig = this.querySysConfig(sysConfigParam);
+
+        //2.校验参数，是否有重复的名称和编码，排除本条记录
+        checkRepeatParam(sysConfigParam, true);
+
+        //请求参数转化为实体
+        BeanUtil.copyProperties(sysConfigParam, sysConfig);
+        //不能修改状态，用修改状态接口修改状态
+        sysConfig.setStatus(null);
+
+        //3.更新记录
+        this.updateById(sysConfig);
+
+        //4.更新对应常量context
+        ConstantContext.putConstant(sysConfigParam.getCode(), sysConfigParam.getValue());
+    }
+
+    /**
+     * 校验参数，是否有重复的名称和编码
+     *
+     * @author xuyuxiang
+     * @date 2020/4/14 11:18
+     */
+    private void checkRepeatParam(SysConfigParam sysConfigParam, boolean isExcludeSelf) {
+        Long id = sysConfigParam.getId();
+        String name = sysConfigParam.getName();
+        String code = sysConfigParam.getCode();
+
+        //构建带name和code的查询条件
+        LambdaQueryWrapper<SysConfig> queryWrapperByName = new LambdaQueryWrapper<>();
+        queryWrapperByName.eq(SysConfig::getName, name);
+
+        LambdaQueryWrapper<SysConfig> queryWrapperByCode = new LambdaQueryWrapper<>();
+        queryWrapperByCode.eq(SysConfig::getCode, code);
+
+        //如果排除自己，则增加查询条件主键id不等于本条id
+        if (isExcludeSelf) {
+            queryWrapperByName.ne(SysConfig::getId, id);
+            queryWrapperByCode.ne(SysConfig::getId, id);
+        }
+        long countByName = this.count(queryWrapperByName);
+        long countByCode = this.count(queryWrapperByCode);
+
+        //如果存在重复的记录，抛出异常，直接返回前端
+        if (countByName >= 1) {
+            throw new ServiceException(SysConfigExceptionEnum.CONFIG_NAME_REPEAT);
+        }
+        if (countByCode >= 1) {
+            throw new ServiceException(SysConfigExceptionEnum.CONFIG_CODE_REPEAT);
+        }
+    }
+
+    /**
+     * 获取系统参数配置
+     *
+     * @author xuyuxiang
+     * @date 2020/4/14 11:19
+     */
+    private SysConfig querySysConfig(SysConfigParam sysConfigParam) {
+        SysConfig sysConfig = this.getById(sysConfigParam.getId());
+        if (ObjectUtil.isEmpty(sysConfig)) {
+            throw new ServiceException(SysConfigExceptionEnum.CONFIG_NOT_EXIST);
+        }
+        return sysConfig;
+    }
+}

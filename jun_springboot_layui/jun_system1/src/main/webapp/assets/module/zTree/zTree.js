@@ -1,12 +1,9 @@
 /*
  * JQuery zTree core v3.5.40
  * http://treejs.cn/
- *
  * Copyright (c) 2010 Hunter.z
- *
  * Licensed same as jquery - MIT License
  * http://www.opensource.org/licenses/mit-license.php
- *
  * email: hunter.z@263.net
  * Date: 2019-01-18
  */
@@ -1996,12 +1993,9 @@ layui.define(['jquery'], function (exports) {
     /*
  * JQuery zTree excheck v3.5.40
  * http://treejs.cn/
- *
  * Copyright (c) 2010 Hunter.z
- *
  * Licensed same as jquery - MIT License
  * http://www.opensource.org/licenses/mit-license.php
- *
  * email: hunter.z@263.net
  * Date: 2019-01-18
  */
@@ -2647,12 +2641,9 @@ layui.define(['jquery'], function (exports) {
     /*
  * JQuery zTree exedit v3.5.40
  * http://treejs.cn/
- *
  * Copyright (c) 2010 Hunter.z
- *
  * Licensed same as jquery - MIT License
  * http://www.opensource.org/licenses/mit-license.php
- *
  * email: hunter.z@263.net
  * Date: 2019-01-18
  */

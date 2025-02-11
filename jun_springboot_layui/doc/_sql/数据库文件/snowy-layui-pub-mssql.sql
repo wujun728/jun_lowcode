@@ -3912,10 +3912,10 @@ GO
 -- ----------------------------
 -- Records of SYS_TIMERS
 -- ----------------------------
-INSERT INTO [dbo].[SYS_TIMERS] ([ID], [TIMER_NAME], [ACTION_CLASS], [CRON], [JOB_STATUS], [REMARK], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288760324837851137', N'定时同步缓存常量', N'vip.xiaonuo.sys.modular.timer.tasks.RefreshConstantsTaskRunner', N'0 0/1 * * * ?', N'1', N'定时同步sys_config表的数据到缓存常量中', N'2020-07-30 16:56:20', N'1265476890672672808', N'2020-07-30 16:58:52', N'1265476890672672808')
+INSERT INTO [dbo].[SYS_TIMERS] ([ID], [TIMER_NAME], [ACTION_CLASS], [CRON], [JOB_STATUS], [REMARK], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288760324837851137', N'定时同步缓存常量', N'io.github.wujun728.sys.modular.timer.tasks.RefreshConstantsTaskRunner', N'0 0/1 * * * ?', N'1', N'定时同步sys_config表的数据到缓存常量中', N'2020-07-30 16:56:20', N'1265476890672672808', N'2020-07-30 16:58:52', N'1265476890672672808')
 GO
 
-INSERT INTO [dbo].[SYS_TIMERS] ([ID], [TIMER_NAME], [ACTION_CLASS], [CRON], [JOB_STATUS], [REMARK], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1304971718170832898', N'定时打印一句话', N'vip.xiaonuo.sys.modular.timer.tasks.SystemOutTaskRunner', N'0 0 * * * ? *', N'1', N'定时打印一句话', N'2020-09-13 10:34:37', N'1265476890672672808', N'2020-09-23 20:37:48', N'1265476890672672808')
+INSERT INTO [dbo].[SYS_TIMERS] ([ID], [TIMER_NAME], [ACTION_CLASS], [CRON], [JOB_STATUS], [REMARK], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1304971718170832898', N'定时打印一句话', N'io.github.wujun728.sys.modular.timer.tasks.SystemOutTaskRunner', N'0 0 * * * ? *', N'1', N'定时打印一句话', N'2020-09-13 10:34:37', N'1265476890672672808', N'2020-09-23 20:37:48', N'1265476890672672808')
 GO
 
 

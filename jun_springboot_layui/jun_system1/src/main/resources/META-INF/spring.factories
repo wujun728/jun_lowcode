@@ -1,4 +1,4 @@
 org.springframework.context.ApplicationListener=\
-vip.xiaonuo.sys.core.listener.ConstantsInitListener,\
-vip.xiaonuo.sys.core.listener.TimerTaskRunListener,\
-vip.xiaonuo.sys.core.listener.RemoveRequestParamListener
+io.github.wujun728.sys.core.listener.ConstantsInitListener,\
+io.github.wujun728.sys.core.listener.TimerTaskRunListener,\
+io.github.wujun728.sys.core.listener.RemoveRequestParamListener

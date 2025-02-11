@@ -25,7 +25,7 @@ beetl:
 
 #mybaits相关配置
 mybatis-plus:
-  mapper-locations: classpath*:vip/xiaonuo/**/mapping/*.xml, classpath:/META-INF/modeler-mybatis-mappings/*.xml ,classpath*:**/generator/*Mapper.xml
+  mapper-locations: classpath*:io/github/wujun728/**/mapping/*.xml,classpath:/META-INF/modeler-mybatis-mappings/*.xml ,classpath*:**/generator/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true

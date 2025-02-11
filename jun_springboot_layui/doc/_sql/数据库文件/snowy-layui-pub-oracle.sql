@@ -1682,8 +1682,8 @@ COMMENT ON TABLE "SNOWY-LAYUI-PUB-ORACLE"."SYS_TIMERS" IS '定时任务';
 -- ----------------------------
 -- Records of SYS_TIMERS
 -- ----------------------------
-INSERT INTO "SNOWY-LAYUI-PUB-ORACLE"."SYS_TIMERS" VALUES ('1288760324837851137', '定时同步缓存常量', 'vip.xiaonuo.sys.modular.timer.tasks.RefreshConstantsTaskRunner', '0 0/1 * * * ?', '1', '定时同步sys_config表的数据到缓存常量中', TO_DATE('2020-07-30 16:56:20', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808', TO_DATE('2020-07-30 16:58:52', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808');
-INSERT INTO "SNOWY-LAYUI-PUB-ORACLE"."SYS_TIMERS" VALUES ('1304971718170832898', '定时打印一句话', 'vip.xiaonuo.sys.modular.timer.tasks.SystemOutTaskRunner', '0 0 * * * ? *', '1', '定时打印一句话', TO_DATE('2020-09-13 10:34:37', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808', TO_DATE('2020-09-23 20:37:48', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808');
+INSERT INTO "SNOWY-LAYUI-PUB-ORACLE"."SYS_TIMERS" VALUES ('1288760324837851137', '定时同步缓存常量', 'io.github.wujun728.sys.modular.timer.tasks.RefreshConstantsTaskRunner', '0 0/1 * * * ?', '1', '定时同步sys_config表的数据到缓存常量中', TO_DATE('2020-07-30 16:56:20', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808', TO_DATE('2020-07-30 16:58:52', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808');
+INSERT INTO "SNOWY-LAYUI-PUB-ORACLE"."SYS_TIMERS" VALUES ('1304971718170832898', '定时打印一句话', 'io.github.wujun728.sys.modular.timer.tasks.SystemOutTaskRunner', '0 0 * * * ? *', '1', '定时打印一句话', TO_DATE('2020-09-13 10:34:37', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808', TO_DATE('2020-09-23 20:37:48', 'SYYYY-MM-DD HH24:MI:SS'), '1265476890672672808');
 
 -- ----------------------------
 -- Table structure for SYS_USER
