@@ -1,5 +1,5 @@
 /**
- * Snowy工具集
+ * qixing工具集
  */
 layui.define(['jquery', 'admin', 'formX', 'xmSelect', 'notice'], function (exports) {
     var $ = layui.$;
