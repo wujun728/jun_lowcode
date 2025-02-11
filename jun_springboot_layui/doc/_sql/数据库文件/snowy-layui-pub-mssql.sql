@@ -1,0 +1,4631 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : sqlserver本地数据库
+ Source Server Type    : SQL Server
+ Source Server Version : 11002100
+ Source Host           : localhost:1433
+ Source Catalog        : snowy-layui-pub-mssql
+ Source Schema         : dbo
+
+ Target Server Type    : SQL Server
+ Target Server Version : 11002100
+ File Encoding         : 65001
+
+ Date: 15/04/2021 14:58:40
+*/
+
+
+-- ----------------------------
+-- Table structure for SYS_APP
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_APP]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_APP]
+GO
+
+CREATE TABLE [dbo].[SYS_APP] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [ACTIVE] nvarchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint  NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_APP] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'应用名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否默认激活（Y-是，N-否）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'ACTIVE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统应用表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_APP'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_APP
+-- ----------------------------
+INSERT INTO [dbo].[SYS_APP] ([ID], [NAME], [CODE], [ACTIVE], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672821', N'系统应用', N'system', N'Y', N'0', N'2020-03-25 19:07:00', N'1265476890672672808', N'2020-11-24 17:45:28', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_APP] ([ID], [NAME], [CODE], [ACTIVE], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672822', N'业务应用', N'business', N'Y', N'2', N'2020-03-26 08:40:33', N'1265476890672672808', N'2020-11-24 11:13:47', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_APP] ([ID], [NAME], [CODE], [ACTIVE], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1338863594871304193', N'系统工具', N'systool', N'N', N'0', N'2020-12-15 23:08:51', N'1265476890672672808', NULL, NULL)
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_AREA
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_AREA]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_AREA]
+GO
+
+CREATE TABLE [dbo].[SYS_AREA] (
+  [ID] bigint  NOT NULL,
+  [LEVEL_CODE] tinyint,
+  [PARENT_CODE] nvarchar(20) COLLATE Chinese_PRC_CI_AS,
+  [AREA_CODE] nvarchar(20) COLLATE Chinese_PRC_CI_AS,
+  [ZIP_CODE] nvarchar(6) COLLATE Chinese_PRC_CI_AS,
+  [CITY_CODE] nvarchar(6) COLLATE Chinese_PRC_CI_AS,
+  [NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS,
+  [SHORT_NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS,
+  [MERGER_NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS,
+  [PINYIN] nvarchar(30) COLLATE Chinese_PRC_CI_AS,
+  [LNG] decimal(10,6),
+  [LAT] decimal(10,6)
+)
+GO
+
+ALTER TABLE [dbo].[SYS_AREA] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'层级',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'LEVEL_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'父级行政代码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'PARENT_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'行政代码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'AREA_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'邮政编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'ZIP_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'区号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'CITY_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'简称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'SHORT_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'组合名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'MERGER_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'拼音',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'PINYIN'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'经度',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'LNG'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'纬度',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA',
+'COLUMN', N'LAT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'中国行政地区表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_AREA'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_AREA
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_CODE_GENERATE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_CODE_GENERATE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_CODE_GENERATE]
+GO
+
+CREATE TABLE [dbo].[SYS_CODE_GENERATE] (
+  [ID] bigint  NOT NULL,
+  [AUTHOR_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CLASS_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [TABLE_PREFIX] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [GENERATE_TYPE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [TABLE_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [PACKAGE_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BUS_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [TABLE_COMMENT] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CREATE_USER] bigint  NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_CODE_GENERATE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'作者姓名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'AUTHOR_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'类名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'CLASS_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否移除表前缀',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'TABLE_PREFIX'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'生成位置类型',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'GENERATE_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'数据库表名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'TABLE_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'包名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'PACKAGE_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'业务名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'BUS_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'功能名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'TABLE_COMMENT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'所属应用',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'APP_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'菜单上级',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'MENU_PID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'代码生成基础配置',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_CODE_GENERATE
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_CODE_GENERATE_CONFIG
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_CODE_GENERATE_CONFIG]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_CODE_GENERATE_CONFIG]
+GO
+
+CREATE TABLE [dbo].[SYS_CODE_GENERATE_CONFIG] (
+  [ID] bigint  NOT NULL,
+  [CODE_GEN_ID] bigint  NULL,
+  [COLUMN_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [JAVA_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [DATA_TYPE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [COLUMN_COMMENT] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [JAVA_TYPE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [EFFECT_TYPE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [DICT_TYPE_CODE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [WHETHER_TABLE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [WHETHER_ADD_UPDATE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [WHETHER_RETRACT] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [WHETHER_REQUIRED] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [QUERY_WHETHER] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [QUERY_TYPE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [COLUMN_KEY] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [COLUMN_KEY_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [WHETHER_COMMON] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_CODE_GENERATE_CONFIG] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'代码生成主表ID',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'CODE_GEN_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'数据库字段名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'COLUMN_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'java类字段名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'JAVA_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'物理类型',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'DATA_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'字段描述',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'COLUMN_COMMENT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'java类型',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'JAVA_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'作用类型（字典）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'EFFECT_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'字典code',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'DICT_TYPE_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'列表展示',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'WHETHER_TABLE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'增改',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'WHETHER_ADD_UPDATE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'列表是否缩进（字典）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'WHETHER_RETRACT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否必填（字典）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'WHETHER_REQUIRED'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否是查询条件',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'QUERY_WHETHER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'查询方式',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'QUERY_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'COLUMN_KEY'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主外键名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'COLUMN_KEY_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否是通用字段',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'WHETHER_COMMON'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'代码生成详细配置',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CODE_GENERATE_CONFIG'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_CODE_GENERATE_CONFIG
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_CONFIG
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_CONFIG]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_CONFIG]
+GO
+
+CREATE TABLE [dbo].[SYS_CONFIG] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [VALUE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [SYS_FLAG] nchar(1) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint  NOT NULL,
+  [GROUP_CODE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_CONFIG] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'值',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'VALUE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否是系统参数（Y-是，N-否）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'SYS_FLAG'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'常量所属分类的编码，来自于“常量的分类”字典',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'GROUP_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统参数配置表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_CONFIG'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_CONFIG
+-- ----------------------------
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265117443880853506', N'jwt密钥', N'SNOWY_JWT_SECRET', N'snowy', N'Y', N'（重要）jwt密钥，默认为空，自行设置', N'0', N'DEFAULT', N'2020-05-26 06:35:19', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265117443880853507', N'默认密码', N'SNOWY_DEFAULT_PASSWORD', N'123456', N'Y', N'默认密码', N'0', N'DEFAULT', N'2020-05-26 06:37:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265117443880853508', N'token过期时间', N'SNOWY_TOKEN_EXPIRE', N'86400', N'Y', N'token过期时间（单位：秒）', N'0', N'DEFAULT', N'2020-05-27 11:54:49', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265117443880853509', N'session会话过期时间', N'SNOWY_SESSION_EXPIRE', N'7200', N'Y', N'session会话过期时间（单位：秒）', N'0', N'DEFAULT', N'2020-05-27 11:54:49', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265117443880853519', N'阿里云短信keyId', N'SNOWY_ALIYUN_SMS_ACCESSKEY_ID', N'你的keyId', N'Y', N'阿里云短信keyId', N'0', N'ALIYUN_SMS', N'2020-06-07 16:27:11', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269547042242371585', N'阿里云短信secret', N'SNOWY_ALIYUN_SMS_ACCESSKEY_SECRET', N'你的secret', N'Y', N'阿里云短信secret', N'0', N'ALIYUN_SMS', N'2020-06-07 16:29:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269547130041737217', N'阿里云短信签名', N'SNOWY_ALIYUN_SMS_SIGN_NAME', N'Snowy快速开发平台', N'Y', N'阿里云短信签名', N'0', N'ALIYUN_SMS', N'2020-06-07 16:29:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269547279530926081', N'阿里云短信-登录模板号', N'SNOWY_ALIYUN_SMS_LOGIN_TEMPLATE_CODE', N'SMS_1877123456', N'Y', N'阿里云短信-登录模板号', N'0', N'ALIYUN_SMS', N'2020-06-07 16:30:33', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269547410879750145', N'阿里云短信默认失效时间', N'SNOWY_ALIYUN_SMS_INVALIDATE_MINUTES', N'5', N'Y', N'阿里云短信默认失效时间（单位：分钟）', N'0', N'ALIYUN_SMS', N'2020-06-07 16:31:04', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269575927357071361', N'腾讯云短信secretId', N'SNOWY_TENCENT_SMS_SECRET_ID', N'你的secretId', N'Y', N'腾讯云短信secretId', N'0', N'TENCENT_SMS', N'2020-06-07 18:24:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269575991693500418', N'腾讯云短信secretKey', N'SNOWY_TENCENT_SMS_SECRET_KEY', N'你的secretkey', N'Y', N'腾讯云短信secretKey', N'0', N'TENCENT_SMS', N'2020-06-07 18:24:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269576044084551682', N'腾讯云短信sdkAppId', N'SNOWY_TENCENT_SMS_SDK_APP_ID', N'1400375123', N'Y', N'腾讯云短信sdkAppId', N'0', N'TENCENT_SMS', N'2020-06-07 18:24:51', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1269576089294954497', N'腾讯云短信签名', N'SNOWY_TENCENT_SMS_SIGN', N'Snowy快速开发平台', N'Y', N'腾讯云短信签名', N'0', N'TENCENT_SMS', N'2020-06-07 18:25:02', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270378172860403713', N'邮箱host', N'SNOWY_EMAIL_HOST', N'smtp.126.com', N'Y', N'邮箱host', N'0', N'EMAIL', N'2020-06-09 23:32:14', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270378295543795714', N'邮箱用户名', N'SNOWY_EMAIL_USERNAME', N'test@126.com', N'Y', N'邮箱用户名', N'0', N'EMAIL', N'2020-06-09 23:32:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270378340510928897', N'邮箱密码', N'SNOWY_EMAIL_PASSWORD', N'你的邮箱密码', N'Y', N'邮箱密码', N'0', N'EMAIL', N'2020-06-09 23:32:54', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270378527358783489', N'邮箱端口', N'SNOWY_EMAIL_PORT', N'465', N'Y', N'邮箱端口', N'0', N'EMAIL', N'2020-06-09 23:33:38', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270378790035460097', N'邮箱是否开启ssl', N'SNOWY_EMAIL_SSL', N'true', N'Y', N'邮箱是否开启ssl', N'0', N'EMAIL', N'2020-06-09 23:34:41', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270380786649972737', N'邮箱发件人', N'SNOWY_EMAIL_FROM', N'test@126.com', N'Y', N'邮箱发件人', N'0', N'EMAIL', N'2020-06-09 23:42:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270380786649972738', N'win本地上传文件路径', N'SNOWY_FILE_UPLOAD_PATH_FOR_WINDOWS', N'd:/tmp', N'Y', N'win本地上传文件路径', N'0', N'FILE_PATH', N'2020-06-09 23:42:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270380786649972739', N'linux/mac本地上传文件路径', N'SNOWY_FILE_UPLOAD_PATH_FOR_LINUX', N'/tmp', N'Y', N'linux/mac本地上传文件路径', N'0', N'FILE_PATH', N'2020-06-09 23:42:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270380786649982740', N'Snowy演示环境', N'SNOWY_DEMO_ENV_FLAG', N'false', N'Y', N'Snowy演示环境的开关，true-打开，false-关闭，如果演示环境开启，则只能读数据不能写数据', N'0', N'DEFAULT', N'2020-06-09 23:42:37', N'1265476890672672808', N'2021-01-22 17:50:33', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270380786649982741', N'Snowy放开XSS过滤的接口', N'SNOWY_UN_XSS_FILTER_URL', N'/demo/xssfilter,/demo/unxss', N'Y', N'多个url可以用英文逗号隔开', N'0', N'DEFAULT', N'2020-06-09 23:42:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1270380786649982742', N'单用户登陆的开关', N'SNOWY_ENABLE_SINGLE_LOGIN', N'false', N'Y', N'单用户登陆的开关，true-打开，false-关闭，如果一个人登录两次，就会将上一次登陆挤下去', N'0', N'DEFAULT', N'2020-06-09 23:42:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1280694281648070659', N'阿里云定位api接口地址', N'SNOWY_IP_GEO_API', N'http://api01.aliyun.venuscn.com/ip?ip=%s', N'Y', N'阿里云定位api接口地址', N'0', N'DEFAULT', N'2020-07-20 10:44:46', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1280694281648070660', N'阿里云定位appCode', N'SNOWY_IP_GEO_APP_CODE', N'461535aabeae4f34861884d392f5d452', N'Y', N'阿里云定位appCode', N'0', N'DEFAULT', N'2020-07-20 10:44:46', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288309751255412737', N'Oauth用户登录的开关', N'SNOWY_ENABLE_OAUTH_LOGIN', N'false', N'Y', N'Oauth用户登录的开关', N'0', N'OAUTH', N'2020-07-29 11:05:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288310043346743297', N'Oauth码云登录ClientId', N'SNOWY_OAUTH_GITEE_CLIENT_ID', N'你的clientId', N'Y', N'Oauth码云登录ClientId', N'0', N'OAUTH', N'2020-07-29 11:07:05', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288310157876408321', N'Oauth码云登录ClientSecret', N'SNOWY_OAUTH_GITEE_CLIENT_SECRET', N'你的clientSecret', N'Y', N'Oauth码云登录ClientSecret', N'0', N'OAUTH', N'2020-07-29 11:07:32', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288310280056483841', N'Oauth码云登录回调地址', N'SNOWY_OAUTH_GITEE_REDIRECT_URI', N'http://127.0.0.1:81/oauth/callback/gitee', N'Y', N'Oauth码云登录回调地址', N'0', N'OAUTH', N'2020-07-29 11:08:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288358228593221636', N'是否开启验证码', N'SNOWY_CAPTCHA_OPEN', N'true', N'Y', N'是否开启验证码', N'0', N'DEFAULT', N'2020-09-03 17:45:58', N'1265476890672672808', N'2020-09-23 22:23:38', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_CONFIG] ([ID], [NAME], [CODE], [VALUE], [SYS_FLAG], [REMARK], [STATUS], [GROUP_CODE], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1375337991869853697', N'OnlyOffice服务地址', N'SNOWY_ONLY_OFFICE_SERVICE_URL', N'http://82.156.81.108:9001', N'Y', N'OnlyOffice服务地址，开发时请使用局域网内地址', N'0', N'DEFAULT', N'2021-03-26 14:45:04', N'1265476890672672808', N'2021-03-26 14:51:44', N'1265476890672672808')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_DICT_DATA
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_DICT_DATA]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_DICT_DATA]
+GO
+
+CREATE TABLE [dbo].[SYS_DICT_DATA] (
+  [ID] bigint  NOT NULL,
+  [TYPE_ID] bigint  NOT NULL,
+  [VALUE] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [SORT] int  NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint  NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_DICT_DATA] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'字典类型id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'TYPE_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'值',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'VALUE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'排序',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'SORT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统字典值表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_DATA'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_DICT_DATA
+-- ----------------------------
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087357', N'1265216211667636234', N'男', N'1', N'100', N'男性', N'0', N'2020-04-01 10:23:29', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087358', N'1265216211667636234', N'女', N'2', N'100', N'女性', N'0', N'2020-04-01 10:23:49', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087359', N'1265216211667636234', N'未知', N'3', N'100', N'未知性别', N'0', N'2020-04-01 10:24:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087361', N'1265216211667636235', N'默认常量', N'DEFAULT', N'100', N'默认常量，都以SNOWY_开头的', N'0', N'2020-04-14 23:25:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087363', N'1265216211667636235', N'阿里云短信', N'ALIYUN_SMS', N'100', N'阿里云短信配置', N'0', N'2020-04-14 23:25:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087364', N'1265216211667636235', N'腾讯云短信', N'TENCENT_SMS', N'100', N'腾讯云短信', N'0', N'2020-04-14 23:25:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087365', N'1265216211667636235', N'邮件配置', N'EMAIL', N'100', N'邮箱配置', N'0', N'2020-04-14 23:25:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087366', N'1265216211667636235', N'文件上传路径', N'FILE_PATH', N'100', N'文件上传路径', N'0', N'2020-04-14 23:25:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216536659087367', N'1265216211667636235', N'Oauth配置', N'OAUTH', N'100', N'Oauth配置', N'0', N'2020-04-14 23:25:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216617500102656', N'1265216211667636226', N'正常', N'0', N'100', N'正常', N'0', N'2020-05-26 17:41:44', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216617500102657', N'1265216211667636226', N'停用', N'1', N'100', N'停用', N'0', N'2020-05-26 17:42:03', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216938389524482', N'1265216211667636226', N'删除', N'2', N'100', N'删除', N'0', N'2020-05-26 17:43:19', N'1265476890672672808', N'2020-12-02 14:14:06', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265217669028892673', N'1265217074079453185', N'否', N'N', N'100', N'否', N'0', N'2020-05-26 17:46:14', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265217706584690689', N'1265217074079453185', N'是', N'Y', N'100', N'是', N'0', N'2020-05-26 17:46:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265220776437731330', N'1265217846770913282', N'登录', N'1', N'100', N'登录', N'0', N'2020-05-26 17:58:34', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265220806070489090', N'1265217846770913282', N'登出', N'2', N'100', N'登出', N'0', N'2020-05-26 17:58:41', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265221129564573697', N'1265221049302372354', N'目录', N'0', N'100', N'目录', N'0', N'2020-05-26 17:59:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265221163119005697', N'1265221049302372354', N'菜单', N'1', N'100', N'菜单', N'0', N'2020-05-26 18:00:07', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265221188091891713', N'1265221049302372354', N'按钮', N'2', N'100', N'按钮', N'0', N'2020-05-26 18:00:13', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466389204967426', N'1265466149622128641', N'未发送', N'0', N'100', N'未发送', N'0', N'2020-05-27 10:14:33', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466432670539778', N'1265466149622128641', N'发送成功', N'1', N'100', N'发送成功', N'0', N'2020-05-27 10:14:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466486097584130', N'1265466149622128641', N'发送失败', N'2', N'100', N'发送失败', N'0', N'2020-05-27 10:14:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466530477514754', N'1265466149622128641', N'失效', N'3', N'100', N'失效', N'0', N'2020-05-27 10:15:07', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466835009150978', N'1265466752209395713', N'无', N'0', N'100', N'无', N'0', N'2020-05-27 10:16:19', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466874758569986', N'1265466752209395713', N'组件', N'1', N'100', N'组件', N'0', N'2020-05-27 10:16:29', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466925476093953', N'1265466752209395713', N'内链', N'2', N'100', N'内链', N'0', N'2020-05-27 10:16:41', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466962209808385', N'1265466752209395713', N'外链', N'3', N'100', N'外链', N'0', N'2020-05-27 10:16:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265467428423475202', N'1265467337566461954', N'系统权重', N'1', N'100', N'系统权重', N'0', N'2020-05-27 10:18:41', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265467503090475009', N'1265467337566461954', N'业务权重', N'2', N'100', N'业务权重', N'0', N'2020-05-27 10:18:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468138431062018', N'1265468028632571905', N'全部数据', N'1', N'100', N'全部数据', N'0', N'2020-05-27 10:21:30', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468194928336897', N'1265468028632571905', N'本部门及以下数据', N'2', N'100', N'本部门及以下数据', N'0', N'2020-05-27 10:21:44', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468241992622082', N'1265468028632571905', N'本部门数据', N'3', N'100', N'本部门数据', N'0', N'2020-05-27 10:21:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468273634451457', N'1265468028632571905', N'仅本人数据', N'4', N'100', N'仅本人数据', N'0', N'2020-05-27 10:22:02', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468302046666753', N'1265468028632571905', N'自定义数据', N'5', N'100', N'自定义数据', N'0', N'2020-05-27 10:22:09', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468508100239362', N'1265468437904367618', N'app', N'1', N'100', N'app', N'0', N'2020-05-27 10:22:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468543433056258', N'1265468437904367618', N'pc', N'2', N'100', N'pc', N'0', N'2020-05-27 10:23:07', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468576874242050', N'1265468437904367618', N'其他', N'3', N'100', N'其他', N'0', N'2020-05-27 10:23:15', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617233011335170', N'1275617093517172738', N'其它', N'0', N'100', N'其它', N'0', N'2020-06-24 10:30:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617295355469826', N'1275617093517172738', N'增加', N'1', N'100', N'增加', N'0', N'2020-06-24 10:30:38', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617348610547714', N'1275617093517172738', N'删除', N'2', N'100', N'删除', N'0', N'2020-06-24 10:30:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617395515449346', N'1275617093517172738', N'编辑', N'3', N'100', N'编辑', N'0', N'2020-06-24 10:31:02', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617433612312577', N'1275617093517172738', N'更新', N'4', N'100', N'更新', N'0', N'2020-06-24 10:31:11', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617472707420161', N'1275617093517172738', N'查询', N'5', N'100', N'查询', N'0', N'2020-06-24 10:31:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617502973517826', N'1275617093517172738', N'详情', N'6', N'100', N'详情', N'0', N'2020-06-24 10:31:27', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617536959963137', N'1275617093517172738', N'树', N'7', N'100', N'树', N'0', N'2020-06-24 10:31:35', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617619524837377', N'1275617093517172738', N'导入', N'8', N'100', N'导入', N'0', N'2020-06-24 10:31:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617651816783873', N'1275617093517172738', N'导出', N'9', N'100', N'导出', N'0', N'2020-06-24 10:32:03', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617683475390465', N'1275617093517172738', N'授权', N'10', N'100', N'授权', N'0', N'2020-06-24 10:32:10', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617709928865793', N'1275617093517172738', N'强退', N'11', N'100', N'强退', N'0', N'2020-06-24 10:32:17', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617739091861505', N'1275617093517172738', N'清空', N'12', N'100', N'清空', N'0', N'2020-06-24 10:32:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617788601425921', N'1275617093517172738', N'修改状态', N'13', N'100', N'修改状态', N'0', N'2020-06-24 10:32:35', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1277774590944317441', N'1277774529430654977', N'阿里云', N'1', N'100', N'阿里云', N'0', N'2020-06-30 09:22:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1277774666055913474', N'1277774529430654977', N'腾讯云', N'2', N'100', N'腾讯云', N'0', N'2020-06-30 09:23:15', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1277774695168577538', N'1277774529430654977', N'minio', N'3', N'100', N'minio', N'0', N'2020-06-30 09:23:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1277774726835572737', N'1277774529430654977', N'本地', N'4', N'100', N'本地', N'0', N'2020-06-30 09:23:29', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278607123583868929', N'1278606951432855553', N'运行', N'1', N'100', N'运行', N'0', N'2020-07-02 16:31:08', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278607162943217666', N'1278606951432855553', N'停止', N'2', N'100', N'停止', N'0', N'2020-07-02 16:31:18', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278939265862004738', N'1278911800547147777', N'通知', N'1', N'100', N'通知', N'0', N'2020-07-03 14:30:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278939319922388994', N'1278911800547147777', N'公告', N'2', N'100', N'公告', N'0', N'2020-07-03 14:31:10', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278939399001796609', N'1278911952657776642', N'草稿', N'0', N'100', N'草稿', N'0', N'2020-07-03 14:31:29', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278939432686252034', N'1278911952657776642', N'发布', N'1', N'100', N'发布', N'0', N'2020-07-03 14:31:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278939458804183041', N'1278911952657776642', N'撤回', N'2', N'100', N'撤回', N'0', N'2020-07-03 14:31:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278939485878415362', N'1278911952657776642', N'删除', N'3', N'100', N'删除', N'0', N'2020-07-03 14:31:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1291390260160299009', N'1291390159941599233', N'是', N'true', N'100', N'是', N'2', N'2020-08-06 23:06:46', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1291390315437031426', N'1291390159941599233', N'否', N'false', N'100', N'否', N'2', N'2020-08-06 23:06:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1334692875968200706', N'1334692775158104065', N'未读', N'0', N'100', N'未读', N'0', N'2020-12-04 10:55:54', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1334692932540973057', N'1334692775158104065', N'已读', N'1', N'100', N'已读', N'0', N'2020-12-04 10:56:07', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1340987649476034562', N'1340987441098817537', N'下载压缩包', N'1', N'1', N'下载压缩包', N'0', N'2020-12-21 19:49:05', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1340987713699217410', N'1340987441098817537', N'生成到本地项目', N'2', N'2', N'本地项目', N'0', N'2020-12-21 19:49:20', N'1265476890672672808', N'2020-12-21 20:30:32', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358094655567454210', N'1358094419419750401', N'输入框', N'input', N'100', N'输入框', N'0', N'2021-02-07 00:46:13', N'1265476890672672808', N'2021-02-08 01:01:28', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358094740510498817', N'1358094419419750401', N'时间选择', N'datepicker', N'100', N'时间选择', N'0', N'2021-02-07 00:46:33', N'1265476890672672808', N'2021-02-08 01:04:07', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358094793149014017', N'1358094419419750401', N'下拉框', N'select', N'100', N'下拉框', N'0', N'2021-02-07 00:46:46', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358095496009506817', N'1358094419419750401', N'单选框', N'radio', N'100', N'单选框', N'0', N'2021-02-07 00:49:33', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358095673084633090', N'1358094419419750401', N'开关', N'switch', N'100', N'开关', N'2', N'2021-02-07 00:50:15', N'1265476890672672808', N'2021-02-11 19:07:18', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358458689433190402', N'1358457818733428737', N'等于', N'eq', N'1', N'等于', N'0', N'2021-02-08 00:52:45', N'1265476890672672808', N'2021-02-13 23:35:36', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358458785168179202', N'1358457818733428737', N'模糊', N'like', N'2', N'模糊', N'0', N'2021-02-08 00:53:08', N'1265476890672672808', N'2021-02-13 23:35:46', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358460475682406401', N'1358094419419750401', N'多选框', N'checkbox', N'100', N'多选框', N'0', N'2021-02-08 00:59:51', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358460819019743233', N'1358094419419750401', N'数字输入框', N'inputnumber', N'100', N'数字输入框', N'0', N'2021-02-08 01:01:13', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358470210267725826', N'1358470065111252994', N'Long', N'Long', N'100', N'Long', N'0', N'2021-02-08 01:38:32', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358470239351029762', N'1358470065111252994', N'String', N'String', N'100', N'String', N'0', N'2021-02-08 01:38:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358470265640927233', N'1358470065111252994', N'Date', N'Date', N'100', N'Date', N'0', N'2021-02-08 01:38:45', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358470300168437761', N'1358470065111252994', N'Integer', N'Integer', N'100', N'Integer', N'0', N'2021-02-08 01:38:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358470697377415169', N'1358470065111252994', N'boolean', N'boolean', N'100', N'boolean', N'0', N'2021-02-08 01:40:28', N'1265476890672672808', N'2021-02-08 01:40:47', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358471133434036226', N'1358470065111252994', N'int', N'int', N'100', N'int', N'0', N'2021-02-08 01:42:12', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358471188291338241', N'1358470065111252994', N'double', N'double', N'100', N'double', N'0', N'2021-02-08 01:42:25', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358756511688761346', N'1358457818733428737', N'大于', N'gt', N'3', N'大于', N'0', N'2021-02-08 20:36:12', N'1265476890672672808', N'2021-02-13 23:45:24', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358756547159990274', N'1358457818733428737', N'小于', N'lt', N'4', N'大于', N'0', N'2021-02-08 20:36:20', N'1265476890672672808', N'2021-02-13 23:45:29', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358756609990664193', N'1358457818733428737', N'不等于', N'ne', N'7', N'不等于', N'0', N'2021-02-08 20:36:35', N'1265476890672672808', N'2021-02-13 23:45:46', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358756685030957057', N'1358457818733428737', N'大于等于', N'ge', N'5', N'大于等于', N'0', N'2021-02-08 20:36:53', N'1265476890672672808', N'2021-02-13 23:45:35', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358756800525312001', N'1358457818733428737', N'小于等于', N'le', N'6', N'小于等于', N'0', N'2021-02-08 20:37:20', N'1265476890672672808', N'2021-02-13 23:45:40', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1360529773814083586', N'1358094419419750401', N'文本域', N'textarea', N'100', N'文本域', N'0', N'2021-02-13 18:02:30', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_DATA] ([ID], [TYPE_ID], [VALUE], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1360606105914732545', N'1358457818733428737', N'不为空', N'isNotNull', N'8', N'不为空', N'0', N'2021-02-13 23:05:49', N'1265476890672672808', N'2021-02-13 23:45:50', N'1265476890672672808')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_DICT_TYPE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_DICT_TYPE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_DICT_TYPE]
+GO
+
+CREATE TABLE [dbo].[SYS_DICT_TYPE] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [SORT] int  NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint  NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_DICT_TYPE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'排序',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'SORT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统字典类型表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_DICT_TYPE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_DICT_TYPE
+-- ----------------------------
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216211667636226', N'通用状态', N'common_status', N'100', N'通用状态', N'0', N'2020-05-26 17:40:26', N'1265476890672672808', N'2020-06-08 11:31:47', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216211667636234', N'性别', N'sex', N'100', N'性别字典', N'0', N'2020-04-01 10:12:30', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265216211667636235', N'常量的分类', N'consts_type', N'100', N'常量的分类', N'0', N'2020-04-14 23:24:13', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265217074079453185', N'是否', N'yes_or_no', N'100', N'是否', N'0', N'2020-05-26 17:43:52', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265217846770913282', N'访问类型', N'vis_type', N'100', N'访问类型', N'0', N'2020-05-26 17:46:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265221049302372354', N'菜单类型', N'menu_type', N'100', N'菜单类型', N'0', N'2020-05-26 17:59:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466149622128641', N'发送类型', N'send_type', N'100', N'发送类型', N'0', N'2020-05-27 10:13:36', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265466752209395713', N'打开方式', N'open_type', N'100', N'打开方式', N'0', N'2020-05-27 10:16:00', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265467337566461954', N'菜单权重', N'menu_weight', N'100', N'菜单权重', N'0', N'2020-05-27 10:18:19', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468028632571905', N'数据范围类型', N'data_scope_type', N'100', N'数据范围类型', N'0', N'2020-05-27 10:21:04', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265468437904367618', N'短信发送来源', N'sms_send_source', N'100', N'短信发送来源', N'0', N'2020-05-27 10:22:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275617093517172738', N'操作类型', N'op_type', N'100', N'操作类型', N'0', N'2020-06-24 10:29:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1277774529430654977', N'文件存储位置', N'file_storage_location', N'100', N'文件存储位置', N'0', N'2020-06-30 09:22:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278606951432855553', N'运行状态', N'run_status', N'100', N'定时任务运行状态', N'0', N'2020-07-02 16:30:27', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278911800547147777', N'通知公告类型', N'notice_type', N'100', N'通知公告类型', N'0', N'2020-07-03 12:41:49', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1278911952657776642', N'通知公告状态', N'notice_status', N'100', N'通知公告状态', N'0', N'2020-07-03 12:42:25', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1291390159941599233', N'是否boolean', N'yes_true_false', N'100', N'是否boolean', N'2', N'2020-08-06 23:06:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1334692775158104065', N'阅读状态', N'read_status', N'100', N'阅读状态', N'0', N'2020-12-04 10:55:30', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1340987441098817537', N'代码生成方式', N'code_gen_create_type', N'100', N'代码生成方式', N'0', N'2020-12-21 19:48:15', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358094419419750401', N'代码生成作用类型', N'code_gen_effect_type', N'100', N'代码生成作用类型', N'0', N'2021-02-07 00:45:16', N'1265476890672672808', N'2021-02-08 00:47:48', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358457818733428737', N'代码生成查询类型', N'code_gen_query_type', N'100', N'代码生成查询类型', N'0', N'2021-02-08 00:49:18', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_DICT_TYPE] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1358470065111252994', N'代码生成java类型', N'code_gen_java_type', N'100', N'代码生成java类型', N'0', N'2021-02-08 01:37:57', N'1265476890672672808', NULL, NULL)
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_EMP
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_EMP]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_EMP]
+GO
+
+CREATE TABLE [dbo].[SYS_EMP] (
+  [ID] bigint  NOT NULL,
+  [JOB_NUM] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
+  [ORG_ID] bigint  NOT NULL,
+  [ORG_NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_EMP] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'工号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP',
+'COLUMN', N'JOB_NUM'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'所属机构id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP',
+'COLUMN', N'ORG_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'所属机构名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP',
+'COLUMN', N'ORG_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'员工表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_EMP
+-- ----------------------------
+INSERT INTO [dbo].[SYS_EMP] ([ID], [JOB_NUM], [ORG_ID], [ORG_NAME]) VALUES (N'1275735541155614721', N'', N'1265476890672672769', N'华夏集团北京分公司')
+GO
+
+INSERT INTO [dbo].[SYS_EMP] ([ID], [JOB_NUM], [ORG_ID], [ORG_NAME]) VALUES (N'1280700700074041345', N'', N'1265476890672672771', N'研发部')
+GO
+
+INSERT INTO [dbo].[SYS_EMP] ([ID], [JOB_NUM], [ORG_ID], [ORG_NAME]) VALUES (N'1280709549107552257', N'100', N'1265476890672672770', N'华夏集团成都分公司')
+GO
+
+INSERT INTO [dbo].[SYS_EMP] ([ID], [JOB_NUM], [ORG_ID], [ORG_NAME]) VALUES (N'1332142087677001730', N'', N'1265476890672672769', N'华夏集团北京分公司')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_EMP_EXT_ORG_POS
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_EMP_EXT_ORG_POS]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_EMP_EXT_ORG_POS]
+GO
+
+CREATE TABLE [dbo].[SYS_EMP_EXT_ORG_POS] (
+  [ID] bigint  NOT NULL,
+  [EMP_ID] bigint  NOT NULL,
+  [ORG_ID] bigint  NOT NULL,
+  [POS_ID] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_EMP_EXT_ORG_POS] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_EXT_ORG_POS',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'员工id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_EXT_ORG_POS',
+'COLUMN', N'EMP_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'机构id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_EXT_ORG_POS',
+'COLUMN', N'ORG_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'岗位id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_EXT_ORG_POS',
+'COLUMN', N'POS_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'员工附属机构岗位表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_EXT_ORG_POS'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_EMP_EXT_ORG_POS
+-- ----------------------------
+INSERT INTO [dbo].[SYS_EMP_EXT_ORG_POS] ([ID], [EMP_ID], [ORG_ID], [POS_ID]) VALUES (N'1332141421759938561', N'1280700700074041345', N'1265476890672672772', N'1265476890672672789')
+GO
+
+INSERT INTO [dbo].[SYS_EMP_EXT_ORG_POS] ([ID], [EMP_ID], [ORG_ID], [POS_ID]) VALUES (N'1332141421776715778', N'1280700700074041345', N'1265476890672672773', N'1265476890672672790')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_EMP_POS
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_EMP_POS]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_EMP_POS]
+GO
+
+CREATE TABLE [dbo].[SYS_EMP_POS] (
+  [ID] bigint  NOT NULL,
+  [EMP_ID] bigint  NOT NULL,
+  [POS_ID] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_EMP_POS] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_POS',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'员工id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_POS',
+'COLUMN', N'EMP_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'职位id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_POS',
+'COLUMN', N'POS_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'员工职位关联表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_EMP_POS'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_EMP_POS
+-- ----------------------------
+INSERT INTO [dbo].[SYS_EMP_POS] ([ID], [EMP_ID], [POS_ID]) VALUES (N'1281042262003867649', N'1280709549107552257', N'1265476890672672787')
+GO
+
+INSERT INTO [dbo].[SYS_EMP_POS] ([ID], [EMP_ID], [POS_ID]) VALUES (N'1332141421789298689', N'1280700700074041345', N'1265476890672672790')
+GO
+
+INSERT INTO [dbo].[SYS_EMP_POS] ([ID], [EMP_ID], [POS_ID]) VALUES (N'1332141567281315841', N'1275735541155614721', N'1265476890672672787')
+GO
+
+INSERT INTO [dbo].[SYS_EMP_POS] ([ID], [EMP_ID], [POS_ID]) VALUES (N'1332214497600180226', N'1332142087677001730', N'1265476890672672788')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_FILE_INFO
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_FILE_INFO]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_FILE_INFO]
+GO
+
+CREATE TABLE [dbo].[SYS_FILE_INFO] (
+  [ID] bigint  NOT NULL,
+  [FILE_LOCATION] tinyint  NOT NULL,
+  [FILE_BUCKET] nvarchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [FILE_ORIGIN_NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [FILE_SUFFIX] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [FILE_SIZE_KB] bigint  NULL,
+  [FILE_SIZE_INFO] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
+  [FILE_OBJECT_NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [FILE_PATH] nvarchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_FILE_INFO] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_LOCATION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件仓库',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_BUCKET'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件名称（上传时候的文件名）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_ORIGIN_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件后缀',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_SUFFIX'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件大小kb',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_SIZE_KB'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件大小信息，计算后的',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_SIZE_INFO'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'存储到bucket的名称（文件唯一标识id）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_OBJECT_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'存储路径',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'FILE_PATH'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建用户',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改用户',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'文件信息表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_FILE_INFO'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_FILE_INFO
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_MENU
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_MENU]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_MENU]
+GO
+
+CREATE TABLE [dbo].[SYS_MENU] (
+  [ID] bigint  NOT NULL,
+  [PID] bigint  NOT NULL,
+  [PIDS] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [TYPE] tinyint DEFAULT ((1)) NOT NULL,
+  [ICON] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [ROUTER] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [PERMISSION] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [APPLICATION] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [WEIGHT] tinyint  NULL,
+  [SORT] int  NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint DEFAULT ((0)) NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_MENU] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'父id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'PID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'父ids',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'PIDS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'菜单类型（字典 0目录 1菜单 2按钮）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'图标',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'ICON'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'路由地址',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'ROUTER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'权限标识',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'PERMISSION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'应用分类（应用编码）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'APPLICATION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'权重（字典 1系统权重 2业务权重）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'WEIGHT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'排序',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'SORT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统菜单表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MENU'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_MENU
+-- ----------------------------
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255311', N'0', N'[0],', N'主控面板', N'system_index', N'0', N'layui-icon-home', NULL, NULL, N'system', N'1', N'1', NULL, N'0', N'2020-05-25 02:19:24', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255321', N'1264622039642255311', N'[0],[1264622039642255311],', N'分析页', N'system_index_dashboard', N'1', NULL, N'/other/dashboardHtml', NULL, N'system', N'1', N'1', NULL, N'0', N'2020-05-25 02:21:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255331', N'1264622039642255311', N'[0],[1264622039642255311],', N'工作台', N'system_index_workplace', N'1', NULL, N'/other/workplaceHtml', NULL, N'system', N'1', N'2', NULL, N'0', N'2020-05-25 02:23:48', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255332', N'1264622039642255311', N'[0],[1264622039642255311],', N'控制台', N'system_index_console', N'1', NULL, N'/other/consoleHtml', NULL, N'system', N'1', N'3', NULL, N'0', N'2020-05-25 02:23:48', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255341', N'0', N'[0],', N'组织架构', N'sys_mgr', N'0', N'layui-icon-user', NULL, NULL, N'system', N'1', N'2', NULL, N'0', N'2020-03-27 15:58:16', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255351', N'1264622039642255341', N'[0],[1264622039642255341],', N'用户管理', N'sys_user_mgr', N'1', NULL, N'/sysUser/index', NULL, N'system', N'1', N'3', NULL, N'0', N'2020-03-27 16:10:21', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255361', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户查询', N'sys_user_mgr_page', N'2', NULL, NULL, N'sysUser:page', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 16:36:49', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255371', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户编辑', N'sys_user_mgr_edit', N'2', NULL, NULL, N'sysUser:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 12:20:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255381', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户增加', N'sys_user_mgr_add', N'2', NULL, NULL, N'sysUser:add', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 16:37:35', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255391', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户删除', N'sys_user_mgr_delete', N'2', NULL, NULL, N'sysUser:delete', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 16:37:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255401', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户详情', N'sys_user_mgr_detail', N'2', NULL, NULL, N'sysUser:detail', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 16:38:25', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255411', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户导出', N'sys_user_mgr_export', N'2', NULL, NULL, N'sysUser:export', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 12:21:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255421', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户选择器', N'sys_user_mgr_selector', N'2', NULL, NULL, N'sysUser:selector', N'system', N'1', N'100', NULL, N'0', N'2020-07-03 13:30:14', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255431', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户授权角色', N'sys_user_mgr_grant_role', N'2', NULL, NULL, N'sysUser:grantRole', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 09:22:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255441', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户拥有角色', N'sys_user_mgr_own_role', N'2', NULL, NULL, N'sysUser:ownRole', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 14:27:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255451', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户授权数据', N'sys_user_mgr_grant_data', N'2', NULL, NULL, N'sysUser:grantData', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 09:22:13', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255461', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户拥有数据', N'sys_user_mgr_own_data', N'2', NULL, NULL, N'sysUser:ownData', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 14:27:41', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255471', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户更新信息', N'sys_user_mgr_update_info', N'2', NULL, NULL, N'sysUser:updateInfo', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 16:19:32', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255481', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户修改密码', N'sys_user_mgr_update_pwd', N'2', NULL, NULL, N'sysUser:updatePwd', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 16:20:25', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255491', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户修改状态', N'sys_user_mgr_change_status', N'2', NULL, NULL, N'sysUser:changeStatus', N'system', N'1', N'100', NULL, N'0', N'2020-06-23 11:13:14', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255501', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户修改头像', N'sys_user_mgr_update_avatar', N'2', NULL, NULL, N'sysUser:updateAvatar', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 12:21:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255511', N'1264622039642255351', N'[0],[1264622039642255341],[1264622039642255351],', N'用户重置密码', N'sys_user_mgr_reset_pwd', N'2', NULL, NULL, N'sysUser:resetPwd', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 15:01:51', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255521', N'1264622039642255341', N'[0],[1264622039642255341],', N'机构管理', N'sys_org_mgr', N'1', NULL, N'/sysOrg/index', NULL, N'system', N'1', N'4', NULL, N'0', N'2020-03-27 17:15:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255531', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构查询', N'sys_org_mgr_page', N'2', NULL, NULL, N'sysOrg:page', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:17:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255541', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构列表', N'sys_org_mgr_list', N'2', NULL, NULL, N'sysOrg:list', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:54:26', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255551', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构增加', N'sys_org_mgr_add', N'2', NULL, NULL, N'sysOrg:add', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:19:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255561', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构编辑', N'sys_org_mgr_edit', N'2', NULL, NULL, N'sysOrg:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:54:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255571', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构删除', N'sys_org_mgr_delete', N'2', NULL, NULL, N'sysOrg:delete', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:20:48', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255581', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构详情', N'sys_org_mgr_detail', N'2', NULL, NULL, N'sysOrg:detail', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:21:15', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255591', N'1264622039642255521', N'[0],[1264622039642255341],[1264622039642255521]', N'机构树', N'sys_org_mgr_tree', N'2', NULL, NULL, N'sysOrg:tree', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:21:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255601', N'1264622039642255341', N'[0],[1264622039642255341],', N'职位管理', N'sys_pos_mgr', N'1', NULL, N'/sysPos/index', NULL, N'system', N'1', N'5', NULL, N'0', N'2020-03-27 18:38:31', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255611', N'1264622039642255601', N'[0],[1264622039642255341],[1264622039642255601],', N'职位查询', N'sys_pos_mgr_page', N'2', NULL, NULL, N'sysPos:page', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:41:48', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255621', N'1264622039642255601', N'[0],[1264622039642255341],[1264622039642255601],', N'职位列表', N'sys_pos_mgr_list', N'2', NULL, NULL, N'sysPos:list', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:55:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255631', N'1264622039642255601', N'[0],[1264622039642255341],[1264622039642255601],', N'职位增加', N'sys_pos_mgr_add', N'2', NULL, NULL, N'sysPos:add', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:42:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255641', N'1264622039642255601', N'[0],[1264622039642255341],[1264622039642255601],', N'职位编辑', N'sys_pos_mgr_edit', N'2', NULL, NULL, N'sysPos:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:56:08', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255651', N'1264622039642255601', N'[0],[1264622039642255341],[1264622039642255601],', N'职位删除', N'sys_pos_mgr_delete', N'2', NULL, NULL, N'sysPos:delete', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:42:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255661', N'1264622039642255601', N'[0],[1264622039642255341],[1264622039642255601],', N'职位详情', N'sys_pos_mgr_detail', N'2', NULL, NULL, N'sysPos:detail', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:43:00', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255671', N'0', N'[0],', N'权限管理', N'auth_manager', N'0', N'layui-icon-auz', NULL, NULL, N'system', N'1', N'3', NULL, N'0', N'2020-07-15 15:51:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255681', N'1264622039642255671', N'[0],[1264622039642255671],', N'应用管理', N'sys_app_mgr', N'1', NULL, N'/sysApp/index', NULL, N'system', N'1', N'6', NULL, N'0', N'2020-03-27 16:40:21', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255691', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'应用查询', N'sys_app_mgr_page', N'2', NULL, NULL, N'sysApp:page', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 16:41:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255701', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'应用列表', N'sys_app_mgr_list', N'2', NULL, NULL, N'sysApp:list', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 10:04:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255711', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'应用增加', N'sys_app_mgr_add', N'2', NULL, NULL, N'sysApp:add', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 16:44:10', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255721', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'应用编辑', N'sys_app_mgr_edit', N'2', NULL, NULL, N'sysApp:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 10:04:34', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255731', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'应用删除', N'sys_app_mgr_delete', N'2', NULL, NULL, N'sysApp:delete', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:14:29', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255741', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'应用详情', N'sys_app_mgr_detail', N'2', NULL, NULL, N'sysApp:detail', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:14:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255751', N'1264622039642255681', N'[0],[1264622039642255671],[1264622039642255681],', N'设为默认应用', N'sys_app_mgr_set_as_default', N'2', NULL, NULL, N'sysApp:setAsDefault', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 17:14:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255761', N'1264622039642255671', N'[0],[1264622039642255671],', N'菜单管理', N'sys_menu_mgr', N'1', NULL, N'/sysMenu/index', NULL, N'system', N'1', N'7', NULL, N'0', N'2020-03-27 18:44:35', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255771', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单列表', N'sys_menu_mgr_page', N'2', NULL, NULL, N'sysMenu:page', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:45:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255781', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单增加', N'sys_menu_mgr_add', N'2', NULL, NULL, N'sysMenu:add', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:45:37', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255791', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单编辑', N'sys_menu_mgr_edit', N'2', NULL, NULL, N'sysMenu:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:52:00', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255801', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单删除', N'sys_menu_mgr_delete', N'2', NULL, NULL, N'sysMenu:delete', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:46:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255811', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单详情', N'sys_menu_mgr_detail', N'2', NULL, NULL, N'sysMenu:detail', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:46:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255821', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单授权树', N'sys_menu_mgr_grant_tree', N'2', NULL, NULL, N'sysMenu:treeForGrant', N'system', N'1', N'100', NULL, N'0', N'2020-06-03 09:50:31', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255831', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单树', N'sys_menu_mgr_tree', N'2', NULL, NULL, N'sysMenu:tree', N'system', N'1', N'100', NULL, N'0', N'2020-03-27 18:47:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255841', N'1264622039642255761', N'[0],[1264622039642255671],[1264622039642255761],', N'菜单切换', N'sys_menu_mgr_change', N'2', NULL, NULL, N'sysMenu:change', N'system', N'1', N'100', NULL, N'0', N'2020-06-03 09:51:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255851', N'1264622039642255671', N'[0],[1264622039642255671],', N'角色管理', N'sys_role_mgr', N'1', NULL, N'/sysRole/index', NULL, N'system', N'1', N'8', NULL, N'0', N'2020-03-28 16:01:09', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255861', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色查询', N'sys_role_mgr_page', N'2', NULL, NULL, N'sysRole:page', N'system', N'1', N'100', NULL, N'0', N'2020-03-28 16:02:09', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255871', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色增加', N'sys_role_mgr_add', N'2', NULL, NULL, N'sysRole:add', N'system', N'1', N'100', NULL, N'0', N'2020-03-28 16:02:27', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255881', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色编辑', N'sys_role_mgr_edit', N'2', NULL, NULL, N'sysRole:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:57:27', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255891', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色删除', N'sys_role_mgr_delete', N'2', NULL, NULL, N'sysRole:delete', N'system', N'1', N'100', NULL, N'0', N'2020-03-28 16:02:46', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255901', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色详情', N'sys_role_mgr_detail', N'2', NULL, NULL, N'sysRole:detail', N'system', N'1', N'100', NULL, N'0', N'2020-03-28 16:03:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255911', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色下拉', N'sys_role_mgr_drop_down', N'2', NULL, NULL, N'sysRole:dropDown', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 15:45:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255921', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色授权菜单', N'sys_role_mgr_grant_menu', N'2', NULL, NULL, N'sysRole:grantMenu', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 09:16:27', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255931', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色拥有菜单', N'sys_role_mgr_own_menu', N'2', NULL, NULL, N'sysRole:ownMenu', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 14:21:54', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255941', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色授权数据', N'sys_role_mgr_grant_data', N'2', NULL, NULL, N'sysRole:grantData', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 09:16:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255951', N'1264622039642255851', N'[0],[1264622039642255671],[1264622039642255851],', N'角色拥有数据', N'sys_role_mgr_own_data', N'2', NULL, NULL, N'sysRole:ownData', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 14:23:08', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255961', N'0', N'[0],', N'开发管理', N'system_tools', N'0', N'layui-icon-code-circle', NULL, NULL, N'system', N'1', N'4', NULL, N'0', N'2020-05-25 02:10:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255971', N'1264622039642255961', N'[0],[1264622039642255961],', N'系统配置', N'system_tools_config', N'1', NULL, N'/sysConfig/index', NULL, N'system', N'1', N'9', NULL, N'0', N'2020-05-25 02:12:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255981', N'1264622039642255971', N'[0],[1264622039642255961],[1264622039642255971],', N'配置查询', N'system_tools_config_page', N'2', NULL, NULL, N'sysConfig:page', N'system', N'1', N'100', NULL, N'0', N'2020-05-27 17:02:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642255991', N'1264622039642255971', N'[0],[1264622039642255961],[1264622039642255971],', N'配置列表', N'system_tools_config_list', N'2', NULL, NULL, N'sysConfig:list', N'system', N'1', N'100', NULL, N'0', N'2020-05-27 17:02:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256001', N'1264622039642255971', N'[0],[1264622039642255961],[1264622039642255971],', N'配置增加', N'system_tools_config_add', N'2', NULL, NULL, N'sysConfig:add', N'system', N'1', N'100', NULL, N'0', N'2020-05-27 17:03:31', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256011', N'1264622039642255971', N'[0],[1264622039642255961],[1264622039642255971],', N'配置编辑', N'system_tools_config_edit', N'2', NULL, NULL, N'sysConfig:edit', N'system', N'1', N'100', NULL, N'0', N'2020-05-27 17:03:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256021', N'1264622039642255971', N'[0],[1264622039642255961],[1264622039642255971],', N'配置删除', N'system_tools_config_delete', N'2', NULL, NULL, N'sysConfig:delete', N'system', N'1', N'100', NULL, N'0', N'2020-05-27 17:03:44', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256031', N'1264622039642255971', N'[0],[1264622039642255961],[1264622039642255971],', N'配置详情', N'system_tools_config_detail', N'2', NULL, NULL, N'sysConfig:detail', N'system', N'1', N'100', NULL, N'0', N'2020-05-27 17:02:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256041', N'1264622039642255961', N'[0],[1264622039642255961],', N'邮件发送', N'sys_email_mgr', N'1', NULL, N'/sysEmail/index', NULL, N'system', N'1', N'10', NULL, N'0', N'2020-07-02 11:44:21', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256051', N'1264622039642256041', N'[0],[1264622039642255961],[1264622039642256041],', N'发送文本邮件', N'sys_email_mgr_send_email', N'2', NULL, NULL, N'sysEmail:sendEmail', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:45:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256061', N'1264622039642256041', N'[0],[1264622039642255961],[1264622039642256041],', N'发送html邮件', N'sys_email_mgr_send_email_html', N'2', NULL, NULL, N'sysEmail:sendEmailHtml', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 11:45:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256071', N'1264622039642255961', N'[0],[1264622039642255961],', N'短信管理', N'sys_sms_mgr', N'1', NULL, N'/sysSms/index', NULL, N'system', N'1', N'11', NULL, N'0', N'2020-07-02 12:00:12', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256081', N'1264622039642256071', N'[0],[1264622039642255961],[1264622039642256071],', N'短信发送查询', N'sys_sms_mgr_page', N'2', NULL, NULL, N'sysSms:page', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 12:16:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256091', N'1264622039642256071', N'[0],[1264622039642255961],[1264622039642256071],', N'发送验证码短信', N'sys_sms_mgr_send_login_message', N'2', NULL, NULL, N'sysSms:sendLoginMessage', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 12:02:31', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256101', N'1264622039642256071', N'[0],[1264622039642255961],[1264622039642256071],', N'验证短信验证码', N'sys_sms_mgr_validate_message', N'2', NULL, NULL, N'sysSms:validateMessage', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 12:02:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256111', N'1264622039642255961', N'[0],[1264622039642255961],', N'字典管理', N'sys_dict_mgr', N'1', NULL, N'/sysDictType/index', NULL, N'system', N'1', N'12', NULL, N'0', N'2020-04-01 11:17:26', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256121', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型查询', N'sys_dict_mgr_dict_type_page', N'2', NULL, NULL, N'sysDictType:page', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:20:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256131', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型列表', N'sys_dict_mgr_dict_type_list', N'2', NULL, NULL, N'sysDictType:list', N'system', N'1', N'100', NULL, N'0', N'2020-05-29 15:12:35', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256141', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型增加', N'sys_dict_mgr_dict_type_add', N'2', NULL, NULL, N'sysDictType:add', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:19:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256151', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型删除', N'sys_dict_mgr_dict_type_delete', N'2', NULL, NULL, N'sysDictType:delete', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:21:30', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256161', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型编辑', N'sys_dict_mgr_dict_type_edit', N'2', NULL, NULL, N'sysDictType:edit', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:21:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256171', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型详情', N'sys_dict_mgr_dict_type_detail', N'2', NULL, NULL, N'sysDictType:detail', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:22:06', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256181', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型下拉', N'sys_dict_mgr_dict_type_drop_down', N'2', NULL, NULL, N'sysDictType:dropDown', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:22:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256191', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典类型修改状态', N'sys_dict_mgr_dict_type_change_status', N'2', NULL, NULL, N'sysDictType:changeStatus', N'system', N'1', N'100', NULL, N'0', N'2020-06-23 11:15:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256201', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值查询', N'sys_dict_mgr_dict_page', N'2', NULL, NULL, N'sysDictData:page', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:23:11', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256211', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值列表', N'sys_dict_mgr_dict_list', N'2', NULL, NULL, N'sysDictData:list', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:24:58', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256221', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值增加', N'sys_dict_mgr_dict_add', N'2', NULL, NULL, N'sysDictData:add', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:22:51', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256231', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值删除', N'sys_dict_mgr_dict_delete', N'2', NULL, NULL, N'sysDictData:delete', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:23:26', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256241', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值编辑', N'sys_dict_mgr_dict_edit', N'2', NULL, NULL, N'sysDictData:edit', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:24:21', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256251', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值详情', N'sys_dict_mgr_dict_detail', N'2', NULL, NULL, N'sysDictData:detail', N'system', N'1', N'100', NULL, N'0', N'2020-04-01 11:24:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256261', N'1264622039642256111', N'[0],[1264622039642255961],[1264622039642256111],', N'字典值修改状态', N'sys_dict_mgr_dict_change_status', N'2', NULL, NULL, N'sysDictData:changeStatus', N'system', N'1', N'100', NULL, N'0', N'2020-06-23 11:17:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256271', N'1264622039642255961', N'[0],[1264622039642255961],', N'接口文档', N'sys_swagger_mgr', N'1', NULL, N'/doc.html', NULL, N'system', N'1', N'13', NULL, N'0', N'2020-07-02 12:16:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256281', N'0', N'[0],', N'日志管理', N'sys_log_mgr', N'0', N'layui-icon-log', NULL, NULL, N'system', N'1', N'5', NULL, N'0', N'2020-04-01 09:25:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256291', N'1264622039642256281', N'[0],[1264622039642256281],', N'访问日志', N'sys_log_mgr_vis_log', N'1', NULL, N'/sysVisLog/index', NULL, N'system', N'1', N'14', NULL, N'0', N'2020-04-01 09:26:40', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256301', N'1264622039642256291', N'[0],[1264622039642256281],[1264622039642256291],', N'访问日志查询', N'sys_log_mgr_vis_log_page', N'2', NULL, NULL, N'sysVisLog:page', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 09:55:51', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256311', N'1264622039642256291', N'[0],[1264622039642256281],[1264622039642256291],', N'访问日志清空', N'sys_log_mgr_vis_log_delete', N'2', NULL, NULL, N'sysVisLog:delete', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 09:56:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256321', N'1264622039642256281', N'[0],[1264622039642256281],', N'操作日志', N'sys_log_mgr_op_log', N'1', NULL, N'/sysOpLog/index', NULL, N'system', N'1', N'15', NULL, N'0', N'2020-04-01 09:26:59', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256331', N'1264622039642256321', N'[0],[1264622039642256281],[1264622039642256321],', N'操作日志查询', N'sys_log_mgr_op_log_page', N'2', NULL, NULL, N'sysOpLog:page', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 09:57:39', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256341', N'1264622039642256321', N'[0],[1264622039642256281],[1264622039642256321],', N'操作日志清空', N'sys_log_mgr_op_log_delete', N'2', NULL, NULL, N'sysOpLog:delete', N'system', N'1', N'100', NULL, N'0', N'2020-07-02 09:58:13', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256351', N'0', N'[0],', N'系统监控', N'sys_monitor_mgr', N'0', N'layui-icon-chart-screen', NULL, NULL, N'system', N'1', N'6', NULL, N'0', N'2020-06-05 16:00:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256361', N'1264622039642256351', N'[0],[1264622039642256351],', N'服务监控', N'sys_monitor_mgr_machine_monitor', N'1', NULL, N'/sysMachine/index', NULL, N'system', N'1', N'16', NULL, N'0', N'2020-06-05 16:02:38', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256371', N'1264622039642256361', N'[0],[1264622039642256351],[1264622039642256361],', N'服务监控查询', N'sys_monitor_mgr_machine_monitor_query', N'2', NULL, NULL, N'sysMachine:query', N'system', N'1', N'100', NULL, N'0', N'2020-06-05 16:05:33', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256381', N'1264622039642256351', N'[0],[1264622039642256351],', N'在线用户', N'sys_monitor_mgr_online_user', N'1', NULL, N'/sysOnlineUser/index', NULL, N'system', N'1', N'17', NULL, N'0', N'2020-06-05 16:01:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256391', N'1264622039642256381', N'[0],[1264622039642256351],[1264622039642256381],', N'在线用户列表', N'sys_monitor_mgr_online_user_list', N'2', NULL, NULL, N'sysOnlineUser:list', N'system', N'1', N'100', NULL, N'0', N'2020-06-05 16:03:46', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256401', N'1264622039642256381', N'[0],[1264622039642256351],[1264622039642256381],', N'在线用户强退', N'sys_monitor_mgr_online_user_force_exist', N'2', NULL, NULL, N'sysOnlineUser:forceExist', N'system', N'1', N'100', NULL, N'0', N'2020-06-05 16:04:16', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256411', N'1264622039642256351', N'[0],[1264622039642256351],', N'数据监控', N'sys_monitor_mgr_druid', N'1', NULL, N'/druid', NULL, N'system', N'1', N'18', NULL, N'0', N'2020-06-28 16:15:07', N'1265476890672672808', N'2020-09-13 09:39:10', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256421', N'0', N'[0],', N'通知公告', N'sys_notice', N'0', N'layui-icon-speaker', NULL, NULL, N'system', N'1', N'7', NULL, N'0', N'2020-06-29 15:41:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256431', N'1264622039642256421', N'[0],[1264622039642256421],', N'公告管理', N'sys_notice_mgr', N'1', NULL, N'/sysNotice/index', NULL, N'system', N'1', N'19', NULL, N'0', N'2020-06-29 15:44:24', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256441', N'1264622039642256431', N'[0],[1264622039642256421],[1264622039642256431],', N'公告查询', N'sys_notice_mgr_page', N'2', NULL, NULL, N'sysNotice:page', N'system', N'1', N'100', NULL, N'2', N'2020-06-29 15:45:30', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256451', N'1264622039642256431', N'[0],[1264622039642256421],[1264622039642256431],', N'公告增加', N'sys_notice_mgr_add', N'2', NULL, NULL, N'sysNotice:add', N'system', N'1', N'100', NULL, N'0', N'2020-06-29 15:45:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256461', N'1264622039642256431', N'[0],[1264622039642256421],[1264622039642256431],', N'公告编辑', N'sys_notice_mgr_edit', N'2', NULL, NULL, N'sysNotice:edit', N'system', N'1', N'100', NULL, N'0', N'2020-06-29 15:46:22', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256471', N'1264622039642256431', N'[0],[1264622039642256421],[1264622039642256431],', N'公告删除', N'sys_notice_mgr_delete', N'2', NULL, NULL, N'sysNotice:delete', N'system', N'1', N'100', NULL, N'0', N'2020-06-29 15:46:11', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256481', N'1264622039642256431', N'[0],[1264622039642256421],[1264622039642256431],', N'公告查看', N'sys_notice_mgr_detail', N'2', NULL, NULL, N'sysNotice:detail', N'system', N'1', N'100', NULL, N'0', N'2020-06-29 15:46:33', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256491', N'1264622039642256431', N'[0],[1264622039642256421],[1264622039642256431],', N'公告修改状态', N'sys_notice_mgr_changeStatus', N'2', NULL, NULL, N'sysNotice:changeStatus', N'system', N'1', N'100', NULL, N'0', N'2020-06-29 15:46:50', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256501', N'1264622039642256421', N'[0],[1264622039642256421],', N'已收公告', N'sys_notice_mgr_received', N'1', NULL, N'/sysNotice/receivedPage', NULL, N'system', N'1', N'20', NULL, N'0', N'2020-06-29 16:32:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256511', N'1264622039642256501', N'[0],[1264622039642256421],[1264622039642256501],', N'已收公告查询', N'sys_notice_mgr_received_page', N'2', NULL, NULL, N'sysNotice:received', N'system', N'1', N'100', NULL, N'0', N'2020-06-29 16:33:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256521', N'0', N'[0],', N'文件管理', N'sys_file_mgr', N'0', N'layui-icon-file', NULL, NULL, N'system', N'1', N'8', NULL, N'0', N'2020-06-24 17:31:10', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256531', N'1264622039642256521', N'[0],[1264622039642256521],', N'系统文件', N'sys_file_mgr_sys_file', N'1', NULL, N'/sysFileInfo/index', NULL, N'system', N'1', N'21', NULL, N'0', N'2020-06-24 17:32:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256541', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'文件查询', N'sys_file_mgr_sys_file_page', N'2', NULL, NULL, N'sysFileInfo:page', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:35:38', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256551', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'文件列表', N'sys_file_mgr_sys_file_list', N'2', NULL, NULL, N'sysFileInfo:list', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:35:49', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256561', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'文件删除', N'sys_file_mgr_sys_file_delete', N'2', NULL, NULL, N'sysFileInfo:delete', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:36:11', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256571', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'文件详情', N'sys_file_mgr_sys_file_detail', N'2', NULL, NULL, N'sysFileInfo:detail', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:36:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256581', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'文件上传', N'sys_file_mgr_sys_file_upload', N'2', NULL, NULL, N'sysFileInfo:upload', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:34:29', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256591', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'文件下载', N'sys_file_mgr_sys_file_download', N'2', NULL, NULL, N'sysFileInfo:download', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:34:55', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256601', N'1264622039642256531', N'[0],[1264622039642256521],[1264622039642256531],', N'图片预览', N'sys_file_mgr_sys_file_preview', N'2', NULL, NULL, N'sysFileInfo:preview', N'system', N'1', N'100', NULL, N'0', N'2020-06-24 17:35:19', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256602', N'1264622039642256521', N'[0],[1264622039642256521],', N'在线文档', N'sys_file_mgr_sys_online_file', N'1', NULL, N'/sysFileInfo/onlineIndex', NULL, N'system', N'1', N'21', NULL, N'0', N'2020-06-24 17:32:57', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256611', N'0', N'[0],', N'定时任务', N'sys_timers', N'0', N'layui-icon-console', NULL, NULL, N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:17:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256621', N'1264622039642256611', N'[0],[1264622039642256611],', N'任务管理', N'sys_timers_mgr', N'1', NULL, N'/sysTimers/index', NULL, N'system', N'1', N'22', NULL, N'0', N'2020-07-01 17:18:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256631', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务查询', N'sys_timers_mgr_page', N'2', NULL, NULL, N'sysTimers:page', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:19:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256641', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务列表', N'sys_timers_mgr_list', N'2', NULL, NULL, N'sysTimers:list', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:19:56', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256651', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务详情', N'sys_timers_mgr_detail', N'2', NULL, NULL, N'sysTimers:detail', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:20:10', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256661', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务增加', N'sys_timers_mgr_add', N'2', NULL, NULL, N'sysTimers:add', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:20:23', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256671', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务删除', N'sys_timers_mgr_delete', N'2', NULL, NULL, N'sysTimers:delete', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:20:33', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256681', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务编辑', N'sys_timers_mgr_edit', N'2', NULL, NULL, N'sysTimers:edit', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:20:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256691', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务可执行列表', N'sys_timers_mgr_get_action_classes', N'2', NULL, NULL, N'sysTimers:getActionClasses', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:22:16', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256701', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务启动', N'sys_timers_mgr_start', N'2', NULL, NULL, N'sysTimers:start', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:22:32', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256711', N'1264622039642256621', N'[0],[1264622039642256611],[1264622039642256621],', N'定时任务关闭', N'sys_timers_mgr_stop', N'2', NULL, NULL, N'sysTimers:stop', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:22:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256721', N'0', N'[0],', N'系统区域', N'sys_area', N'0', N'layui-icon-console', NULL, NULL, N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:17:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256731', N'1264622039642256721', N'[0],[1264622039642256721],', N'区域管理', N'sys_area_mgr', N'1', NULL, N'/sysArea/index', NULL, N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:17:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256741', N'1264622039642256721', N'[0],[1264622039642256721],', N'区域选择', N'sys_area_select', N'1', NULL, N'/sysArea/select', NULL, N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:17:20', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1264622039642256751', N'1264622039642256731', N'[0],[1264622039642256721],[1264622039642256731],', N'系统区域查询', N'sys_area_mgr_page', N'2', NULL, NULL, N'sysArea:page', N'system', N'1', N'100', NULL, N'0', N'2020-07-01 17:19:43', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_MENU] ([ID], [PID], [PIDS], [NAME], [CODE], [TYPE], [ICON], [ROUTER], [PERMISSION], [APPLICATION], [WEIGHT], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1338864007892807681', N'0', N'[0],', N'代码生成', N'code_generate', N'1', N'layui-icon-app', N'/codeGenerate/index', N'', N'systool', N'1', N'1', N'代码生成1级菜单', N'0', N'2020-12-15 23:10:29', N'1265476890672672808', N'2020-12-15 23:54:55', N'1265476890672672808')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_MESSAGE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_MESSAGE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_MESSAGE]
+GO
+
+CREATE TABLE [dbo].[SYS_MESSAGE] (
+  [ID] bigint  NOT NULL,
+  [TITLE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CONTENT] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
+  [TYPE] int  NULL,
+  [SEND_TYPE] int  NULL,
+  [BUSINESS_DATA] nvarchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [SEND_TIME] datetime2(0)  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_MESSAGE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息标题',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'TITLE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息内容',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'CONTENT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息类别，字典（1通知 2私信 3待办）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发送类别，字典（1直接发送 2定时发送）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'SEND_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'业务数据，JSON格式',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'BUSINESS_DATA'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发送时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE',
+'COLUMN', N'SEND_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_MESSAGE
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_MESSAGE_USER
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_MESSAGE_USER]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_MESSAGE_USER]
+GO
+
+CREATE TABLE [dbo].[SYS_MESSAGE_USER] (
+  [ID] bigint  NOT NULL,
+  [MESSAGE_ID] bigint  NOT NULL,
+  [SENDER_ID] bigint  NOT NULL,
+  [RECEIVER_ID] bigint  NOT NULL,
+  [STATUS] tinyint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_MESSAGE_USER] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE_USER',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE_USER',
+'COLUMN', N'MESSAGE_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发送人id，系统发送则为-1',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE_USER',
+'COLUMN', N'SENDER_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'接收人id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE_USER',
+'COLUMN', N'RECEIVER_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0未读 1已读）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE_USER',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'消息人员关联表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_MESSAGE_USER'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_MESSAGE_USER
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_NOTICE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_NOTICE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_NOTICE]
+GO
+
+CREATE TABLE [dbo].[SYS_NOTICE] (
+  [ID] bigint  NOT NULL,
+  [TITLE] nvarchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CONTENT] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
+  [TYPE] tinyint  NOT NULL,
+  [PUBLIC_USER_ID] bigint  NOT NULL,
+  [PUBLIC_USER_NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [PUBLIC_ORG_ID] bigint  NULL,
+  [PUBLIC_ORG_NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [PUBLIC_TIME] datetime2(0)  NULL,
+  [CANCEL_TIME] datetime2(0)  NULL,
+  [STATUS] tinyint  NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_NOTICE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'标题',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'TITLE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'内容',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'CONTENT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'类型（字典 1通知 2公告）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发布人id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'PUBLIC_USER_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发布人姓名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'PUBLIC_USER_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发布机构id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'PUBLIC_ORG_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发布机构名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'PUBLIC_ORG_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发布时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'PUBLIC_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'撤回时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'CANCEL_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0草稿 1发布 2撤回 3删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'修改人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'通知表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_NOTICE
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_NOTICE_USER
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_NOTICE_USER]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_NOTICE_USER]
+GO
+
+CREATE TABLE [dbo].[SYS_NOTICE_USER] (
+  [ID] bigint  NOT NULL,
+  [NOTICE_ID] bigint  NOT NULL,
+  [USER_ID] bigint  NOT NULL,
+  [STATUS] tinyint  NOT NULL,
+  [READ_TIME] datetime2(0)  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_NOTICE_USER] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE_USER',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'通知公告id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE_USER',
+'COLUMN', N'NOTICE_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE_USER',
+'COLUMN', N'USER_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0未读 1已读）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE_USER',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'阅读时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE_USER',
+'COLUMN', N'READ_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统用户数据范围表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_NOTICE_USER'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_NOTICE_USER
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_OAUTH_USER
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_OAUTH_USER]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_OAUTH_USER]
+GO
+
+CREATE TABLE [dbo].[SYS_OAUTH_USER] (
+  [ID] bigint  NOT NULL,
+  [UUID] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [ACCESS_TOKEN] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [NICK_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [AVATAR] nvarchar(500) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BLOG] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [COMPANY] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [LOCATION] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [EMAIL] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [GENDER] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [SOURCE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_OAUTH_USER] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'第三方平台的用户唯一id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'UUID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户授权的token',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'ACCESS_TOKEN'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'昵称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'NICK_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'头像',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'AVATAR'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户网址',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'BLOG'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'所在公司',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'COMPANY'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'位置',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'LOCATION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'邮箱',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'EMAIL'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'性别',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'GENDER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户来源',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'SOURCE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户备注（各平台中的用户个人介绍）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建用户',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新用户',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'第三方认证用户信息表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OAUTH_USER'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_OAUTH_USER
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_OP_LOG
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_OP_LOG]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_OP_LOG]
+GO
+
+CREATE TABLE [dbo].[SYS_OP_LOG] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [OP_TYPE] tinyint  NULL,
+  [SUCCESS] nchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
+  [MESSAGE] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
+  [IP] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [LOCATION] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BROWSER] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [OS] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [URL] nvarchar(500) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CLASS_NAME] nvarchar(500) COLLATE Chinese_PRC_CI_AS  NULL,
+  [METHOD_NAME] nvarchar(500) COLLATE Chinese_PRC_CI_AS  NULL,
+  [REQ_METHOD] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [PARAM] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
+  [RESULT] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
+  [OP_TIME] datetime2(0)  NULL,
+  [ACCOUNT] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_OP_LOG] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作类型',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'OP_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否执行成功（Y-是，N-否）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'SUCCESS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'具体消息',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'MESSAGE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'ip',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'IP'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'地址',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'LOCATION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'浏览器',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'BROWSER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作系统',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'OS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'请求地址',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'URL'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'类名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'CLASS_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'方法名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'METHOD_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'请求方式（GET POST PUT DELETE)',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'REQ_METHOD'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'请求参数',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'PARAM'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'返回结果',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'RESULT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'OP_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作账号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG',
+'COLUMN', N'ACCOUNT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统操作日志表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_OP_LOG'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_OP_LOG
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_ORG
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_ORG]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_ORG]
+GO
+
+CREATE TABLE [dbo].[SYS_ORG] (
+  [ID] bigint  NOT NULL,
+  [PID] bigint  NOT NULL,
+  [PIDS] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [SORT] int  NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint DEFAULT ((0)) NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_ORG] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'父id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'PID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'父ids',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'PIDS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'排序',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'SORT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'描述',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统组织机构表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ORG'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_ORG
+-- ----------------------------
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890651701250', N'0', N'[0],', N'华夏集团', N'hxjt', N'100', N'华夏集团总公司', N'0', N'2020-03-26 16:50:53', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672769', N'1265476890651701250', N'[0],[1265476890651701250],', N'华夏集团北京分公司', N'hxjt_bj', N'100', N'华夏集团北京分公司', N'0', N'2020-03-26 16:55:42', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672770', N'1265476890651701250', N'[0],[1265476890651701250],', N'华夏集团成都分公司', N'hxjt_cd', N'100', N'华夏集团成都分公司', N'0', N'2020-03-26 16:56:02', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672771', N'1265476890672672769', N'[0],[1265476890651701250],[1265476890672672769],', N'研发部', N'hxjt_bj_yfb', N'100', N'华夏集团北京分公司研发部', N'0', N'2020-03-26 16:56:36', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672772', N'1265476890672672769', N'[0],[1265476890651701250],[1265476890672672769],', N'企划部', N'hxjt_bj_qhb', N'100', N'华夏集团北京分公司企划部', N'0', N'2020-03-26 16:57:06', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672773', N'1265476890672672770', N'[0],[1265476890651701250],[1265476890672672770],', N'市场部', N'hxjt_cd_scb', N'100', N'华夏集团成都分公司市场部', N'0', N'2020-03-26 16:57:35', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672774', N'1265476890672672770', N'[0],[1265476890651701250],[1265476890672672770],', N'财务部', N'hxjt_cd_cwb', N'100', N'华夏集团成都分公司财务部', N'0', N'2020-03-26 16:58:01', N'1265476890672672808', NULL, NULL)
+GO
+
+INSERT INTO [dbo].[SYS_ORG] ([ID], [PID], [PIDS], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672775', N'1265476890672672773', N'[0],[1265476890651701250],[1265476890672672770],[1265476890672672773],', N'市场部二部', N'hxjt_cd_scb_2b', N'100', N'华夏集团成都分公司市场部二部', N'0', N'2020-04-06 15:36:50', N'1265476890672672808', NULL, NULL)
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_POS
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_POS]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_POS]
+GO
+
+CREATE TABLE [dbo].[SYS_POS] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [SORT] int  NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint DEFAULT ((0)) NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_POS] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'排序',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'SORT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统职位表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_POS'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_POS
+-- ----------------------------
+INSERT INTO [dbo].[SYS_POS] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672787', N'总经理', N'zjl', N'100', N'总经理职位', N'0', N'2020-03-26 19:28:54', N'1265476890672672808', N'2020-06-02 21:01:04', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_POS] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672788', N'副总经理', N'fzjl', N'100', N'副总经理职位', N'0', N'2020-03-26 19:29:57', N'1265476890672672808', N'2020-11-24 11:49:37', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_POS] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672789', N'部门经理', N'bmjl', N'100', N'部门经理职位', N'0', N'2020-03-26 19:31:49', N'1265476890672672808', N'2020-11-24 11:49:48', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_POS] ([ID], [NAME], [CODE], [SORT], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672790', N'工作人员', N'gzry', N'100', N'工作人员职位', N'0', N'2020-05-27 11:32:00', N'1265476890672672808', N'2020-06-01 10:51:35', N'1265476890672672808')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_ROLE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_ROLE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_ROLE]
+GO
+
+CREATE TABLE [dbo].[SYS_ROLE] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [CODE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [SORT] int  NOT NULL,
+  [DATA_SCOPE_TYPE] tinyint DEFAULT ((1)) NOT NULL,
+  [REMARK] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint DEFAULT ((0)) NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_ROLE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'编码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'序号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'SORT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'数据范围类型（字典 1全部数据 2本部门及以下数据 3本部门数据 4仅本人数据 5自定义数据）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'DATA_SCOPE_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1停用 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统角色表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_ROLE
+-- ----------------------------
+INSERT INTO [dbo].[SYS_ROLE] ([ID], [NAME], [CODE], [SORT], [DATA_SCOPE_TYPE], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672817', N'组织架构管理员', N'ent_manager_role', N'100', N'2', N'组织架构管理员', N'0', N'2020-04-02 19:27:26', N'1265476890672672808', N'2020-12-09 23:16:09', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE] ([ID], [NAME], [CODE], [SORT], [DATA_SCOPE_TYPE], [REMARK], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672818', N'权限管理员', N'auth_role', N'101', N'5', N'权限管理员', N'0', N'2020-04-02 19:28:40', N'1265476890672672808', N'2020-07-16 10:52:21', N'1265476890672672808')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_ROLE_DATA_SCOPE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_ROLE_DATA_SCOPE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_ROLE_DATA_SCOPE]
+GO
+
+CREATE TABLE [dbo].[SYS_ROLE_DATA_SCOPE] (
+  [ID] bigint  NOT NULL,
+  [ROLE_ID] bigint  NOT NULL,
+  [ORG_ID] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_ROLE_DATA_SCOPE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_DATA_SCOPE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'角色id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_DATA_SCOPE',
+'COLUMN', N'ROLE_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'机构id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_DATA_SCOPE',
+'COLUMN', N'ORG_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统角色数据范围表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_DATA_SCOPE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_ROLE_DATA_SCOPE
+-- ----------------------------
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435908822102018', N'1265476890672672818', N'1265476890651701250')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435909635796993', N'1265476890672672818', N'1265476890672672769')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435910432714754', N'1265476890672672818', N'1265476890672672771')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435911233826818', N'1265476890672672818', N'1265476890672672772')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435912018161666', N'1265476890672672818', N'1265476890672672770')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435912810885122', N'1265476890672672818', N'1265476890672672773')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435913595219970', N'1265476890672672818', N'1265476890672672775')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1277435914392137730', N'1265476890672672818', N'1265476890672672774')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_DATA_SCOPE] ([ID], [ROLE_ID], [ORG_ID]) VALUES (N'1292060127645429762', N'1265476890672672819', N'1265476890672672774')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_ROLE_MENU
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_ROLE_MENU]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_ROLE_MENU]
+GO
+
+CREATE TABLE [dbo].[SYS_ROLE_MENU] (
+  [ID] bigint  NOT NULL,
+  [ROLE_ID] bigint  NOT NULL,
+  [MENU_ID] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_ROLE_MENU] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_MENU',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'角色id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_MENU',
+'COLUMN', N'ROLE_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'菜单id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_MENU',
+'COLUMN', N'MENU_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统角色菜单表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_ROLE_MENU'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_ROLE_MENU
+-- ----------------------------
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578614542338', N'1265476890672672817', N'1264622039642255311')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578622930945', N'1265476890672672817', N'1264622039642255321')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578627125250', N'1265476890672672817', N'1264622039642255331')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578631319553', N'1265476890672672817', N'1264622039642255341')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578635513858', N'1265476890672672817', N'1264622039642255351')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578643902465', N'1265476890672672817', N'1264622039642255361')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578648096769', N'1265476890672672817', N'1264622039642255371')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578652291073', N'1265476890672672817', N'1264622039642255381')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578660679682', N'1265476890672672817', N'1264622039642255391')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578664873985', N'1265476890672672817', N'1264622039642255401')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578669068289', N'1265476890672672817', N'1264622039642255411')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578673262594', N'1265476890672672817', N'1264622039642255421')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578677456898', N'1265476890672672817', N'1264622039642255431')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578677456899', N'1265476890672672817', N'1264622039642255441')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578685845505', N'1265476890672672817', N'1264622039642255451')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578690039810', N'1265476890672672817', N'1264622039642255461')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578698428417', N'1265476890672672817', N'1264622039642255471')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578702622722', N'1265476890672672817', N'1264622039642255481')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578706817026', N'1265476890672672817', N'1264622039642255491')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578706817027', N'1265476890672672817', N'1264622039642255501')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578715205634', N'1265476890672672817', N'1264622039642255511')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578719399938', N'1265476890672672817', N'1264622039642255521')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578719399939', N'1265476890672672817', N'1264622039642255531')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578723594241', N'1265476890672672817', N'1264622039642255541')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578744565761', N'1265476890672672817', N'1264622039642255551')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578748760065', N'1265476890672672817', N'1264622039642255561')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578752954370', N'1265476890672672817', N'1264622039642255571')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578761342977', N'1265476890672672817', N'1264622039642255581')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578765537282', N'1265476890672672817', N'1264622039642255591')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578769731585', N'1265476890672672817', N'1264622039642255601')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578790703105', N'1265476890672672817', N'1264622039642255621')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578794897409', N'1265476890672672817', N'1264622039642255631')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578803286017', N'1265476890672672817', N'1264622039642255641')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578807480322', N'1265476890672672817', N'1264622039642255651')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578811674626', N'1265476890672672817', N'1264622039642255661')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578815868930', N'1265476890672672817', N'1264622039642255611')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578820063233', N'1265476890672672817', N'1264622039642256421')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578824257538', N'1265476890672672817', N'1264622039642256481')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578828451841', N'1265476890672672817', N'1264622039642256501')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553578832646145', N'1265476890672672817', N'1264622039642256511')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649833824258', N'1265476890672672818', N'1264622039642255671')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649838018562', N'1265476890672672818', N'1264622039642255681')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649842212865', N'1265476890672672818', N'1264622039642255691')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649846407169', N'1265476890672672818', N'1264622039642255701')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649850601473', N'1265476890672672818', N'1264622039642255711')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649850601474', N'1265476890672672818', N'1264622039642255721')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649854795777', N'1265476890672672818', N'1264622039642255731')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649858990082', N'1265476890672672818', N'1264622039642255741')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649863184386', N'1265476890672672818', N'1264622039642255751')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649867378690', N'1265476890672672818', N'1264622039642255761')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649871572993', N'1265476890672672818', N'1264622039642255771')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649875767297', N'1265476890672672818', N'1264622039642255781')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649879961601', N'1265476890672672818', N'1264622039642255791')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649884155906', N'1265476890672672818', N'1264622039642255801')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649888350209', N'1265476890672672818', N'1264622039642255811')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649892544514', N'1265476890672672818', N'1264622039642255821')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649892544515', N'1265476890672672818', N'1264622039642255831')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649896738818', N'1265476890672672818', N'1264622039642255841')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649900933121', N'1265476890672672818', N'1264622039642255851')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649905127426', N'1265476890672672818', N'1264622039642255881')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649909321730', N'1265476890672672818', N'1264622039642255891')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649909321731', N'1265476890672672818', N'1264622039642255901')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649913516034', N'1265476890672672818', N'1264622039642255911')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649917710338', N'1265476890672672818', N'1264622039642255921')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649921904641', N'1265476890672672818', N'1264622039642255931')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649926098946', N'1265476890672672818', N'1264622039642255941')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649930293249', N'1265476890672672818', N'1264622039642255951')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649934487554', N'1265476890672672818', N'1264622039642255861')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649938681858', N'1265476890672672818', N'1264622039642255871')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649942876162', N'1265476890672672818', N'1264622039642256421')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649947070465', N'1265476890672672818', N'1264622039642256481')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649951264770', N'1265476890672672818', N'1264622039642256501')
+GO
+
+INSERT INTO [dbo].[SYS_ROLE_MENU] ([ID], [ROLE_ID], [MENU_ID]) VALUES (N'1352553649955459074', N'1265476890672672818', N'1264622039642256511')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_SMS
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_SMS]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_SMS]
+GO
+
+CREATE TABLE [dbo].[SYS_SMS] (
+  [ID] bigint  NOT NULL,
+  [PHONE_NUMBERS] nvarchar(200) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [VALIDATE_CODE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [TEMPLATE_CODE] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BIZ_ID] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [STATUS] tinyint  NOT NULL,
+  [SOURCE] tinyint  NOT NULL,
+  [INVALID_TIME] datetime2(0)  NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_SMS] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'手机号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'PHONE_NUMBERS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'短信验证码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'VALIDATE_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'短信模板ID',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'TEMPLATE_CODE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'回执id，可根据该id查询具体的发送状态',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'BIZ_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'发送状态（字典 0 未发送，1 发送成功，2 发送失败，3 失效）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'来源（字典 1 app， 2 pc， 3 其他）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'SOURCE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'失效时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'INVALID_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'短信信息发送表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_SMS'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_SMS
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for SYS_TIMERS
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_TIMERS]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_TIMERS]
+GO
+
+CREATE TABLE [dbo].[SYS_TIMERS] (
+  [ID] bigint  NOT NULL,
+  [TIMER_NAME] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [ACTION_CLASS] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CRON] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [JOB_STATUS] tinyint  NULL,
+  [REMARK] nvarchar(1000) COLLATE Chinese_PRC_CI_AS  NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_TIMERS] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'定时器id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'任务名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'TIMER_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'执行任务的class的类名（实现了TimerTaskRunner接口的类的全称）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'ACTION_CLASS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'定时任务表达式',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'CRON'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 1运行  2停止）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'JOB_STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'备注信息',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'REMARK'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'定时任务',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_TIMERS'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_TIMERS
+-- ----------------------------
+INSERT INTO [dbo].[SYS_TIMERS] ([ID], [TIMER_NAME], [ACTION_CLASS], [CRON], [JOB_STATUS], [REMARK], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1288760324837851137', N'定时同步缓存常量', N'vip.xiaonuo.sys.modular.timer.tasks.RefreshConstantsTaskRunner', N'0 0/1 * * * ?', N'1', N'定时同步sys_config表的数据到缓存常量中', N'2020-07-30 16:56:20', N'1265476890672672808', N'2020-07-30 16:58:52', N'1265476890672672808')
+GO
+
+INSERT INTO [dbo].[SYS_TIMERS] ([ID], [TIMER_NAME], [ACTION_CLASS], [CRON], [JOB_STATUS], [REMARK], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1304971718170832898', N'定时打印一句话', N'vip.xiaonuo.sys.modular.timer.tasks.SystemOutTaskRunner', N'0 0 * * * ? *', N'1', N'定时打印一句话', N'2020-09-13 10:34:37', N'1265476890672672808', N'2020-09-23 20:37:48', N'1265476890672672808')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_USER
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_USER]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_USER]
+GO
+
+CREATE TABLE [dbo].[SYS_USER] (
+  [ID] bigint  NOT NULL,
+  [ACCOUNT] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [PASSWORD] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [NICK_NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [NAME] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NOT NULL,
+  [AVATAR] bigint  NULL,
+  [BIRTHDAY] date  NULL,
+  [SEX] tinyint  NOT NULL,
+  [EMAIL] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [PHONE] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [TEL] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [LAST_LOGIN_IP] nvarchar(100) COLLATE Chinese_PRC_CI_AS  NULL,
+  [LAST_LOGIN_TIME] datetime2(0)  NULL,
+  [ADMIN_TYPE] tinyint DEFAULT ((0)) NOT NULL,
+  [STATUS] tinyint DEFAULT ((0)) NOT NULL,
+  [CREATE_TIME] datetime2(0)  NULL,
+  [CREATE_USER] bigint  NULL,
+  [UPDATE_TIME] datetime2(0)  NULL,
+  [UPDATE_USER] bigint  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_USER] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'账号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'ACCOUNT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'密码',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'PASSWORD'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'昵称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'NICK_NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'姓名',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'头像',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'AVATAR'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'生日',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'BIRTHDAY'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'性别(字典 1男 2女 3未知)',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'SEX'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'邮箱',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'EMAIL'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'手机',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'PHONE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'电话',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'TEL'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'最后登陆IP',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'LAST_LOGIN_IP'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'最后登陆时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'LAST_LOGIN_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'管理员类型（0超级管理员 1非管理员）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'ADMIN_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'状态（字典 0正常 1冻结 2删除）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'STATUS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'CREATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'创建人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'CREATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'UPDATE_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'更新人',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER',
+'COLUMN', N'UPDATE_USER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统用户表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_USER
+-- ----------------------------
+INSERT INTO [dbo].[SYS_USER] ([ID], [ACCOUNT], [PASSWORD], [NICK_NAME], [NAME], [AVATAR], [BIRTHDAY], [SEX], [EMAIL], [PHONE], [TEL], [LAST_LOGIN_IP], [LAST_LOGIN_TIME], [ADMIN_TYPE], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1265476890672672808', N'superAdmin', N'$2a$09$PiCiFNspSlTBE9CakVs8ZOqx0xa03X9wOm01gMasHch4929TpEWCC', N'超级管理员', N'超级管理员', NULL, N'2020-03-18', N'1', N'superAdmin@qq.com', N'15228937093', N'1234567890', N'110.184.43.91', N'2021-01-22 17:50:10', N'1', N'0', N'2020-05-29 16:39:28', N'-1', N'2021-01-22 17:50:10', N'-1')
+GO
+
+INSERT INTO [dbo].[SYS_USER] ([ID], [ACCOUNT], [PASSWORD], [NICK_NAME], [NAME], [AVATAR], [BIRTHDAY], [SEX], [EMAIL], [PHONE], [TEL], [LAST_LOGIN_IP], [LAST_LOGIN_TIME], [ADMIN_TYPE], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1275735541155614721', N'yubaoshan', N'$2a$10$rWns4Vzwlz4/ELVHsgFz1.JfZ93FXMjC2DMIFQLTO6kTIDOSJWpy2', N'Await', N'俞宝山', NULL, N'1992-10-03', N'1', N'await183@qq.com', N'18200001102', N'', N'110.184.43.91', N'2021-01-22 17:49:51', N'2', N'0', N'2020-06-24 18:20:30', N'1265476890672672808', N'2021-01-22 17:49:51', N'-1')
+GO
+
+INSERT INTO [dbo].[SYS_USER] ([ID], [ACCOUNT], [PASSWORD], [NICK_NAME], [NAME], [AVATAR], [BIRTHDAY], [SEX], [EMAIL], [PHONE], [TEL], [LAST_LOGIN_IP], [LAST_LOGIN_TIME], [ADMIN_TYPE], [STATUS], [CREATE_TIME], [CREATE_USER], [UPDATE_TIME], [UPDATE_USER]) VALUES (N'1280709549107552257', N'xuyuxiang', N'$2a$09$PiCiFNspSlTBE9CakVs8ZOqx0xa03X9wOm01gMasHch4929TpEWCC', N'就是那个锅', N'徐玉祥', NULL, N'2020-07-01', N'1', NULL, N'18200001100', NULL, N'110.184.43.91', N'2021-01-22 17:48:40', N'2', N'0', N'2020-07-08 11:45:26', N'1265476890672672808', N'2021-01-22 17:48:40', N'-1')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_USER_DATA_SCOPE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_USER_DATA_SCOPE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_USER_DATA_SCOPE]
+GO
+
+CREATE TABLE [dbo].[SYS_USER_DATA_SCOPE] (
+  [ID] bigint  NOT NULL,
+  [USER_ID] bigint  NOT NULL,
+  [ORG_ID] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_USER_DATA_SCOPE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_DATA_SCOPE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_DATA_SCOPE',
+'COLUMN', N'USER_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'机构id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_DATA_SCOPE',
+'COLUMN', N'ORG_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统用户数据范围表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_DATA_SCOPE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_USER_DATA_SCOPE
+-- ----------------------------
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1277459951742840834', N'1266277099455635457', N'1265476890672672770')
+GO
+
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1277459952577507330', N'1266277099455635457', N'1265476890672672773')
+GO
+
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1277459953424756737', N'1266277099455635457', N'1265476890672672775')
+GO
+
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1277459954267811841', N'1266277099455635457', N'1265476890672672774')
+GO
+
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1280712071570366466', N'1275735541155614721', N'1265476890672672769')
+GO
+
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1280712071570366467', N'1275735541155614721', N'1265476890672672771')
+GO
+
+INSERT INTO [dbo].[SYS_USER_DATA_SCOPE] ([ID], [USER_ID], [ORG_ID]) VALUES (N'1280712071578755074', N'1275735541155614721', N'1265476890672672772')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_USER_ROLE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_USER_ROLE]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_USER_ROLE]
+GO
+
+CREATE TABLE [dbo].[SYS_USER_ROLE] (
+  [ID] bigint  NOT NULL,
+  [USER_ID] bigint  NOT NULL,
+  [ROLE_ID] bigint  NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_USER_ROLE] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_ROLE',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'用户id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_ROLE',
+'COLUMN', N'USER_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'角色id',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_ROLE',
+'COLUMN', N'ROLE_ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统用户角色表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_USER_ROLE'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_USER_ROLE
+-- ----------------------------
+INSERT INTO [dbo].[SYS_USER_ROLE] ([ID], [USER_ID], [ROLE_ID]) VALUES (N'1283596900713574402', N'1275735541155614721', N'1265476890672672817')
+GO
+
+INSERT INTO [dbo].[SYS_USER_ROLE] ([ID], [USER_ID], [ROLE_ID]) VALUES (N'1283596949627547649', N'1280709549107552257', N'1265476890672672818')
+GO
+
+
+-- ----------------------------
+-- Table structure for SYS_VIS_LOG
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SYS_VIS_LOG]') AND type IN ('U'))
+	DROP TABLE [dbo].[SYS_VIS_LOG]
+GO
+
+CREATE TABLE [dbo].[SYS_VIS_LOG] (
+  [ID] bigint  NOT NULL,
+  [NAME] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL,
+  [SUCCESS] nchar(1) COLLATE Chinese_PRC_CI_AS  NULL,
+  [MESSAGE] nvarchar(max) COLLATE Chinese_PRC_CI_AS  NULL,
+  [IP] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [LOCATION] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [BROWSER] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [OS] nvarchar(255) COLLATE Chinese_PRC_CI_AS  NULL,
+  [VIS_TYPE] tinyint  NOT NULL,
+  [VIS_TIME] datetime2(0)  NULL,
+  [ACCOUNT] nvarchar(50) COLLATE Chinese_PRC_CI_AS  NULL
+)
+GO
+
+ALTER TABLE [dbo].[SYS_VIS_LOG] SET (LOCK_ESCALATION = TABLE)
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'主键',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'ID'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'名称',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'NAME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'是否执行成功（Y-是，N-否）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'SUCCESS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'具体消息',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'MESSAGE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'ip',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'IP'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'地址',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'LOCATION'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'浏览器',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'BROWSER'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作系统',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'OS'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'操作类型（字典 1登入 2登出）',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'VIS_TYPE'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'访问时间',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'VIS_TIME'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'访问账号',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG',
+'COLUMN', N'ACCOUNT'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'系统访问日志表',
+'SCHEMA', N'dbo',
+'TABLE', N'SYS_VIS_LOG'
+GO
+
+
+-- ----------------------------
+-- Records of SYS_VIS_LOG
+-- ----------------------------
+
+-- ----------------------------
+-- Primary Key structure for table SYS_APP
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_APP] ADD CONSTRAINT [PK__SYS_APP__3214EC27A0B65910] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Indexes structure for table SYS_AREA
+-- ----------------------------
+CREATE UNIQUE NONCLUSTERED INDEX [UK_CODE]
+ON [dbo].[SYS_AREA] (
+  [AREA_CODE] ASC
+)
+GO
+
+CREATE NONCLUSTERED INDEX [IDX_PARENT_CODE]
+ON [dbo].[SYS_AREA] (
+  [PARENT_CODE] ASC
+)
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_AREA
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_AREA] ADD CONSTRAINT [PK__SYS_AREA__3214EC27872379CC] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_CODE_GENERATE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_CODE_GENERATE] ADD CONSTRAINT [PK__SYS_CODE__3214EC274DD86403] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_CODE_GENERATE_CONFIG
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_CODE_GENERATE_CONFIG] ADD CONSTRAINT [PK__SYS_CODE__3214EC276313CEE8] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_CONFIG
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_CONFIG] ADD CONSTRAINT [PK__SYS_CONF__3214EC270002A1BC] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_DICT_DATA
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_DICT_DATA] ADD CONSTRAINT [PK__SYS_DICT__3214EC27016D3FAF] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_DICT_TYPE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_DICT_TYPE] ADD CONSTRAINT [PK__SYS_DICT__3214EC2769F15D75] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_EMP
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_EMP] ADD CONSTRAINT [PK__SYS_EMP__3214EC27A0026D78] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_EMP_EXT_ORG_POS
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_EMP_EXT_ORG_POS] ADD CONSTRAINT [PK__SYS_EMP___3214EC2717043D31] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_EMP_POS
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_EMP_POS] ADD CONSTRAINT [PK__SYS_EMP___3214EC27C5945F11] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_FILE_INFO
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_FILE_INFO] ADD CONSTRAINT [PK__SYS_FILE__3214EC2797AAAFD2] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_MENU
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_MENU] ADD CONSTRAINT [PK__SYS_MENU__3214EC271419F2B8] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_MESSAGE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_MESSAGE] ADD CONSTRAINT [PK__SYS_MESS__3214EC274C03508E] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_MESSAGE_USER
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_MESSAGE_USER] ADD CONSTRAINT [PK__SYS_MESS__3214EC27B798E624] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_NOTICE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_NOTICE] ADD CONSTRAINT [PK__SYS_NOTI__3214EC2739C08378] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_NOTICE_USER
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_NOTICE_USER] ADD CONSTRAINT [PK__SYS_NOTI__3214EC270886DEB5] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_OAUTH_USER
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_OAUTH_USER] ADD CONSTRAINT [PK__SYS_OAUT__3214EC27E307B58E] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_OP_LOG
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_OP_LOG] ADD CONSTRAINT [PK__SYS_OP_L__3214EC272BB1ADF2] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_ORG
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_ORG] ADD CONSTRAINT [PK__SYS_ORG__3214EC27671CAEAF] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Indexes structure for table SYS_POS
+-- ----------------------------
+CREATE UNIQUE NONCLUSTERED INDEX [CODE_UNI]
+ON [dbo].[SYS_POS] (
+  [CODE] ASC
+)
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_POS
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_POS] ADD CONSTRAINT [PK__SYS_POS__3214EC279CD95614] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_ROLE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_ROLE] ADD CONSTRAINT [PK__SYS_ROLE__3214EC275F61F0DF] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_ROLE_DATA_SCOPE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_ROLE_DATA_SCOPE] ADD CONSTRAINT [PK__SYS_ROLE__3214EC27C6374E42] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_ROLE_MENU
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_ROLE_MENU] ADD CONSTRAINT [PK__SYS_ROLE__3214EC271E1C289E] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_SMS
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_SMS] ADD CONSTRAINT [PK__SYS_SMS__3214EC2731D675AF] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_TIMERS
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_TIMERS] ADD CONSTRAINT [PK__SYS_TIME__3214EC274018BE03] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_USER
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_USER] ADD CONSTRAINT [PK__SYS_USER__3214EC27CE4FA7E0] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_USER_DATA_SCOPE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_USER_DATA_SCOPE] ADD CONSTRAINT [PK__SYS_USER__3214EC27D36839CD] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_USER_ROLE
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_USER_ROLE] ADD CONSTRAINT [PK__SYS_USER__3214EC2738963D55] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+
+
+-- ----------------------------
+-- Primary Key structure for table SYS_VIS_LOG
+-- ----------------------------
+ALTER TABLE [dbo].[SYS_VIS_LOG] ADD CONSTRAINT [PK__SYS_VIS___3214EC27D084C1E9] PRIMARY KEY CLUSTERED ([ID])
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+ON [PRIMARY]
+GO
+

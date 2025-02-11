@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jun.plugin</groupId>
-	<artifactId>jun_springboot_vue</artifactId>
+	<artifactId>jun_lowcode_layui</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 
@@ -14,7 +14,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 	<modules>
-		<module>jun_springboot_admin_vue</module>
+		<module>jun_springboot_layui</module>
 	</modules>
 
 	<dependencies>

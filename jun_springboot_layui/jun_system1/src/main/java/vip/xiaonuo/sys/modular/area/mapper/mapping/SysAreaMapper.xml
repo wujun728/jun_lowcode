@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.xiaonuo.sys.modular.area.mapper.SysAreaMapper">
+
+    <select id="list" resultType="vip.xiaonuo.sys.modular.area.entity.SysArea">
+        SELECT
+            sys_area.*,
+            ( CASE sys_area.LEVEL_CODE WHEN 4 THEN 0 ELSE 1 END ) AS haveChild
+        FROM
+            sys_area
+            ${ew.customSqlSegment}
+    </select>
+</mapper>
