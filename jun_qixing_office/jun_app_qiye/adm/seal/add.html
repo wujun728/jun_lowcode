@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>用章申请</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<form class="mbui-form" id="formBox">
+	<div class="mbui-group-title" style="padding-top:12px">用章申请</div>
+	<div class="mbui-group">
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">用章事由</label>
+			<input class="mbui-form-input" type="text" name="title" placeholder="请输入" value="" data-verify="required" data-errortips="请完善用章事由">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">印章类型</label>
+			<div class="mbui-form-select">
+				<select name="seal_cate_id" data-verify="required" data-errortips="请选择印章类型">
+					<option value="">选择印章类型</option>
+										<option value="1">合同章</option>
+										<option value="2">公章</option>
+										<option value="3">法人章</option>
+									</select>
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">用印部门</label>
+			<div class="mbui-form-select">
+				<input class="mbui-form-input picker-oa" type="text" id="department" name="department" data-url="/api/index/get_department" placeholder="请选择" value="" readonly>
+				<input type="hidden" name="did" placeholder="请选择" value="0" readonly>
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">盖章份数</label>
+			<input class="mbui-form-input" type="text" name="num" placeholder="请输入" value="" data-verify="required|number" data-errortips="请完善盖章份数，数字">
+		</div>		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">预期用印日期</label>
+			<div class="mbui-form-select date-select">
+				<input class="mbui-form-input tool-time" type="text" name="use_time" readonly placeholder="请选择" value="" data-verify="required" data-errortips="请完善预期用印日期">
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">印章是否外借</label>
+			<div class="mbui-form-radio">
+									<input class="mbui-input-radio"  type="radio" name="is_borrow" value="0" id="borrow1" title="否" checked><label for="borrow1">否</label>
+					<input class="mbui-input-radio"  type="radio" name="is_borrow" value="1" id="borrow2" title="是"><label for="borrow2">是</label>
+								</div>
+		</div>		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">印章借用日期</label>
+			<div class="mbui-form-select date-select">
+				<input class="mbui-form-input tool-time" readonly type="text" name="start_time" placeholder="请选择" value="">
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">结束借用日期</label>
+			<div class="mbui-form-select date-select">
+				<input class="mbui-form-input tool-time" readonly type="text" name="end_time" placeholder="请选择" value="">
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">备注事项</label>
+			<textarea rows="3" name="content"  class="mbui-form-input" placeholder="请输入备注事项" data-verify="required" data-errortips="请完善备注事项"></textarea>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">相关附件</label>
+			<div class="mbui-form-uploader">
+				<div class="mbui-uploader-btn-border" id="uploadBtn"><i class="iconfont icon-shangchuan"></i></div>
+			</div>
+			<div id="uploadBox" class="mbui-file-list" style="padding:0 12px 2px;">
+				<input data-type="file" name="file_ids" type="hidden" value="">
+							</div>
+		</div>
+	</div>
+	
+	<div id="checkBox" data-status="0" data-id="0" data-checkflowid="0"></div>
+	
+	<div class="padding-16 center">
+		<input type="hidden" name="id" value="0">
+		<button class="mbui-btn mbui-btn-100" data-event="submit">保存并提交审核</button>
+	</div>
+</form>
+	
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">		
+		const moduleInit = ['tool','form','layer','userPicker','fileupload','picker','oaCheck'];
+		function mbuiInit() {
+			let tool = mbui.tool,form= mbui.form,layer=mbui.layer,fileupload=mbui.fileupload,oaCheck=mbui.oaCheck,picker=mbui.picker;
+			
+			oaCheck.init({
+				check_name:'seal',
+				check_btn:0
+			});
+					
+			//附件上传
+			fileupload();
+  
+			//表单提交
+			form({
+				submit:function(data){
+					let callback = function (e) {
+						layer.msg(e.msg);
+						if (e.code == 0) {
+							let checkCallback = function (e) {
+								//layer.msg(e.msg);
+								if (e.code == 0) {
+									tool.replace('/qiye/approve/mylist',2000);			
+								}
+							}
+							data.check_name = 'seal';
+							data.action_id = e.data.return_id;
+							oaCheck.submit(data,checkCallback);
+						}
+					}
+					if (data.is_borrow==1 && data.start_time == '') {
+						layer.msg('请完善印章借用日期');
+						return false;
+					}
+					if (data.is_borrow==1 && data.end_time == '') {
+						layer.msg('请完善结束借用日期');
+						return false;
+					}
+					tool.post("/adm/seal/add", data, callback);
+					return false;
+				}
+			});
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

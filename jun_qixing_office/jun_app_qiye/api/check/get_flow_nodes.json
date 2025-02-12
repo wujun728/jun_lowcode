@@ -1,0 +1,23 @@
+{
+    "code": 0,
+    "msg": "",
+    "action": "",
+    "url": "",
+    "data": [
+        {
+            "id": 1,
+            "title": "请假审批",
+            "cate_id": 1,
+            "check_type": 1,
+            "department_ids": "",
+            "copy_uids": "",
+            "flow_list": "",
+            "status": 1,
+            "remark": "",
+            "admin_id": 1,
+            "create_time": 1723791655,
+            "update_time": 0,
+            "delete_time": 0
+        }
+    ]
+}

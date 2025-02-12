@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>报销申请</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<form class="mbui-form" id="formBox">
+	<div class="mbui-group-title" style="padding-top:12px">报销申请</div>
+	<div class="mbui-list">
+		<div class="mbui-list-bd">报销员工</div>
+		<div class="mbui-list-ft">素还真</div>
+    </div>
+	<div class="mbui-list">
+		<div class="mbui-list-bd">报销部门</div>
+		<div class="mbui-list-ft">人事部</div>
+    </div>
+	<div class="mbui-group">
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">报销主体</label>
+			<div class="mbui-form-select">
+				<select name="subject_id" data-verify="required" data-errortips="请选择报销主体">
+					<option value="">请选择报销主体</option>
+										<option value="1">勾股信息科技有限公司</option>
+									</select>
+			</div>
+		</div>
+				<div class="mbui-form-line">
+			<label class="mbui-form-label">凭证编号</label>
+			<input class="mbui-form-input" type="text" name="code" placeholder="请输入" readonly value="3202502111633385" data-verify="required" data-errortips="请完善凭证编号">
+		</div>
+				<div class="mbui-form-line">
+			<label class="mbui-form-label">单据日期</label>
+			<div class="mbui-form-select date-select">
+				<input class="mbui-form-input tool-time" type="text" readonly name="expense_time" placeholder="请选择" value="" data-verify="required" data-errortips="请完善单据日期">
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">入账月份</label>
+			<input class="mbui-form-input tool-time" data-type="month" type="text" name="income_month" placeholder="请输入" value="" data-verify="required" data-errortips="请完善入账月份">
+		</div>	
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">关联项目</label>
+			<div class="mbui-form-select">
+				<input class="mbui-form-input picker-oa" type="text" name="project" data-url="/project/api/get_project" placeholder="请选择" value="" readonly>
+				<input type="hidden" name="project_id" value="0">	
+			</div>
+		</div>
+		
+		<div id="expenseBox">
+						<div class="expense-box">
+				<div class="mbui-section-title">报销明细<span class="text-red del-item">删除</span></div>	
+				<div class="mbui-form-line">
+					<label class="mbui-form-label">报销项目</label>
+					<div class="mbui-form-select">
+						<select name="cate_id[]" data-verify="required" data-errortips="请选择报销项目">
+							<option value="">选择报销项目</option>
+														<option value="1">交通费</option>
+														<option value="2">住宿费</option>
+														<option value="3">餐补费</option>
+														<option value="4">招待费</option>
+														<option value="5">汽油费</option>
+														<option value="6">其他费</option>
+													</select>
+					</div>
+				</div>
+				<div class="mbui-form-line">
+					<label class="mbui-form-label">报销金额</label>
+					<input class="mbui-form-input" type="text" name="amount[]" placeholder="请输入" value="" data-verify="required|number" data-errortips="请完善报销金额，数字">
+				</div>
+				<div class="mbui-form-line">
+					<label class="mbui-form-label">备注说明</label>
+					<input class="mbui-form-input" type="text" name="remarks[]" placeholder="请输入" value="">
+					<input type="hidden" name="expense_id[]" value="0">
+				</div>	
+			</div>
+					</div>
+		
+		<div class="padding-12 text-blue" id="addNew"><i class="iconfont icon-add"></i> 添加明细</div>
+
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">相关附件</label>
+			<div class="mbui-form-uploader">
+				<div class="mbui-uploader-btn-border" id="uploadBtn"><i class="iconfont icon-shangchuan"></i></div>
+			</div>
+			<div id="uploadBox" class="mbui-file-list" style="padding:0 12px 2px;">
+				<input data-type="file" name="file_ids" type="hidden" value="">
+							</div>
+		</div>
+	</div>
+	
+	<div id="checkBox" data-status="0" data-id="0" data-checkflowid="0"></div>
+	
+	<div class="padding-16 center">
+		<input type="hidden" name="id" value="0">
+		<button class="mbui-btn mbui-btn-100" data-event="submit">保存并提交审核</button>
+	</div>
+</form>
+
+<div id="expenseItem" style="display:none;">
+	<div class="expense-box">
+		<div class="mbui-section-title">报销明细<span class="text-red del-item">删除</span></div>	
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">报销项目</label>
+			<div class="mbui-form-select">
+				<select name="cate_id[]" data-verify="required" data-errortips="请选择报销项目">
+					<option value="">选择报销项目</option>
+										<option value="1">交通费</option>
+										<option value="2">住宿费</option>
+										<option value="3">餐补费</option>
+										<option value="4">招待费</option>
+										<option value="5">汽油费</option>
+										<option value="6">其他费</option>
+									</select>
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">报销金额</label>
+			<input class="mbui-form-input" type="text" name="amount[]" placeholder="请输入" value="" data-verify="required|number" data-errortips="请完善报销金额，数字">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">备注说明</label>
+			<input class="mbui-form-input" type="text" name="remarks[]" placeholder="请输入" value="">
+			<input type="hidden" name="expense_id[]" value="0">
+		</div>	
+	</div>	
+</div>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">	
+		const moduleInit = ['tool','form','layer','userPicker','fileupload','picker','oaCheck'];
+		function mbuiInit() {
+			let tool = mbui.tool,form= mbui.form,layer=mbui.layer,fileupload=mbui.fileupload,oaCheck=mbui.oaCheck,picker=mbui.picker;
+			
+			oaCheck.init({
+				check_name:'expense',
+				check_btn:0
+			});
+			
+			$('#addNew').on('click',function(){
+				$('#expenseBox').append($('#expenseItem').html());
+			})
+			
+			$('#expenseBox').on('click','.del-item',function(){
+				let item = $('#expenseBox').find('.expense-box');
+				if(item.length>1){
+					$(this).parents('.expense-box').remove();
+				}
+				else{
+					layer.msg('至少保留一个报销明细');
+				}
+			})
+			
+			//附件上传
+			fileupload();
+  
+			//表单提交
+			form({
+				submit:function(data){
+					let callback = function (e) {
+						layer.msg(e.msg);
+						if (e.code == 0) {
+							let checkCallback = function (e) {
+								//layer.msg(e.msg);
+								if (e.code == 0) {
+									tool.replace('/qiye/approve/mylist',2000);			
+								}
+							}
+							data.check_name = 'expense';
+							data.action_id = e.data.return_id;
+							oaCheck.submit(data,checkCallback);
+						}
+					}
+					
+					tool.post("/finance/expense/add", data, callback);
+					return false;
+				}
+			});
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>无发票回款申请</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<form class="mbui-form" id="formBox">
+	<div class="mbui-group-title" style="padding-top:12px">无发票回款申请</div>
+	<div class="mbui-group">
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">回款金额</label>
+			<input class="mbui-form-input" type="text" name="amount" placeholder="请输入" value="" data-verify="required|number" data-errortips="请完善回款金额,数字">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">回款主体</label>
+			<div class="mbui-form-select">
+				<select name="invoice_subject" data-verify="required" data-errortips="请选择回款主体">
+					<option value="">请选择回款主体</option>
+										<option value="1">勾股信息科技有限公司</option>
+									</select>
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">付款人类型</label>
+			<div class="mbui-form-radio">
+									<input class="mbui-input-radio"  type="radio" name="types" value="1" id="types1" title="企业" checked><label for="types1">企业</label>
+					<input class="mbui-input-radio"  type="radio" name="types" value="2" id="types2" title="个人" ><label for="types2">个人</label>
+								</div>
+		</div>		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">付款方<span class="customer-picker mbui-btn xs types-1" style="padding:0 5px; vertical-align:top;">选择</span></label>
+			<input class="mbui-form-input" type="text" id="invoice_title" name="invoice_title" placeholder="请输入" value="" data-verify="required" data-errortips="请完善付款方,个人输入姓名">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">纳税人识别号</label>
+			<input class="mbui-form-input" type="text" id="invoice_tax" name="invoice_tax" placeholder="请输入" value="">
+		</div>
+		<div class="mbui-form-line types-1">
+			<label class="mbui-form-label">开户行</label>
+			<input class="mbui-form-input" type="text" id="invoice_bank" name="invoice_bank" placeholder="请输入" value="">
+		</div>
+		<div class="mbui-form-line types-1">
+			<label class="mbui-form-label">银行账号</label>
+			<input class="mbui-form-input" type="text" id="invoice_account" name="invoice_account" placeholder="请输入" value="">
+		</div>
+		<div class="mbui-form-line types-1">
+			<label class="mbui-form-label">银行营业网点</label>
+			<input class="mbui-form-input" type="text" id="invoice_banking" name="invoice_banking" placeholder="请输入" value="">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">电话号码</label>
+			<input class="mbui-form-input" type="text" id="invoice_phone" name="invoice_phone" placeholder="请输入" value="">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">地址</label>
+			<input class="mbui-form-input" type="text" id="invoice_address" name="invoice_address" placeholder="请输入" value="">
+		</div>
+		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">关联合同</label>
+			<div class="mbui-form-select">
+				<input class="mbui-form-input picker-oa" type="text" id="contract" name="contract" data-url="/contract/api/get_contract" data-field="name" placeholder="请选择" value="" readonly>
+				<input type="hidden" name="contract_id" value="0">	
+			</div>
+		</div>
+		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">关联项目</label>
+			<div class="mbui-form-select">
+				<input class="mbui-form-input picker-oa" type="text" id="project" name="project" data-url="/project/api/get_project" placeholder="请选择" value="" readonly>
+				<input type="hidden" name="project_id" value="0">	
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">备注信息</label>
+			<textarea rows="3" name="remark" class="mbui-form-input" placeholder="请输入"></textarea>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">相关附件</label>
+			<div class="mbui-form-uploader">
+				<div class="mbui-uploader-btn-border" id="uploadBtn"><i class="iconfont icon-shangchuan"></i></div>
+			</div>
+			<div id="uploadBox" class="mbui-file-list" style="padding:0 12px 2px;">
+				<input data-type="file" name="file_ids" type="hidden" value="">
+							</div>
+		</div>
+	</div>
+	
+	<div id="checkBox" data-status="0" data-id="0" data-checkflowid="0"></div>
+	
+	<div class="padding-16 center">
+		<input type="hidden" name="id" value="0">
+		<button class="mbui-btn mbui-btn-100" data-event="submit">保存并提交审核</button>
+	</div>
+</form>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">	
+		const moduleInit = ['tool','form','layer','userPicker','fileupload','picker','oaCheck'];
+		function mbuiInit() {
+			let tool = mbui.tool,form= mbui.form,layer=mbui.layer,fileupload=mbui.fileupload,oaCheck=mbui.oaCheck,picker=mbui.picker;
+			
+			oaCheck.init({
+				check_name:'invoicea',
+				check_btn:0
+			});
+			
+			//附件上传
+			fileupload();
+			
+			$('body').on('click', '.customer-picker', function () {
+				let elem = 'invoice_title',loading;
+				$.ajax({
+					url: '/customer/api/get_customer',
+					type: 'get',
+					data:{limit:999999},
+					beforeSend:function(){
+						loading = layer.loading('加载中...');
+					},
+					success: function (e) {
+						if (e.code == 0) {
+							let pickerData = e.data;
+							picker.init({
+								elem: $('#invoice_title'), // 绑定元素
+								data: [pickerData],
+								textField: 'name',
+								valueField: 'id',
+								search:true,
+								onSuccess: function(index, elem){ // 渲染成功回调
+									picker.show(index);
+								},
+								onClear: function(index){
+									$('#invoice_title').val('').attr('readonly', false);
+									picker.remove(index);
+								},
+								onConfirm: function(index, val, result){ // 点击确认回调
+									if(result.length>0){
+										$('#invoice_title').val(result[0].name);
+										$('#invoice_tax').val(result[0].tax_num);
+										$('#invoice_bank').val(result[0].tax_bank);
+										$('#invoice_account').val(result[0].tax_banksn);
+										$('#invoice_phone').val(result[0].tax_mobile);
+										$('#invoice_address').val(result[0].tax_address);
+									}
+									$('#invoice_title').attr('readonly', false);
+									picker.remove(index);
+								},
+								onCancel: function(index){ // 点击取消回调
+									$('#invoice_title').attr('readonly', false);
+									picker.remove(index);
+								},
+								onShade: function(index){ // 点击遮罩回调
+									$('#invoice_title').attr('readonly', false);
+									picker.remove(index);
+								}
+							});
+						}
+					},
+					complete:function(){
+						layer.close(loading);
+					}
+				})
+				return false;
+			});
+  
+			$('body').on('change','[name="types"]',function(){
+				let val=$(this).val();
+				if(val==1){
+					$('.types-1').show();
+				}
+				else{
+					$('.types-1').hide();
+				}
+			})
+  
+			//表单提交
+			form({
+				submit:function(data){
+					let callback = function (e) {
+						layer.msg(e.msg);
+						if (e.code == 0) {
+							let checkCallback = function (e) {
+								//layer.msg(e.msg);
+								if (e.code == 0) {
+									tool.replace('/qiye/approve/mylist',2000);			
+								}
+							}
+							data.check_name = 'invoicea';
+							data.action_id = e.data.return_id;
+							oaCheck.submit(data,checkCallback);
+						}
+					}
+					
+					tool.post("/finance/invoice/add_a", data, callback);
+					return false;
+				}
+			});
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

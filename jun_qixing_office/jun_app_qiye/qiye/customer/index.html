@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>客户管理</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+		html,body {overflow:hidden;}
+		#root {position:absolute; top:0;left:0;right:0;bottom:0; overflow-y:auto;-webkit-overflow-scrolling: touch; overflow-scrolling: touch;}
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<div style="padding:12px 12px 8px;">
+	<div class="mbui-grid">
+		<div class="mbui-grid-title">客户中心</div>
+		<div class="mbui-grid-box clearfix">
+			<a href="/qiye/customer/datalist?tab=1" class="mbui-grid-item">
+				我的客户
+				<span class="mbui-grid-item-mun">178</span>
+			</a>
+			<a href="/qiye/customer/datalist?tab=2" class="mbui-grid-item">
+				下属客户
+				<span class="mbui-grid-item-mun">71</span>
+			</a>
+			<a href="/qiye/customer/datalist?tab=3" class="mbui-grid-item">
+				共享客户
+				<span class="mbui-grid-item-mun">2</span>
+			</a>
+		</div>
+	</div>
+</div>
+<div style="padding:8px 12px;">
+	<div class="mbui-grid">
+		<div class="mbui-grid-title">常用功能</div>
+		<div class="mbui-grid-box clearfix">
+			<a href="/qiye/customer/rush" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon"><i class="iconfont icon-qiangke"></i></span>
+				抢客宝
+			</a>
+			<a href="/qiye/customer/sea" class="mbui-grid-item">
+			   <span class="mbui-grid-item-icon"><i class="iconfont icon-gonghaikehu"></i></span>
+				公海客户
+			</a>
+			<a href="/qiye/customer/trash" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon"><i class="iconfont icon-feiqikehu"></i></span>
+				废弃客户
+			</a>
+		</div>
+	</div>
+</div>
+
+<div style="padding:8px 12px;">
+	<div class="mbui-grid">
+		<div class="mbui-grid-title">联系跟进</div>
+		<div class="mbui-grid-box clearfix">
+			<a href="/qiye/customer/contact" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon"><i class="iconfont icon-kehulianxiren"></i></span>
+				客户联系人
+			</a>
+			<a href="/qiye/customer/chance" class="mbui-grid-item">
+			   <span class="mbui-grid-item-icon"><i class="iconfont icon-jihuixiansuo"></i></span>
+				机会线索
+			</a>
+			<a href="/qiye/customer/trace" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon"><i class="iconfont icon-genjinjilu1"></i></span>
+				跟进记录
+			</a>
+		</div>
+	</div>
+</div>
+<div style="height:60px;"></div>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<footer class="mbui-bar bar-fixed">
+	    <a href="/qiye/index/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-gongzuotai1"></i></span>
+        <span>工作台</span>
+    </a>
+	    <a href="/qiye/customer/index" class="mbui-bar-item active">
+        <span class="mbui-bar-icon"><i class="iconfont icon-kehu"></i></span>
+        <span>客户</span>
+    </a>
+	    <a href="/qiye/contract/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-hetong2"></i></span>
+        <span>合同</span>
+    </a>
+	    <a href="/qiye/project/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-xiangmu1"></i></span>
+        <span>项目</span>
+    </a>
+	    <a href="/qiye/msg/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-xiaoxi1"></i></span>
+        <span>消息</span>
+    </a>
+	</footer>
+	<script type="text/javascript">			
+		const moduleInit = ['layer'];
+		function mbuiInit() {
+			let tool = mbui.tool,layer=mbui.layer;	
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

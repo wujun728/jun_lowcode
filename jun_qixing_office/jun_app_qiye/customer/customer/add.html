@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>新增客户</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<form class="mbui-form" id="formBox">
+	<div class="mbui-group-title" style="padding-top:12px">新增客户</div>
+	<div class="mbui-group">
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">客户名称<i>*</i></label>
+			<input class="mbui-form-input" type="text" name="name" placeholder="请输入" value="" data-verify="required" data-errortips="请完善客户名称">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">联系地址<i>*</i></label>
+			<input class="mbui-form-input" type="text" name="address" placeholder="请输入" value="" data-verify="required" data-errortips="请完善联系地址">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">客户来源<i>*</i></label>
+			<div class="mbui-form-select">
+				<select name="source_id" data-verify="required" data-errortips="请选择客户来源">
+					<option value="">选择客户来源</option>
+										<option value="1">独立开发</option>
+										<option value="2">微信公众号</option>
+										<option value="3">今日头条</option>
+										<option value="4">百度搜索</option>
+										<option value="5">销售活动</option>
+										<option value="6">电话来访</option>
+										<option value="7">客户介绍</option>
+										<option value="8">其他来源</option>
+									</select>
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">所属行业<i>*</i></label>
+			<div class="mbui-form-select">
+				<select name="industry_id" data-verify="required" data-errortips="请选择所属行业">
+					<option value="">选择所属行业</option>
+										<option value="1">工业品企业</option>
+										<option value="2">互联网企业</option>
+										<option value="3">服务行业</option>
+										<option value="4">消费品企业</option>
+										<option value="5">原材料企业</option>
+										<option value="6">农业企业</option>
+										<option value="7">科技企业</option>
+										<option value="8">其他行业</option>
+									  </select>
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">客户等级<i>*</i></label>
+			<div class="mbui-form-select">
+				<select name="grade_id" data-verify="required" data-errortips="请选择客户等级">
+					<option value="">选择客户等级</option>
+										<option value="1">普通客户</option>
+										<option value="2">VIP客户</option>
+								  </select>
+			</div>
+		</div>
+		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">客户介绍<i>*</i></label>
+			<textarea rows="3" name="content" class="mbui-form-input" placeholder="请输入" data-verify="required" data-errortips="请完善客户介绍"></textarea>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">经营业务</label>
+			<textarea rows="3" name="market" class="mbui-form-input" placeholder="请输入"></textarea>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">备注信息</label>
+			<textarea rows="3" name="remark" class="mbui-form-input" placeholder="请输入"></textarea>
+		</div>
+	</div>
+	
+	<div class="mbui-group-title">首要联系人</div>
+	<div class="mbui-group">
+		<div class="mbui-form-line types-1">
+			<label class="mbui-form-label">联系人<i>*</i></label>
+			<input class="mbui-form-input" type="text" name="c_name" placeholder="请输入" value="" data-verify="required" data-errortips="请完善联系人">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">联系电话<i>*</i></label>
+			<input class="mbui-form-input" type="text" name="c_mobile" placeholder="请输入" value="" data-verify="required" data-errortips="请完善联系电话">
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">性别<i>*</i></label>
+			<div class="mbui-form-radio">
+				<input class="mbui-input-radio"  type="radio" name="c_sex" value="1" id="c_sex1" title="男" checked><label for="c_sex1">男</label>
+				<input class="mbui-input-radio"  type="radio" name="c_sex" value="2" id="c_sex1" title="女"><label for="c_sex1">女</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="padding-16 center">
+		<input type="hidden" name="id" value="0">
+		<input type="hidden" name="belong_uid" value="2">
+		<input type="hidden" name="belong_did" value="2">
+		<input type="hidden" name="c_email" value="">
+		<input type="hidden" name="c_wechat" value="">
+		<input type="hidden" name="c_qq" value="">
+		<input type="hidden" name="scene" value="add"/>
+		<button class="mbui-btn mbui-btn-100" data-event="submit">提交保存</button>
+	</div>
+</form>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">	
+		const moduleInit = ['tool','form','layer'];
+		function mbuiInit() {
+			let tool = mbui.tool,form= mbui.form,layer=mbui.layer;
+  
+			//表单提交
+			form({
+				submit:function(data){
+					if(!data.c_sex){
+						layer.msg('请完善首要联系人性别');
+						return false;
+					}
+					let callback = function (e) {
+						layer.msg(e.msg);
+						if (e.code == 0) {
+							tool.replace('/qiye/customer/datalist',2000);		
+						}
+					}					
+					tool.post("/customer/customer/add", data, callback);
+					return false;
+				}
+			});
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

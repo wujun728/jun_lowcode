@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>客户中心</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<div class="note-channel">
+    <div class="mbui-tab">
+        <ul class="mbui-tab-title">
+			<li >
+                <a class="link-a" href="javascript:;" data-href="/qiye/customer/datalist?tab=0">全部</a>
+            </li>
+            <li  class="active" >
+                <a class="link-a" href="javascript:;" data-href="/qiye/customer/datalist?tab=1">我的客户</a>
+            </li>
+			<li >
+                 <a class="link-a" href="javascript:;" data-href="/qiye/customer/datalist?tab=2">下属客户</a>
+            </li>
+            <li >
+                 <a class="link-a" href="javascript:;" data-href="/qiye/customer/datalist?tab=3">共享客户</a>
+            </li>
+        </ul>
+    </div>
+	<div id="listBox" class="load-data-list"></div>
+</div>
+<div class="mbui-new-add"><a href="/customer/customer/add" title="新增客户" data-event="menu"><i class="iconfont icon-addnew"></i></a></div>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">
+		const tab = 1;
+		const moduleInit = ['tool','loadData'];
+		function mbuiInit() {
+			let tool = mbui.tool,loadData=mbui.loadData;
+			loadData({
+				url:'/customer/customer/datalist',
+				where:{tab:tab},
+				template:function(data){
+					var listItem = '<a href="/customer/customer/view/id/'+data.id+'.html" class="border-bottom">\
+								<dl class="clearfix">\
+									<dt class="f16">'+data.name+'</dt>\
+									<dd class="f13"><span class="load-data-span"><i>联 系 人：</i>'+data.contact_name+'</span><span class="load-data-span"><i>联系电话：</i>'+data.contact_mobile+'</span></dd>\
+									<dd class="f13"><span class="load-data-span"><i>所属员工：</i>'+data.belong_name+'</span><span class="load-data-span"><i>所属部门：</i>'+data.belong_department+'</span></dd>\
+								</dl>\
+							</a>';
+					return listItem;
+				}	
+			});
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

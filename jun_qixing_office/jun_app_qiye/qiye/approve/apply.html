@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>审批申请</title>		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+<style>
+html,body {overflow:hidden;}
+#root {position:absolute; top:0;left:0;right:0;bottom:0; overflow-y:auto;-webkit-overflow-scrolling: touch; overflow-scrolling: touch;}
+.apply-channel{padding:12px 12px 0;}
+.col-row:after, .layui-row:before {content: ""; display: block; clear: both;}
+.col-md4 { width: 33.33333333%;float: left;position: relative;display: block; box-sizing: border-box;}
+.col-square{margin-bottom:12px;border-radius:6px;}
+.col-square .col-header{height:40px; line-height:40px; padding-left:10px; color:var(--color-gray-400);}
+.col-square .col-md4{border: 1px solid var(--color-gray-200); cursor:pointer;}
+.col-square .col-md4 a{padding:12px 0 15px; display:block; text-align:center; color:var(--color-gray-500); font-size:15px;}
+.col-square .col-md4 i{font-size:28px; width:28px; height:28px; line-height:28px; font-weight:800; display: block; margin: 10px auto; color:var(--color-blue-600)}
+.col-square .col-md4:nth-child(3n-1),.col-square .col-md4:nth-child(3n-2){border-left:0;}
+.col-square .col-md4:nth-child(3n){border-left:0;border-right:0;}
+.col-square .col-md4:nth-child(n+4){margin-top: -1px;}
+.mbui-bar .mbui-bar-item:nth-child(1){color: var(--color-blue-600);}
+</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<div class="apply-channel">
+			<div class="col-square bg-white clearfix">
+			<div class="col-header">假勤</div>
+			<div class="col-row">
+									<div class="col-md4" data-href="/home/leaves/add" title="请假"><a href="/home/leaves/add"><i class="iconfont icon-kechengziyuanguanli"></i>请假</a></div>	
+									<div class="col-md4" data-href="/home/trips/add" title="出差"><a href="/home/trips/add"><i class="iconfont icon-jiaoshiguanli"></i>出差</a></div>	
+									<div class="col-md4" data-href="/home/outs/add" title="外出"><a href="/home/outs/add"><i class="iconfont icon-tuiguangguanli"></i>外出</a></div>	
+									<div class="col-md4" data-href="/home/overtimes/add" title="加班"><a href="/home/overtimes/add"><i class="iconfont icon-xueshengchengji"></i>加班</a></div>	
+							</div>
+		</div>
+					<div class="col-square bg-white clearfix">
+			<div class="col-header">行政</div>
+			<div class="col-row">
+									<div class="col-md4" data-href="/adm/seal/add" title="用章"><a href="/adm/seal/add"><i class="iconfont icon-shenpishezhi"></i>用章</a></div>	
+									<div class="col-md4" data-href="/adm/official/add" title="公文"><a href="/adm/official/add"><i class="iconfont icon-lunwenguanli"></i>公文</a></div>	
+							</div>
+		</div>
+						<div class="col-square bg-white clearfix">
+			<div class="col-header">财务</div>
+			<div class="col-row">
+									<div class="col-md4" data-href="/finance/expense/add" title="报销"><a href="/finance/expense/add"><i class="iconfont icon-jizhang"></i>报销</a></div>	
+									<div class="col-md4" data-href="/finance/invoice/add" title="发票"><a href="/finance/invoice/add"><i class="iconfont icon-duizhangdan"></i>发票</a></div>	
+									<div class="col-md4" data-href="/finance/ticket/add" title="收票"><a href="/finance/ticket/add"><i class="iconfont icon-yingjiaoqingdan"></i>收票</a></div>	
+									<div class="col-md4" data-href="/finance/invoice/add_a" title="无发票回款"><a href="/finance/invoice/add_a"><i class="iconfont icon-shoufeipeizhi"></i>无发票回款</a></div>	
+									<div class="col-md4" data-href="/finance/ticket/add_a" title="无发票付款"><a href="/finance/ticket/add_a"><i class="iconfont icon-bulujiesuan"></i>无发票付款</a></div>	
+							</div>
+		</div>
+					</div>
+<div style="height:60px;"></div>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+
+<footer class="mbui-bar bar-fixed">
+	    <a href="/qiye/index/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-gongzuotai1"></i></span>
+        <span>工作台</span>
+    </a>
+	    <a href="/qiye/customer/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-kehu"></i></span>
+        <span>客户</span>
+    </a>
+	    <a href="/qiye/contract/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-hetong2"></i></span>
+        <span>合同</span>
+    </a>
+	    <a href="/qiye/project/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-xiangmu1"></i></span>
+        <span>项目</span>
+    </a>
+	    <a href="/qiye/msg/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-xiaoxi1"></i></span>
+        <span>消息</span>
+    </a>
+	</footer>
+<script>
+
+</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

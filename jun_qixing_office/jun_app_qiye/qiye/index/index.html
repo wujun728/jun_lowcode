@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>工作台</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+		html,body {overflow:hidden;}
+		#root {position:absolute; top:0;left:0;right:0;bottom:0; overflow-y:auto;-webkit-overflow-scrolling: touch; overflow-scrolling: touch;}
+		.mobile-menu{padding:6px 12px;}
+		.mobile-menu-span{height:66px;}
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<div style="padding:12px 12px 6px;">
+	<div class="mbui-flex-panel bg-white padding-12 radius-6">
+		<div class="mbui-flex-avatar">
+			<div class="mbui-flex-avatar-img"><img src="/storage/202501/rvj9q_ecd300aebfdc764203cff7ebd23a1b0a.jpg"></div>
+		</div>
+		<div class="mbui-flex-content">
+			<div class="mbui-flex-title">
+				素还真 <a href="/qiye/login/login_out" class="mbui-text-blue f12">『退出登录』</a>
+			</div>
+			<div class="mbui-flex-description">
+				<p><span class="mbui-text-grey">部门：</span>人事部</p>
+				<p>
+					<span class="mbui-text-grey">岗位：</span>					<span class="check-status-color-1">
+					『正式员工』					</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="mobile-menu">
+	<div class="mbui-grid grid-4 mbui-grid-bg">
+		<div class="mbui-grid-title">办公审批</div>
+		<div class="mbui-grid-box clearfix">
+						<a href="/qiye/approve/apply" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-blue"><i class="iconfont icon-shenpi"></i></span>
+				审批申请			</a>
+						<a href="/qiye/approve/mylist" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-blue"><i class="iconfont icon-wodeshenpi1"></i></span>
+				我申请的			</a>
+						<a href="/qiye/approve/checklist" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-blue"><i class="iconfont icon-chulishenpi"></i></span>
+				我处理的			</a>
+						<a href="/qiye/approve/copylist" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-blue"><i class="iconfont icon-chaosong"></i></span>
+				抄送给我			</a>
+					</div>
+	</div>
+</div>
+<div class="mobile-menu">
+	<div class="mbui-grid grid-4 mbui-grid-bg">
+		<div class="mbui-grid-title">效率工具</div>
+		<div class="mbui-grid-box clearfix">
+						<a href="/qiye/index/calendar" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-green"><i class="iconfont icon-richeng"></i></span>
+				日程安排			</a>
+						<a href="/qiye/index/schedule" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-green"><i class="iconfont icon-jilu"></i></span>
+				工作记录			</a>
+						<a href="/qiye/index/work" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-green"><i class="iconfont icon-huibao"></i></span>
+				工作汇报			</a>
+					</div>
+	</div>
+</div>
+<div class="mobile-menu">
+	<div class="mbui-grid grid-4 mbui-grid-bg">
+		<div class="mbui-grid-title">内部管理</div>
+		<div class="mbui-grid-box clearfix">
+						<a href="/qiye/index/note" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-yellow"><i class="iconfont icon-gonggaotongzhi"></i></span>
+				公告通知			</a>
+						<a href="/qiye/index/news" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-yellow"><i class="iconfont icon-gongsixinwen"></i></span>
+				公司新闻			</a>
+						<a href="/qiye/index/meeting" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-yellow"><i class="iconfont icon-huiyijiyao"></i></span>
+				会议纪要			</a>
+					</div>
+	</div>
+</div>
+<div class="mobile-menu">
+	<div class="mbui-grid grid-4 mbui-grid-bg">
+		<div class="mbui-grid-title">财务管理</div>
+		<div class="mbui-grid-box clearfix">
+						<a href="/qiye/finance/expense" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-purple"><i class="iconfont icon-a-baoxiao3"></i></span>
+				报销管理			</a>
+						<a href="/qiye/finance/invoice" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-purple"><i class="iconfont icon-kaipiao"></i></span>
+				开票管理			</a>
+						<a href="/qiye/finance/ticket" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-purple"><i class="iconfont icon-shoupiao"></i></span>
+				收票管理			</a>
+						<a href="/qiye/finance/income" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-purple"><i class="iconfont icon-huikuan"></i></span>
+				回款管理			</a>
+						<a href="/qiye/finance/payment" class="mbui-grid-item">
+				<span class="mbui-grid-item-icon bg-purple"><i class="iconfont icon-fukuan"></i></span>
+				付款管理			</a>
+					</div>
+	</div>
+</div>
+	
+<div class="mobile-menu-span"></div>
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<footer class="mbui-bar bar-fixed">
+	    <a href="/qiye/index/index" class="mbui-bar-item active">
+        <span class="mbui-bar-icon"><i class="iconfont icon-gongzuotai1"></i></span>
+        <span>工作台</span>
+    </a>
+	    <a href="/qiye/customer/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-kehu"></i></span>
+        <span>客户</span>
+    </a>
+	    <a href="/qiye/contract/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-hetong2"></i></span>
+        <span>合同</span>
+    </a>
+	    <a href="/qiye/project/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-xiangmu1"></i></span>
+        <span>项目</span>
+    </a>
+	    <a href="/qiye/msg/index" class="mbui-bar-item ">
+        <span class="mbui-bar-icon"><i class="iconfont icon-xiaoxi1"></i></span>
+        <span>消息</span>
+    </a>
+	</footer>
+	<script type="text/javascript">			
+		const moduleInit = ['layer'];
+		function mbuiInit() {
+			let tool = mbui.tool,layer=mbui.layer;	
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

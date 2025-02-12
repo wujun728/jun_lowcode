@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>加班申请</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=2;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+<form class="mbui-form" id="formBox">
+	<div class="mbui-group-title" style="padding-top:12px">加班申请</div>
+	<div class="mbui-group">
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">开始时间</label>
+			<div class="mbui-form-select date-select">
+				<input class="mbui-form-input tool-time" type="text" name="start_date" data-type="datetime" readonly placeholder="请选择" value="" data-verify="required" data-errortips="请完善加班开始时间">
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">结束时间</label>
+			<div class="mbui-form-select date-select">
+				<input class="mbui-form-input tool-time" type="text" name="end_date" data-type="datetime" readonly placeholder="请选择" value="" data-verify="required" data-errortips="请完善加班结束时间">
+			</div>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">加班时长</label>
+			<input class="mbui-form-input" type="text" name="duration" placeholder="请输入" value="" data-verify="required|number" data-errortips="请完善加班时长">
+		</div>
+		
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">加班事由</label>
+			<textarea rows="3" name="reason" class="mbui-form-input" placeholder="请输入加班事由" data-verify="required" data-errortips="请完善加班事由"></textarea>
+		</div>
+		<div class="mbui-form-line">
+			<label class="mbui-form-label">相关附件</label>
+			<div class="mbui-form-uploader">
+				<div class="mbui-uploader-btn-border" id="uploadBtn"><i class="iconfont icon-shangchuan"></i></div>
+			</div>
+			<div id="uploadBox" class="mbui-file-list" style="padding:0 12px 2px;">
+				<input data-type="file" name="file_ids" type="hidden" value="">
+							</div>
+		</div>
+	</div>
+	
+	<div id="checkBox" data-status="0" data-id="0" data-checkflowid="0"></div>
+	
+	<div class="padding-16 center">
+		<input type="hidden" name="id" value="0">
+		<button class="mbui-btn mbui-btn-100" data-event="submit">保存并提交审核</button>
+	</div>
+</form>
+	
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">	
+		const moduleInit = ['tool','form','layer','userPicker','fileupload','picker','oaCheck'];
+		function mbuiInit() {
+			let tool = mbui.tool,form= mbui.form,layer=mbui.layer,fileupload=mbui.fileupload,oaCheck=mbui.oaCheck,picker=mbui.picker;
+			
+			oaCheck.init({
+				check_name:'overtimes',
+				check_btn:0
+			});
+			
+			//附件上传
+			fileupload();
+  
+			//表单提交
+			form({
+				submit:function(data){
+					let callback = function (e) {
+						layer.msg(e.msg);
+						if (e.code == 0) {
+							let checkCallback = function (e) {
+								//layer.msg(e.msg);
+								if (e.code == 0) {
+									tool.replace('/qiye/approve/mylist',2000);			
+								}
+							}
+							data.check_name = 'overtimes';
+							data.action_id = e.data.return_id;
+							oaCheck.submit(data,checkCallback);
+						}
+					}
+					
+					tool.post("/home/overtimes/add", data, callback);
+					return false;
+				}
+			});		
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>

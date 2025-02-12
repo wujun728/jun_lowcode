@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<title>登录 · 勾股OA</title> 		
+
+
+	<link href="/static/assets/mbui/css/mbui.css?v=5.6.8" rel="stylesheet" >
+
+
+	<style type="text/css">
+		#app{ background-image: url('/static/home/images/bgm.png'); background-size: cover; background-repeat: no-repeat; transform-origin: center center; background-position: center center;}
+		.main-wrapper{display: flex;align-items: center; flex-direction: column; justify-content: center; flex: 1 0;width: 100%; min-height: 100vh;}
+		.login-panel{box-shadow:0 0 16px rgba(31, 84, 167, 0.2); background-color:#fff; padding:10px 25px; border-radius:10px;}
+		.oa-logo{text-align:center; padding:12px 0 24px;}
+		.captcha-img{height:44px; margin-right:0}
+		.captcha-img img{width:100%; height:100%; border:1px solid #ddd;}
+		
+		.login-btn{padding:8px 0 16px;}
+		
+		.login-more-tips-warp {padding:6px 0; text-align:center;}		
+		.login-more-tips-warp .login-more-tips-warp-left,.login-more-tips-warp .login-more-tips-warp-right {display: inline-block; height: 1px;  width: 80px;
+		  background-image: linear-gradient(243deg,#eeeeee,rgba(216,218,217,0) 95%); border-radius: .5px; margin-bottom: 4px;}
+		.login-more-tips-warp .login-more-tips-warp-left {margin-right: 10px;}
+		.login-more-tips-warp .login-more-tips-warp-right {transform: scaleX(-1); margin-left: 10px;}
+		.login-more-tips-btn{text-align:center; padding:8px 0 16px;}
+	</style>
+
+
+	<script type="text/javascript">
+		const login_admin=0;
+	</script>
+
+</head>
+<body ontouchstart>
+	<div id="root">
+		<div id="app">
+		<!-- 主体 -->
+		
+	<div class="main-wrapper">
+		<div class="login-panel" style="margin-top:-36px;">
+		<div class="oa-logo">
+			<img src="/static/home/images/syslogo.png" onerror="javascript:this.src='/static/home/images/syslogo.png';this.onerror=null;" style="height: 60px;">
+		</div>
+		<form class="mbui-form" id="formBox">
+			<div class="mbui-form-item">
+				<input class="mbui-input" type="text" name="username" value="" placeholder="账户或手机号码" data-verify="required" data-errortips="请输入账户或手机号码">
+			</div>
+			<div class="mbui-form-item">
+				<input class="mbui-input" type="password" name="password" value="" autocomplete="off" placeholder="账户密码" data-verify="required" data-errortips="请输入账户密码">
+			</div>
+			<div class="mbui-form-item">
+				<div class="mbui-input-inline" style="width:132px;">
+					<input class="mbui-input" type="text" name="captcha" data-verify="required|number" placeholder="验证码" data-errortips="请输入验证码">
+				</div>
+				<div class="mbui-input-inline captcha-img" style="width:128px; margin:0;">
+					<img src='/captcha.html' alt='captcha'  onclick='this.src="/captcha.html?"+Math.random();' />					<input type="hidden" value="63eb4ea08046c62ecba8096a273e292d0018cf3d"/>
+				</div>
+			</div>
+			<div class="login-btn">			
+				<button class="mbui-btn mbui-btn-100" data-event="submit">登入系统</button>
+			</div>
+					</form>
+		</div>
+	</div>
+	
+
+		<!-- /主体 -->
+		</div>
+	</div>
+	
+<!-- 脚本 -->
+	
+	<script type="text/javascript">			
+		const moduleInit = ['tool','form','layer'];
+		function mbuiInit() {
+			let tool = mbui.tool,form= mbui.form,layer=mbui.layer;
+			console.log(tool);
+			form({
+				submit:function(data){
+					let callback = function (e) {
+						layer.msg(e.msg);
+						if (e.code == 0) {
+							location.href='/qiye/index/index';
+						}
+					}
+					tool.post("/qiye/login/login_submit", data, callback);
+					return false;
+				}
+			});		
+		}
+	</script>
+
+<!-- /脚本 -->
+<script src="/static/jquery.min.js"></script>
+<script src="/static/assets/mbui/mbui.js?v=5.6.8"></script>
+</body>
+</html>
