@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.jun.plugin</groupId>
-	<artifactId>jun_amis_lowcode</artifactId>
+	<groupId>io.github.wujun728</groupId>
+	<artifactId>jun_lowcode_amis</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 
@@ -16,8 +16,7 @@
 	</properties>
 
 	<modules>   
-		<module>jun_amis_online</module>
-<!--		<module>jun_system</module>-->
+		<module>jun_amis_lowcode</module>
 	</modules>
 
 	<dependencies>
