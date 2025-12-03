@@ -18,7 +18,7 @@
         <skipTests>true</skipTests>
         <java.version>1.8</java.version>
         <poi.version>5.1.0</poi.version>
-        <hutool-all.version>5.8.35</hutool-all.version>
+<!--        <hutool-all.version>5.8.35</hutool-all.version>-->
         <velocity.version>1.7</velocity.version>
         <magic-api.version>2.2.0</magic-api.version>
         <java-jwt.version>3.4.0</java-jwt.version>
@@ -74,7 +74,8 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool-all.version}</version>
+<!--            <version>${hutool-all.version}</version>-->
+            <version>5.8.41</version>
         </dependency>
 
         <!-- Apache POI -->

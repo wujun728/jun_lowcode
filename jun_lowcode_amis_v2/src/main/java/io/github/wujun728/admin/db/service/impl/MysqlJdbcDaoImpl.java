@@ -50,7 +50,7 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
         return jdbcTemplate;
     }
     public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
-        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate((DataSource) SpringUtil.getBean(DataSource.class));
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(SpringUtil.getBean(DataSource.class));
         return jdbcTemplate;
     }
 
