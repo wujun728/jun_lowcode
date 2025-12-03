@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("db")
 @Data
 public class DbConfig {
-    @Value("${schema:db_qixing_amis}")
+    @Value("${schema:db_qixing_v2}")
     private String schema;
     @Value("${manage-schema:information_schema}")
     private String manageSchema;

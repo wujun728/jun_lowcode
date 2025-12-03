@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.github.wujun728</groupId>
-	<artifactId>jun_lowcode_amis</artifactId>
+	<artifactId>jun_lowcode</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 
