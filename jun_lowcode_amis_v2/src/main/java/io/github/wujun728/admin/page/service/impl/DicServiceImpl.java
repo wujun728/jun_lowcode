@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.page.service.impl;
 
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.data.Dic;
 import io.github.wujun728.admin.page.data.DicItem;
 import io.github.wujun728.admin.page.service.DicCacheService;

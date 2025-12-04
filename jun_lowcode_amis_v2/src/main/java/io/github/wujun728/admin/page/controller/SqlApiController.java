@@ -1,15 +1,15 @@
 package io.github.wujun728.admin.page.controller;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.common.Result;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.db.service.SqlInfoService;
-import io.github.wujun728.admin.page.constants.Whether;
+import io.github.wujun728.record.page.constants.Whether;
 import io.github.wujun728.admin.page.data.SqlApiContent;
 import io.github.wujun728.admin.page.data.SqlApiContentArg;
 import io.github.wujun728.admin.page.data.SqlInfo;
 import io.github.wujun728.admin.page.data.SqlParam;
-import io.github.wujun728.admin.util.TemplateUtil;
+import io.github.wujun728.record.util.TemplateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

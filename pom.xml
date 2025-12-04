@@ -17,9 +17,11 @@
 
 	<modules>   
 		<module>jun_lowcode_amis_v2</module>
+		<module>jun_db</module>
 	</modules>
 
 	<dependencies>
+
 		<!-- <dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

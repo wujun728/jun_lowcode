@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.rbac.service.impl;
 
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.rbac.data.Config;
 import io.github.wujun728.admin.rbac.service.ConfigService;
 import org.springframework.stereotype.Service;

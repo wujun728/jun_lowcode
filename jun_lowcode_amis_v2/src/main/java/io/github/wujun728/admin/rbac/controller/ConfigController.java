@@ -1,8 +1,8 @@
 package io.github.wujun728.admin.rbac.controller;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.common.Result;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.rbac.data.Config;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,12 +1,11 @@
 package io.github.wujun728.admin.page.service.impl;
 
 import io.github.wujun728.admin.common.constants.Constants;
-import io.github.wujun728.admin.page.constants.Whether;
+import io.github.wujun728.record.page.constants.Whether;
 import io.github.wujun728.admin.page.data.InputField;
 import io.github.wujun728.admin.page.data.PageQueryField;
 import io.github.wujun728.admin.page.inputRender.*;
 import io.github.wujun728.admin.page.service.InputFieldService;
-import io.github.wujun728.admin.page.inputRender.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

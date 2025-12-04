@@ -1,7 +1,7 @@
 package io.github.wujun728.admin.page.service;
 
-import io.github.wujun728.admin.common.BaseData;
-import io.github.wujun728.admin.common.service.CacheService;
+import io.github.wujun728.record.common.BaseData;
+import io.github.wujun728.record.common.service.CacheService;
 import io.github.wujun728.admin.page.data.BaseButton;
 import io.github.wujun728.admin.page.data.Form;
 import io.github.wujun728.admin.page.data.FormField;

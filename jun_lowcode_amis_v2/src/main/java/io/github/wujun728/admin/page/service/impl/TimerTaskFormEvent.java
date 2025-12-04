@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.page.service.impl;
 
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.page.data.Form;
 import io.github.wujun728.admin.page.service.FormEvent;
 import io.github.wujun728.admin.rbac.service.TimerTaskService;

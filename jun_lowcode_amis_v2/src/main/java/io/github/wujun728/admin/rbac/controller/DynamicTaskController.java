@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.rbac.controller;
 
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.rbac.service.DynamicTaskService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

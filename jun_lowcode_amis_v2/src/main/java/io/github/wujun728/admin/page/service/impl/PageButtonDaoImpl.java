@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.page.service.impl;
 
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.data.Form;
 import io.github.wujun728.admin.page.data.Page;
 import io.github.wujun728.admin.page.data.PageButton;

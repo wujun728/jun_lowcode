@@ -1,7 +1,7 @@
 package io.github.wujun728.admin.page.data;
 
-import io.github.wujun728.admin.common.BaseData;
-import io.github.wujun728.admin.page.constants.Whether;
+import io.github.wujun728.record.common.BaseData;
+import io.github.wujun728.record.page.constants.Whether;
 import lombok.Data;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package io.github.wujun728.admin.page.constants;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import io.github.wujun728.admin.util.StringUtil;
+import io.github.wujun728.record.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

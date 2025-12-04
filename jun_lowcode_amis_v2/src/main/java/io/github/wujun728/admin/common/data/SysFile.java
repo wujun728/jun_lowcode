@@ -1,5 +1,5 @@
 package io.github.wujun728.admin.common.data;
-import io.github.wujun728.admin.common.BaseData;
+import io.github.wujun728.record.common.BaseData;
 import lombok.Data;
 
 import java.util.Date;

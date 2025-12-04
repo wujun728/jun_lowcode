@@ -1,7 +1,7 @@
 package io.github.wujun728.admin.common.controller;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.common.service.DbTemplateService;
 import org.springframework.web.bind.annotation.*;
 

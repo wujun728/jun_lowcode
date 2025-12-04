@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.page.service;
 
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.page.data.Form;
 
 import java.util.Map;

@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.db.service;
 
-import io.github.wujun728.admin.common.service.CacheService;
+import io.github.wujun728.record.common.service.CacheService;
 import io.github.wujun728.admin.page.data.SqlInfo;
 import io.github.wujun728.admin.page.data.SqlParam;
 

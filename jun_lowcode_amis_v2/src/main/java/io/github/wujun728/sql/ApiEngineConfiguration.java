@@ -1,18 +1,18 @@
 package io.github.wujun728.sql;
 
-import io.github.wujun728.sql.entity.DBConfig;
+import io.github.wujun728.sql.entity.DsConfig;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(DBConfig.class)
+@EnableConfigurationProperties(DsConfig.class)
 public class ApiEngineConfiguration {
 
-    private final DBConfig dbConfig;
+    private final DsConfig dbConfig;
 
-    public ApiEngineConfiguration(DBConfig config) {
+    public ApiEngineConfiguration(DsConfig config) {
         this.dbConfig = config;
     }
 

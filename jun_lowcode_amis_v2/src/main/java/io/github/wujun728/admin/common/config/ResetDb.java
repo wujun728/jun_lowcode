@@ -1,20 +1,6 @@
 package io.github.wujun728.admin.common.config;
 
-import io.github.wujun728.admin.common.service.impl.AbstractCacheService;
-import io.github.wujun728.admin.page.controller.TestAmisController;
-import io.github.wujun728.admin.page.service.DicCacheService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.ScriptRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
 
 //@Component
 //@ConditionalOnProperty(value="jqp.reset",havingValue = "true")

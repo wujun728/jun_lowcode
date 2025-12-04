@@ -1,11 +1,11 @@
 package io.github.wujun728.admin.common.controller;
 
 import cn.hutool.core.date.DateUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.common.data.GlobalLog;
-import io.github.wujun728.admin.db.service.JdbcService;
-import io.github.wujun728.admin.util.StringUtil;
-import io.github.wujun728.admin.util.TemplateUtil;
+import io.github.wujun728.record.db.service.JdbcService;
+import io.github.wujun728.record.util.StringUtil;
+import io.github.wujun728.record.util.TemplateUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

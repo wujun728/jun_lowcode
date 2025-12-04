@@ -1,6 +1,7 @@
 package io.github.wujun728.admin.common.config;
 
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.common.config.UserSession;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.service.PageService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Lazy;

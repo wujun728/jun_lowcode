@@ -1,13 +1,13 @@
 package io.github.wujun728.admin.page.controller;
 
 import cn.hutool.core.date.DateUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.page.data.Dic;
 import io.github.wujun728.admin.page.data.DicItem;
 import io.github.wujun728.admin.page.service.DicCacheService;
 import io.github.wujun728.admin.page.service.DicService;
-import io.github.wujun728.admin.util.StringUtil;
-import io.github.wujun728.admin.util.TemplateUtil;
+import io.github.wujun728.record.util.StringUtil;
+import io.github.wujun728.record.util.TemplateUtil;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

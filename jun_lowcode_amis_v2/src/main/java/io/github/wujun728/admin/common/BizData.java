@@ -1,5 +1,6 @@
 package io.github.wujun728.admin.common;
 
+import io.github.wujun728.record.common.BaseData;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
  * 业务数据
  */
 @Data
-public class BizData extends BaseData{
+public class BizData extends BaseData {
     //企业id
     private Long enterpriseId;
     //创建人

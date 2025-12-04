@@ -1,15 +1,15 @@
 package io.github.wujun728.admin.common.controller;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.common.constants.ImportDataType;
 import io.github.wujun728.admin.common.data.DataImportTemplate;
 import io.github.wujun728.admin.common.data.DataImportTemplateField;
-import io.github.wujun728.admin.db.data.ColumnInfo;
-import io.github.wujun728.admin.db.data.TableInfo;
-import io.github.wujun728.admin.db.service.JdbcService;
-import io.github.wujun728.admin.db.service.TableService;
-import io.github.wujun728.admin.page.constants.Whether;
+import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.service.JdbcService;
+import io.github.wujun728.record.db.service.TableService;
+import io.github.wujun728.record.page.constants.Whether;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

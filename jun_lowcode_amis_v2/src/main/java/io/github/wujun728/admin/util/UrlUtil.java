@@ -1,5 +1,6 @@
 package io.github.wujun728.admin.util;
 
+import io.github.wujun728.record.util.TemplateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 

@@ -1,7 +1,7 @@
 package io.github.wujun728.admin.page.constants;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.wujun728.admin.util.StringUtil;
+import io.github.wujun728.record.util.StringUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;

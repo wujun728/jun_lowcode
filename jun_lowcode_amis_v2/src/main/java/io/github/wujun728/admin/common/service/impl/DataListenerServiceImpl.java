@@ -5,9 +5,9 @@ import io.github.wujun728.admin.common.constants.EventType;
 import io.github.wujun728.admin.common.data.DataListener;
 import io.github.wujun728.admin.common.service.DataListenerService;
 import io.github.wujun728.admin.common.service.DataListenerTask;
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.rbac.service.ApiService;
-import io.github.wujun728.admin.util.SpringUtil;
+import io.github.wujun728.record.util.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

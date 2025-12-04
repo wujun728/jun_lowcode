@@ -2,14 +2,14 @@ package io.github.wujun728.admin.common.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.wujun728.admin.common.config.SessionContext;
-import io.github.wujun728.admin.common.config.UserSession;
+import io.github.wujun728.record.common.config.UserSession;
 import io.github.wujun728.admin.common.service.SerialNumberService;
-import io.github.wujun728.admin.common.service.TemplateService;
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.common.service.TemplateService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.service.PageService;
 //import io.github.wujun728.admin.rbac.constants.UserType;
 //import io.github.wujun728.admin.rbac.data.Permission;
-import io.github.wujun728.admin.util.StringUtil;
+import io.github.wujun728.record.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

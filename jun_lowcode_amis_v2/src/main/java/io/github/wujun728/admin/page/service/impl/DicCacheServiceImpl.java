@@ -5,7 +5,7 @@ import cn.hutool.cache.CacheUtil;
 import io.github.wujun728.admin.common.constants.EventType;
 import io.github.wujun728.admin.common.data.DataListener;
 import io.github.wujun728.admin.common.service.DataListenerTask;
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.data.Dic;
 import io.github.wujun728.admin.page.service.DicCacheService;
 import io.github.wujun728.admin.page.service.DicService;

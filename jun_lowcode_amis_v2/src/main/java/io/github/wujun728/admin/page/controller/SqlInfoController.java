@@ -1,6 +1,6 @@
 package io.github.wujun728.admin.page.controller;
 
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.db.service.SqlInfoService;
 import io.github.wujun728.admin.page.data.SqlInfo;
 import lombok.extern.slf4j.Slf4j;

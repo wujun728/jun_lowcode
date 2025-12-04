@@ -1,9 +1,9 @@
 package io.github.wujun728.admin.page.service;
 
 import io.github.wujun728.admin.common.CrudData;
-import io.github.wujun728.admin.common.PageParam;
-import io.github.wujun728.admin.common.Result;
-import io.github.wujun728.admin.common.service.CacheService;
+import io.github.wujun728.record.common.PageParam;
+import io.github.wujun728.record.common.Result;
+import io.github.wujun728.record.common.service.CacheService;
 import io.github.wujun728.admin.page.data.Page;
 
 import java.util.Map;

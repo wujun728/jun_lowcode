@@ -1,9 +1,8 @@
 package io.github.wujun728.admin.util;
 
-import io.github.wujun728.admin.common.log.service.LogService;
 import io.github.wujun728.admin.common.service.SysFileService;
-import io.github.wujun728.admin.rbac.service.DynamicTaskService;
 import io.github.wujun728.admin.rbac.service.TimerTaskService;
+import io.github.wujun728.record.util.SpringUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.event.ApplicationPreparedEvent;

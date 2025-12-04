@@ -1,5 +1,6 @@
 package io.github.wujun728.admin.common;
 
+import io.github.wujun728.record.common.BaseData;
 import lombok.Data;
 
 import java.util.ArrayList;

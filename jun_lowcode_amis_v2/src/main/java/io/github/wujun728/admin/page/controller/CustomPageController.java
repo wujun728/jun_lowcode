@@ -1,22 +1,5 @@
 package io.github.wujun728.admin.page.controller;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
-import io.github.wujun728.admin.db.service.JdbcService;
-import io.github.wujun728.admin.page.constants.PageKey;
-import io.github.wujun728.admin.page.data.CustomPage;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import java.util.Map;
-
 //@RequestMapping("/admin/custom")
 //@Controller
 //public class CustomPageController {

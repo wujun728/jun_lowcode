@@ -1,9 +1,8 @@
 package io.github.wujun728.admin.common.config;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;

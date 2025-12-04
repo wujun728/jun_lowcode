@@ -1,7 +1,7 @@
 package io.github.wujun728.admin.page.service.impl;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.page.data.Form;
 import io.github.wujun728.admin.page.service.FormEvent;
 import lombok.extern.slf4j.Slf4j;

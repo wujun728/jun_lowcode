@@ -1,9 +1,9 @@
 package io.github.wujun728.admin.rbac.service.impl;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.rbac.service.ApiService;
-import io.github.wujun728.admin.util.StringUtil;
+import io.github.wujun728.record.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

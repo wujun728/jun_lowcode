@@ -8,7 +8,7 @@ import com.aliyun.oss.model.OSSObject;
 import io.github.wujun728.admin.common.config.FileConfig;
 import io.github.wujun728.admin.common.data.SysFile;
 import io.github.wujun728.admin.common.service.SysFileService;
-import io.github.wujun728.admin.db.service.JdbcService;
+import io.github.wujun728.record.db.service.JdbcService;
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

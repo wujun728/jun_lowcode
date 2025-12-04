@@ -1,9 +1,10 @@
 package io.github.wujun728.admin.common.config;
 
 import cn.hutool.json.JSONUtil;
-import io.github.wujun728.admin.common.Result;
+import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.common.constants.ResultCode;
-import io.github.wujun728.admin.util.SpringUtil;
+import io.github.wujun728.record.common.config.UserSession;
+import io.github.wujun728.record.util.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

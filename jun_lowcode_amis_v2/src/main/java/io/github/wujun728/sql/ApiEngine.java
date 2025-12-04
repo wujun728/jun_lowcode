@@ -1,13 +1,12 @@
 package io.github.wujun728.sql;
 
 import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.pool.DruidPooledConnection;
 import io.github.wujun728.db.record.Page;
 import io.github.wujun728.sql.engine.DynamicSqlEngine;
 import io.github.wujun728.sql.entity.ApiDataSource;
 import io.github.wujun728.sql.entity.ApiSql;
-import io.github.wujun728.sql.entity.DBConfig;
+import io.github.wujun728.sql.entity.DsConfig;
 import io.github.wujun728.sql.entity.SqlWithParam;
 import io.github.wujun728.sql.utils.JdbcUtil;
 import io.github.wujun728.sql.utils.PoolManager;
@@ -35,12 +34,12 @@ public class ApiEngine {
 
     DynamicSqlEngine dynamicSqlEngine = new DynamicSqlEngine();
 
-    DBConfig dbConfig;
+    DsConfig dbConfig;
 
     Map<String, Map<String, ApiSql>> sqlMap = new HashMap<>();
     Map<String, ApiDataSource> dataSourceMap;
 
-    public ApiEngine(DBConfig dbConfig) {
+    public ApiEngine(DsConfig dbConfig) {
         this.dbConfig = dbConfig;
         initXml();
     }
