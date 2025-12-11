@@ -6,7 +6,7 @@ import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.db.data.ColumnInfo;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.admin.page.constants.ActionType;
@@ -45,19 +45,19 @@ public class TableInfoController {
     private JdbcService jdbcService;
 
     @RequestMapping("/queryTable")
-    public Result<PageData<TableInfo>> queryTable(@RequestBody PageParam pageParam) {
+    public Result<PageData<ClassInfo>> queryTable(@RequestBody PageParam pageParam) {
         log.info("参数,{}", pageParam);
         return tableService.queryTable(pageParam);
     }
 
     @RequestMapping("/tableInfo")
-    public Result<TableInfo> tableInfo(String tableName) {
+    public Result<ClassInfo> tableInfo(String tableName) {
         return tableService.get(tableName);
     }
 
     @RequestMapping("/getJson")
     public Result getJson(String tableName) {
-        Result<TableInfo> tableInfo = tableService.get(tableName);
+        Result<ClassInfo> tableInfo = tableService.get(tableName);
         String json = JSONUtil.toJsonPrettyStr(tableInfo.getData());
         return Result.success(MapUtil.builder().put("json", json).build());
     }
@@ -65,8 +65,8 @@ public class TableInfoController {
     @RequestMapping("/saveJson")
     public Result saveJson(@RequestBody Map map) {
         String json = (String) map.get("json");
-        TableInfo tableInfo = JSONUtil.toBean(json, TableInfo.class);
-        Result<TableInfo> oldTableInfo = tableService.get(tableInfo.getTableName());
+        ClassInfo tableInfo = JSONUtil.toBean(json, ClassInfo.class);
+        Result<ClassInfo> oldTableInfo = tableService.get(tableInfo.getTableName());
         if (oldTableInfo.getData() == null) {
             tableInfo.setOldTableName(null);
         }
@@ -74,10 +74,10 @@ public class TableInfoController {
     }
 
     @RequestMapping("/copyTableInfo")
-    public Result<TableInfo> copyTableInfo(String tableName) {
-        Result<TableInfo> copyTableInfo = tableService.tableInfo(tableName);
+    public Result<ClassInfo> copyTableInfo(String tableName) {
+        Result<ClassInfo> copyTableInfo = tableService.tableInfo(tableName);
         if (copyTableInfo.isSuccess()) {
-            TableInfo data = copyTableInfo.getData();
+            ClassInfo data = copyTableInfo.getData();
             data.setOldTableName(null);
             data.setTableName(data.getTableName() + "_copy");
 
@@ -92,7 +92,7 @@ public class TableInfoController {
     }
 
     @RequestMapping("/updateTable")
-    public Result updateTableInfo(@RequestBody TableInfo tableInfo) {
+    public Result updateTableInfo(@RequestBody ClassInfo tableInfo) {
         return tableService.updateTable(tableInfo);
     }
 
@@ -117,7 +117,7 @@ public class TableInfoController {
     }
 
     public Result oneTouch(String tableName, Boolean isDelete) {
-        TableInfo tableInfo = tableService.get(tableName).getData();
+        ClassInfo tableInfo = tableService.get(tableName).getData();
         String pageCode = StringUtil.toFieldColumn(tableName);
         Page page = pageService.get(pageCode);
         if (page == null || isDelete) {

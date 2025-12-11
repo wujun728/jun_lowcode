@@ -8,7 +8,6 @@ import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.service.impl.AbstractCacheService;
 //import io.github.wujun728.record.db.config.DbConfig;
-import io.github.wujun728.record.db.data.*;
 import io.github.wujun728.record.db.service.JdbcDao;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.record.util.StringUtil;
@@ -16,7 +15,7 @@ import io.github.wujun728.record.util.TemplateUtil;
 import io.github.wujun728.record.db.data.ColumnInfo;
 import io.github.wujun728.record.db.data.ForeignKey;
 import io.github.wujun728.record.db.data.IndexInfo;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 @Service("tableService")
 //@ConditionalOnProperty(value="db.type",havingValue = "mysql")
 @Slf4j
-public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo>> implements TableService {
+public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo>> implements TableService {
 //    @Resource
 //    private DbConfig dbConfig;
 
@@ -35,12 +34,12 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
     private JdbcDao jdbcDao;
 
     @Override
-    protected boolean isNull(Result<TableInfo> value) {
+    protected boolean isNull(Result<ClassInfo> value) {
         return value == null || value.getData() == null;
     }
 
     @Override
-    public Result<PageData<TableInfo>> queryTable(PageParam pageParam) {
+    public Result<PageData<ClassInfo>> queryTable(PageParam pageParam) {
 
         String sql = getTableSql();
         List<Object> args = new ArrayList<>();
@@ -56,8 +55,8 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
         sql += " order by table_name asc ";
         Object[] params = args.toArray();
 
-        Result<PageData<TableInfo>> result = jdbcDao.query(pageParam, TableInfo.class, sql, params);
-        List<TableInfo> tableInfos = result.getData().getItems();
+        Result<PageData<ClassInfo>> result = jdbcDao.query(pageParam, ClassInfo.class, sql, params);
+        List<ClassInfo> tableInfos = result.getData().getItems();
         tableInfos.forEach(tableInfo -> {
             tableInfo.setId(tableInfo.getTableName());
             tableInfo.setOldTableName(tableInfo.getTableName());
@@ -77,22 +76,22 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
     }
 
     @Override
-    protected Result<TableInfo> load(String key) {
+    protected Result<ClassInfo> load(String key) {
         return tableInfo(key);
     }
 
     @Override
-    public Result<TableInfo> tableInfo(String tableName) {
+    public Result<ClassInfo> tableInfo(String tableName) {
         if(StrUtil.isBlank(tableName)){
-            return Result.success(new TableInfo());
+            return Result.success(new ClassInfo());
         }
 
         String tableSql = getTableSql() + " and table_name='"+tableName+"'";
-        List<TableInfo> list = jdbcDao.find(tableSql,TableInfo.class);
+        List<ClassInfo> list = jdbcDao.find(tableSql, ClassInfo.class);
         if(list.isEmpty()){
             return Result.error("表不存在");
         }
-        TableInfo tableInfo = list.get(0);
+        ClassInfo tableInfo = list.get(0);
         tableInfo.setOldTableName(tableInfo.getTableName());
         tableInfo.setId(tableInfo.getTableName());
 
@@ -190,7 +189,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
     }
 
     @Override
-    public Result<Void> updateTable(TableInfo tableInfo) {
+    public Result<Void> updateTable(ClassInfo tableInfo) {
 
         boolean isCreate = StrUtil.isBlank(tableInfo.getOldTableName());
         if(isCreate){
@@ -240,11 +239,11 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
         }
 
         //更新表
-        Result<TableInfo> oldTable = this.get(tableInfo.getOldTableName());
+        Result<ClassInfo> oldTable = this.get(tableInfo.getOldTableName());
         if(!oldTable.isSuccess()){
             return Result.error("表不存在");
         }
-        TableInfo oldTableInfo = oldTable.getData();
+        ClassInfo oldTableInfo = oldTable.getData();
         if(!oldTableInfo.getOldTableName().equals(tableInfo.getTableName())){
             String sql = StrUtil.format("alter table {} rename to {} ",oldTableInfo.getTableName(),tableInfo.getTableName());
             jdbcDao.update("修改表名",sql);
@@ -268,7 +267,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
     }
 
     //更新列
-    private void updateColumns(TableInfo tableInfo,TableInfo oldTableInfo){
+    private void updateColumns(ClassInfo tableInfo, ClassInfo oldTableInfo){
         Map<String, ColumnInfo> oldColumnMap = oldTableInfo.getColumnInfos().stream().collect(Collectors.toMap(ColumnInfo::getColumnName, c -> c));
         Set<String> names = new HashSet<>();
         //新增/修改字段
@@ -322,7 +321,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
     }
 
     //更新外键
-    private void updateIndex(TableInfo tableInfo,TableInfo oldTableInfo){
+    private void updateIndex(ClassInfo tableInfo, ClassInfo oldTableInfo){
         Map<String, IndexInfo> oldIndexMap = oldTableInfo.getIndexInfos().stream().collect(Collectors.toMap(IndexInfo::getKeyName, c -> c));
 
         Set<String> indexNames = new HashSet<>();
@@ -362,7 +361,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
         }
     }
     //更新外键
-    private void updateForeignKeys(TableInfo tableInfo,TableInfo oldTableInfo){
+    private void updateForeignKeys(ClassInfo tableInfo, ClassInfo oldTableInfo){
         Map<String, ForeignKey> oldForeignKeyMap = oldTableInfo.getForeignKeys().stream().collect(Collectors.toMap(ForeignKey::getConstraintName, c -> c));
 
         Set<String> foreignKeyNames = new HashSet<>();
@@ -422,8 +421,8 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
 
     @Override
     public Map<String, String> generateCode(String tableName) {
-        Result<TableInfo> result = this.get(tableName);
-        TableInfo tableInfo = result.getData();
+        Result<ClassInfo> result = this.get(tableName);
+        ClassInfo tableInfo = result.getData();
         List<ColumnInfo> columnInfos = tableInfo.getColumnInfos();
         Map<String,String> java = new HashMap<>();
 

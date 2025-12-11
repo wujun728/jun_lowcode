@@ -14,7 +14,7 @@ import io.github.wujun728.admin.common.service.DataListenerService;
 import io.github.wujun728.record.common.service.LogService;
 import io.github.wujun728.record.common.service.impl.DbCacheServiceImpl;
 import io.github.wujun728.record.db.data.ColumnInfo;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.record.page.constants.Whether;
@@ -100,7 +100,7 @@ public class LogServiceImpl implements LogService {
             operation = "修改";
             globalLog.setOptionType(operation);
             globalLog.setRefId(Long.valueOf(beforeObj.get("id").toString()));
-            Result<TableInfo> tableInfo = tableService.get(tableName);
+            Result<ClassInfo> tableInfo = tableService.get(tableName);
             List<ColumnInfo> columnInfos = tableInfo.getData().getColumnInfos();
             boolean isUpdate = false;
             for(ColumnInfo columnInfo:columnInfos){

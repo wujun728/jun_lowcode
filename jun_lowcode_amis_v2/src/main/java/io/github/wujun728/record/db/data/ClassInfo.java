@@ -8,7 +8,7 @@ import java.util.*;
  * 表信息
  */
 @Data
-public class TableInfo {
+public class ClassInfo {
     //用于复制,和tableName一致
     private String id;
     //表名,用于更新
@@ -40,7 +40,7 @@ public class TableInfo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TableInfo tableInfo = (TableInfo) o;
+        ClassInfo tableInfo = (ClassInfo) o;
         return tableName.equals(tableInfo.tableName) && Objects.equals(tableComment, tableInfo.tableComment);
     }
 

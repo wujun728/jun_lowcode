@@ -8,7 +8,7 @@ import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.config.UserSession;
 import io.github.wujun728.record.common.service.LogService;
 import io.github.wujun728.record.db.data.ColumnInfo;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.record.db.service.TransactionOption;
@@ -49,7 +49,7 @@ public class MysqlJdbcServiceImpl extends MysqlJdbcDaoImpl implements JdbcServic
         }
         String clzName = obj.getClass().getSimpleName();
         String tableName = StringUtil.toSqlColumn(clzName);
-        Result<TableInfo> tableInfo = tableService.get(tableName);
+        Result<ClassInfo> tableInfo = tableService.get(tableName);
         if(!tableInfo.isSuccess()){
             throw new RuntimeException("找不到表:"+tableName);
         }
@@ -68,7 +68,7 @@ public class MysqlJdbcServiceImpl extends MysqlJdbcDaoImpl implements JdbcServic
         if(fieldMap.containsKey("createAt") && ReflectUtil.getFieldValue(obj,"createAt") == null){
             ReflectUtil.setFieldValue(obj,fieldMap.get("createAt"), new Date());
         }
-        TableInfo table = tableInfo.getData();
+        ClassInfo table = tableInfo.getData();
         List<ColumnInfo> columnInfos = table.getColumnInfos();
         List<String> columns = columnInfos.stream().map(ColumnInfo::getColumnName).collect(Collectors.toList());
         List<String> args = columnInfos.stream().map(columnInfo -> "?").collect(Collectors.toList());
@@ -103,11 +103,11 @@ public class MysqlJdbcServiceImpl extends MysqlJdbcDaoImpl implements JdbcServic
         if(obj == null){
             return;
         }
-        Result<TableInfo> tableInfo = tableService.get(tableName);
+        Result<ClassInfo> tableInfo = tableService.get(tableName);
         if(!tableInfo.isSuccess()){
             throw new RuntimeException("找不到表:"+tableName);
         }
-        TableInfo table = tableInfo.getData();
+        ClassInfo table = tableInfo.getData();
         List<ColumnInfo> columnInfos = table.getColumnInfos();
         if(obj.get("enterpriseId") == null){
             obj.put("enterpriseId",getSession().getEnterpriseId());
@@ -150,12 +150,12 @@ public class MysqlJdbcServiceImpl extends MysqlJdbcDaoImpl implements JdbcServic
         }
         String clzName = obj.getClass().getSimpleName();
         String tableName = StringUtil.toSqlColumn(clzName);
-        Result<TableInfo> tableInfo = tableService.get(tableName);
+        Result<ClassInfo> tableInfo = tableService.get(tableName);
         if(!tableInfo.isSuccess()){
             throw new RuntimeException("找不到表:"+tableName);
         }
 
-        TableInfo table = tableInfo.getData();
+        ClassInfo table = tableInfo.getData();
         List<ColumnInfo> columnInfos = table.getColumnInfos();
         List<String> columns = columnInfos.stream().map(columnInfo -> columnInfo.getColumnName()).collect(Collectors.toList());
         List<String> args = columnInfos.stream().map(columnInfo -> columnInfo.getColumnName()+"=?").collect(Collectors.toList());
@@ -191,12 +191,12 @@ public class MysqlJdbcServiceImpl extends MysqlJdbcDaoImpl implements JdbcServic
         if(id == null){
             throw new RuntimeException("更新失败,id不能为空");
         }
-        Result<TableInfo> tableInfo = tableService.get(tableName);
+        Result<ClassInfo> tableInfo = tableService.get(tableName);
         if(!tableInfo.isSuccess()){
             throw new RuntimeException("找不到表:"+tableName);
         }
 
-        TableInfo table = tableInfo.getData();
+        ClassInfo table = tableInfo.getData();
         List<ColumnInfo> columnInfos = table.getColumnInfos();
         List<String> columns = columnInfos.stream().filter(columnInfo ->
             obj.containsKey(StringUtil.toFieldColumn(columnInfo.getColumnName())) || "updated_at".equals(columnInfo.getColumnName())

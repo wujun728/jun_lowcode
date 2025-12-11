@@ -6,7 +6,7 @@ import io.github.wujun728.admin.common.constants.ImportDataType;
 import io.github.wujun728.admin.common.data.DataImportTemplate;
 import io.github.wujun728.admin.common.data.DataImportTemplateField;
 import io.github.wujun728.record.db.data.ColumnInfo;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.record.page.constants.Whether;
@@ -54,7 +54,7 @@ public class DataImportTemplateController {
 
     @RequestMapping("/reload")
     public Result reload(@RequestBody DataImportTemplate template){
-        TableInfo tableInfo = tableService.tableInfo(template.getTableName()).getData();
+        ClassInfo tableInfo = tableService.tableInfo(template.getTableName()).getData();
         if(tableInfo == null){
             return Result.error("表不存在");
         }

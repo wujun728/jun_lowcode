@@ -15,7 +15,7 @@ import io.github.wujun728.admin.common.data.DataImportTemplateField;
 import io.github.wujun728.admin.common.data.SysFile;
 import io.github.wujun728.admin.common.service.SysFileService;
 import io.github.wujun728.record.db.data.ColumnInfo;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.record.page.constants.Whether;
@@ -111,7 +111,7 @@ public class DataImportTaskApi implements DynamicTaskApi {
                     String[] splitStr = StringUtil.splitStr(field.getColumnFormat(), ",");
                     //表
                     String table = StringUtil.toSqlColumn(splitStr[0]);
-                    TableInfo tableInfo = tableService.get(table).getData();
+                    ClassInfo tableInfo = tableService.get(table).getData();
                     if(tableInfo == null){
                         throw new RuntimeException("关联表不存在["+table+"]");
                     }

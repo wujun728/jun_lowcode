@@ -4,14 +4,14 @@ import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.service.CacheService;
-import io.github.wujun728.record.db.data.TableInfo;
+import io.github.wujun728.record.db.data.ClassInfo;
 
 import java.util.Map;
 
-public interface TableService extends CacheService<Result<TableInfo>> {
-    Result<PageData<TableInfo>> queryTable(PageParam pageParam);
-    Result<TableInfo> tableInfo(String tableName);
-    Result<Void> updateTable(TableInfo tableInfo);
+public interface TableService extends CacheService<Result<ClassInfo>> {
+    Result<PageData<ClassInfo>> queryTable(PageParam pageParam);
+    Result<ClassInfo> tableInfo(String tableName);
+    Result<Void> updateTable(ClassInfo tableInfo);
 
     Result dropTable(String tableName);
 
