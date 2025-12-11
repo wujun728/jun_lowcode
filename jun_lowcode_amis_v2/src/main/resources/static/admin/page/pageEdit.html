@@ -203,14 +203,24 @@
 						</div>
 					</template>
 				</el-table-column>
-				<el-table-column label="是否隐藏" width="100"   >
+				<!--<el-table-column label="是否隐藏" width="100"   >
 					<template  #default="scope">
 						<el-select v-model="scope.row.hidden"  placeholder="请选择" clearable >
 							<el-option label="YES" value="YES" ></el-option>
 							<el-option label="NO" value="NO" ></el-option>
 						</el-select>
 					</template>
-				</el-table-column>
+				</el-table-column>-->
+                <!-- 修改后（复选框） -->
+                <el-table-column label="是否隐藏" width="100">
+                    <template #default="scope">
+                        <!-- v-model 绑定布尔值，同步更新原 YES/NO 字段 -->
+                        <el-checkbox
+                                v-model="scope.row._hiddenBool"
+                                @change="val => scope.row.hidden = val ? 'YES' : 'NO'"
+                        >隐藏</el-checkbox>
+                    </template>
+                </el-table-column>
 				<el-table-column label="是否展示" width="100"   >
 					<template  #default="scope">
 						<el-select v-model="scope.row.toggled"  placeholder="配置为展示,需要在选择列哪里勾选" clearable >
@@ -330,14 +340,23 @@
 						  </el-select>
 					  </template>
 				  </el-table-column>
-				  <el-table-column label="是否隐藏" width="100"   >
+				  <!--<el-table-column label="是否隐藏" width="100"   >
 					  <template  #default="scope">
 						  <el-select v-model="scope.row.hidden"  placeholder="请选择" clearable >
 							  <el-option label="YES" value="YES" ></el-option>
 							  <el-option label="NO" value="NO" ></el-option>
 						  </el-select>
 					  </template>
-				  </el-table-column>
+				  </el-table-column>-->
+                  <!-- 修改后（复选框） -->
+                  <el-table-column label="是否隐藏" width="100">
+                      <template #default="scope">
+                          <el-checkbox
+                                  v-model="scope.row._hiddenBool"
+                                  @change="val => scope.row.hidden = val ? 'YES' : 'NO'"
+                          >隐藏</el-checkbox>
+                      </template>
+                  </el-table-column>
 				  <el-table-column label="是否必填" width="100"   >
 					  <template  #default="scope">
 						  <el-select v-model="scope.row.must" placeholder="请选择" clearable >
@@ -705,6 +724,14 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 						ElementPlus.ElMessage(data.msg)
 					}else{
 						me.page = data.data;
+						// 初始化查询结果字段的_hiddenBool属性
+						me.page.resultFields.forEach(field => {
+							field._hiddenBool = field.hidden === 'YES';
+						});
+						// 初始化查询条件字段的_hiddenBool属性
+						me.page.queryFields.forEach(field => {
+							field._hiddenBool = field.hidden === 'YES';
+						});
 						me.reSeq(me.page.resultFields);
 						me.reSeq(me.page.queryFields);
 						me.reSeq(me.page.pageRefs);
@@ -733,8 +760,11 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 								if(data.status !== 0){
 									ElementPlus.ElMessage(data.msg)
 								}else{
-									parent.jQuery("*[data-tooltip='关闭']").get(0).click()
-									parent.jQuery("*[type='submit']").get(0).click()
+									// 使用原生JavaScript代替jQuery，避免依赖父窗口的jQuery
+									const closeBtn = parent.document.querySelector("*[data-tooltip='关闭']");
+									if(closeBtn) closeBtn.click();
+									const submitBtn = parent.document.querySelector("*[type='submit']");
+									if(submitBtn) submitBtn.click();
 								}
 							}
 						});
@@ -757,14 +787,22 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 						dataType: 'json',
 						success:function(data){
 							if(data.status !== 0){
-								ElementPlus.ElMessage(data.msg)
-							}else{
-								me.page = data.data;
-								me.reSeq(me.page.resultFields);
-								me.reSeq(me.page.queryFields);
-								me.reSeq(me.page.pageRefs);
-								me.reSeq(me.page.pageButtons);
-							}
+					ElementPlus.ElMessage(data.msg)
+				}else{
+					me.page = data.data;
+					// 初始化查询结果字段的_hiddenBool属性
+					me.page.resultFields.forEach(field => {
+						field._hiddenBool = field.hidden === 'YES';
+					});
+					// 初始化查询条件字段的_hiddenBool属性
+					me.page.queryFields.forEach(field => {
+						field._hiddenBool = field.hidden === 'YES';
+					});
+					me.reSeq(me.page.resultFields);
+					me.reSeq(me.page.queryFields);
+					me.reSeq(me.page.pageRefs);
+					me.reSeq(me.page.pageButtons);
+				}
 						}
 					});
 				}else{
@@ -817,19 +855,29 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 				};
 
 				if(index){
-					arr.splice(index+1,0,{
+					const newField = {
 						seq:row.seq+5,
 						...defaultObj[type]
-					});
+					};
+					// 初始化新添加字段的_hiddenBool属性
+					if(['resultField', 'queryField'].includes(type)){
+						newField._hiddenBool = newField.hidden === 'YES';
+					}
+					arr.splice(index+1,0,newField);
 				}else{
 					let seq = (arr.length+1)*10;
 					if(arr.length>0){
 						seq = arr[arr.length-1].seq + 10;
 					}
-					arr.push({
+					const newField = {
 						seq:seq,
 						...defaultObj[type]
-					});
+					};
+					// 初始化新添加字段的_hiddenBool属性
+					if(['resultField', 'queryField'].includes(type)){
+						newField._hiddenBool = newField.hidden === 'YES';
+					}
+					arr.push(newField);
 				}
 				this.reSeq(arr);
 			},
