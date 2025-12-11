@@ -122,17 +122,17 @@
 
 				<el-form-item label="查询sql" prop="querySql" >
 					<div class='el-textarea'>
-						<textarea class='el-textarea__inner'  v-model.lazy="page.querySql" style="height:300px;"></textarea>
+						<textarea class='el-textarea__inner'  v-model.lazy="page.querySql" style="height:120px;"></textarea>
 					</div>
 				</el-form-item>
 				<el-form-item label="扩展json" prop="extraJson" >
 					<div class='el-textarea'>
-						<textarea class='el-textarea__inner'  v-model.lazy="page.extraJson" style="height:300px;"></textarea>
+						<textarea class='el-textarea__inner'  v-model.lazy="page.extraJson" style="height:120px;"></textarea>
 					</div>
 				</el-form-item>
 				<el-form-item label="页面介绍" prop="introduce" >
 					<div class='el-textarea'>
-						<textarea class='el-textarea__inner'  v-model.lazy="page.introduce" style="height:100px;"></textarea>
+						<textarea class='el-textarea__inner'  v-model.lazy="page.introduce" style="height:50px;"></textarea>
 					</div>
 				</el-form-item>
 
@@ -199,7 +199,7 @@
 				<el-table-column label="格式化" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.format" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.format" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
@@ -230,21 +230,21 @@
 				<el-table-column label="扩展json" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.extraJson" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.extraJson" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
 				<el-table-column label="统计标签" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner' placeholder="tpl模板"  v-model.lazy="scope.row.statisticsLabel" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner' placeholder="tpl模板"  v-model.lazy="scope.row.statisticsLabel" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
 				<el-table-column label="统计sql" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.statisticsSql" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.statisticsSql" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
@@ -368,7 +368,7 @@
 				  <el-table-column label="格式化" width="160" >
 					  <template  #default="scope">
 						  <div class='el-textarea'>
-							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.format" style="height:80px;"></textarea>
+							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.format" style="height:40px;"></textarea>
 						  </div>
 					  </template>
 				  </el-table-column>
@@ -433,28 +433,28 @@
 				  <el-table-column label="日期表达式" width="160" >
 					  <template  #default="scope">
 						  <div class='el-textarea'>
-							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.dateExpress" style="height:80px;"></textarea>
+							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.dateExpress" style="height:40px;"></textarea>
 						  </div>
 					  </template>
 				  </el-table-column>
 				  <el-table-column label="标签提示" width="160" >
 					  <template  #default="scope">
 						  <div class='el-textarea'>
-							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.labelRemark" style="height:80px;"></textarea>
+							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.labelRemark" style="height:40px;"></textarea>
 						  </div>
 					  </template>
 				  </el-table-column>
 				  <el-table-column label="选项sql" width="160" >
 					  <template  #default="scope">
 						  <div class='el-textarea'>
-							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.optionSql" style="height:80px;"></textarea>
+							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.optionSql" style="height:40px;"></textarea>
 						  </div>
 					  </template>
 				  </el-table-column>
 				  <el-table-column label="扩展json" width="160" >
 					  <template  #default="scope">
 						  <div class='el-textarea'>
-							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.extraJson" style="height:80px;"></textarea>
+							  <textarea class='el-textarea__inner'  v-model.lazy="scope.row.extraJson" style="height:40px;"></textarea>
 						  </div>
 					  </template>
 				  </el-table-column>
@@ -522,7 +522,7 @@ iframe:配置url地址,可携带参数url?id=${id}&pageCode=${code}
 post:/xxx(会携带)requestBody参数
 打开新窗口:配置url地址
 批量操作可以携带url?ids=${ids}参数
-"  v-model.lazy="scope.row.optionValue" style="height:80px;"></textarea>
+"  v-model.lazy="scope.row.optionValue" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
@@ -570,28 +570,28 @@ post:/xxx(会携带)requestBody参数
 				<el-table-column label="二次确认提示" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.confirmText" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.confirmText" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
 				<el-table-column label="禁用规则" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.jsRule" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.jsRule" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
 				<el-table-column label="弹出前接口" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.beforePopApi" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.beforePopApi" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
 				<el-table-column label="扩展json" width="160" >
 					<template  #default="scope">
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.extraJson" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner'  v-model.lazy="scope.row.extraJson" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
@@ -626,14 +626,14 @@ post:/xxx(会携带)requestBody参数
 						<div class='el-textarea'>
 							<textarea class='el-textarea__inner' placeholder="类型为页面:配置页面编号
 表单:配置表单编号
-iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPageCode" style="height:80px;"></textarea>
+iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPageCode" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>
 				<el-table-column  label="关联字段"  >
 					<template  #default="scope" >
 						<div class='el-textarea'>
-							<textarea class='el-textarea__inner' placeholder="例子:parentId=${id}&parentCode=${dicCode}"  v-model.lazy="scope.row.refField" style="height:80px;"></textarea>
+							<textarea class='el-textarea__inner' placeholder="例子:parentId=${id}&parentCode=${dicCode}"  v-model.lazy="scope.row.refField" style="height:40px;"></textarea>
 						</div>
 					</template>
 				</el-table-column>

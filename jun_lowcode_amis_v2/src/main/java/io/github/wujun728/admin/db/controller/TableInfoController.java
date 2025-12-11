@@ -2,6 +2,7 @@ package io.github.wujun728.admin.db.controller;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.json.JSONUtil;
+import com.google.common.collect.Lists;
 import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
@@ -190,14 +191,18 @@ public class TableInfoController {
             formService.reload(form);
             formService.save(form);
         }
+        //addMenu(pageCode, tableInfo);
+        return Result.success();
+    }
+
+    private void addMenu(String pageCode, ClassInfo tableInfo) {
         String url = "/crud/" + pageCode;
-        List<Map<String, Object>> menus = jdbcService.find("select id from sys_menu where url=?", url);
-        List<Map<String, Object>> maxMenus = jdbcService.find("select max(menu_code) max_code from sys_menu where parent_id is null ");
+        List<Map<String, Object>> menus = Lists.newArrayList();// jdbcService.find("select menu_id from sys_menu where url=?", url);
+        List<Map<String, Object>> maxMenus = jdbcService.find("select max(menu_id) max_code from sys_menu where parent_id is null ");
         int maxCode = 0;
         if (!maxMenus.isEmpty()) {
             maxCode = Integer.parseInt((String) maxMenus.get(0).get("maxCode"));
         }
-
         if (menus.isEmpty()) {
             Map<String, Object> menu = new HashMap<>();
             maxCode++;
@@ -209,6 +214,5 @@ public class TableInfoController {
             menu.put("whetherButton", Whether.NO);
             jdbcService.saveOrUpdate(menu, "sys_menu");
         }
-        return Result.success();
     }
 }
