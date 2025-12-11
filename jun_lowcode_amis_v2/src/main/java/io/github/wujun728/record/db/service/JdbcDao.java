@@ -3,7 +3,7 @@ package io.github.wujun728.record.db.service;
 import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -27,8 +27,8 @@ public interface JdbcDao {
     <T> T findOne(Class<T> clz,String field,Object arg);
     <T> T getById(Class<T> clz,Long id);
     Map<String,Object> getById(String tableName,Long id);
-    List<ColumnInfo> columnMeta(String sql);
-    List<ColumnInfo> namedColumnMeta(String sql);
+    List<FieldInfo> columnMeta(String sql);
+    List<FieldInfo> namedColumnMeta(String sql);
     <T> List<T> findForObject(String sql,Class<T> clz,Object ...args);
     <T> T findOneForObject(String sql,Class<T> clz,Object ...args);
 

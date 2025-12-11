@@ -5,7 +5,7 @@ import cn.hutool.json.JSONUtil;
 import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
@@ -127,7 +127,7 @@ public class TableInfoController {
             page = new Page();
             page.setName(tableInfo.getTableComment() + "列表");
             page.setCode(pageCode);
-            List<String> columnNames = tableInfo.getColumnInfos().stream().map(ColumnInfo::getColumnName).collect(Collectors.toList());
+            List<String> columnNames = tableInfo.getColumnInfos().stream().map(FieldInfo::getColumnName).collect(Collectors.toList());
 
             if (columnNames.contains("parent_id") || columnNames.contains("pid")) {
                 page.setPageType(PageType.tree);

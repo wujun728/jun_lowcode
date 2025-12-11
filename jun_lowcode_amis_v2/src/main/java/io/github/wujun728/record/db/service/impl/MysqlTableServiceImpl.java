@@ -12,7 +12,7 @@ import io.github.wujun728.record.db.service.JdbcDao;
 import io.github.wujun728.record.db.service.TableService;
 import io.github.wujun728.record.util.StringUtil;
 import io.github.wujun728.record.util.TemplateUtil;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.data.ForeignKey;
 import io.github.wujun728.record.db.data.IndexInfo;
 import io.github.wujun728.record.db.data.ClassInfo;
@@ -102,8 +102,8 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
 //                dbConfig.getSchema()
                 "db_qixing_v2"
                 +"' and c.TABLE_NAME = '"+tableName+"' and c.column_name <> 'id' ";
-        List<ColumnInfo> columnInfos = jdbcDao.find(columnSql, ColumnInfo.class);
-        for(ColumnInfo c:columnInfos){
+        List<FieldInfo> columnInfos = jdbcDao.find(columnSql, FieldInfo.class);
+        for(FieldInfo c:columnInfos){
             c.setOldColumnName(c.getColumnName());
         }
         tableInfo.setColumnInfos(columnInfos);
@@ -197,7 +197,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
             String sql = "create table "+tableInfo.getTableName()+" (\n";
             sql += "\tid BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键' ,\n";
             for (int i = 0; i < tableInfo.getColumnInfos().size(); i++) {
-                ColumnInfo columnInfo = tableInfo.getColumnInfos().get(i);
+                FieldInfo columnInfo = tableInfo.getColumnInfos().get(i);
                 sql += "\t";
                 if(columnInfo.getColumnName().equalsIgnoreCase("id")){
                     continue;
@@ -268,10 +268,10 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
 
     //更新列
     private void updateColumns(ClassInfo tableInfo, ClassInfo oldTableInfo){
-        Map<String, ColumnInfo> oldColumnMap = oldTableInfo.getColumnInfos().stream().collect(Collectors.toMap(ColumnInfo::getColumnName, c -> c));
+        Map<String, FieldInfo> oldColumnMap = oldTableInfo.getColumnInfos().stream().collect(Collectors.toMap(FieldInfo::getColumnName, c -> c));
         Set<String> names = new HashSet<>();
         //新增/修改字段
-        for(ColumnInfo columnInfo:tableInfo.getColumnInfos()){
+        for(FieldInfo columnInfo:tableInfo.getColumnInfos()){
             if(StrUtil.isBlank(columnInfo.getOldColumnName())){
                 //新增字段
                 String sql = StrUtil.format("alter table {} add {} {} {} comment '{}' ",
@@ -284,7 +284,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
                 jdbcDao.update("新增字段",sql);
             }else{
                 names.add(columnInfo.getOldColumnName());
-                ColumnInfo oldColumnInfo = oldColumnMap.get(columnInfo.getOldColumnName());
+                FieldInfo oldColumnInfo = oldColumnMap.get(columnInfo.getOldColumnName());
                 if(!oldColumnInfo.equals(columnInfo)){
                     if(!columnInfo.getOldColumnName().equalsIgnoreCase(columnInfo.getColumnName())){
                         //修改字段名称
@@ -311,7 +311,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
             }
         }
         //删除字段
-        for(ColumnInfo oldColumnInfo:oldTableInfo.getColumnInfos()){
+        for(FieldInfo oldColumnInfo:oldTableInfo.getColumnInfos()){
             if(!names.contains(oldColumnInfo.getColumnName())){
                 String sql = StrUtil.format("alter table {} drop column {} ",tableInfo.getTableName(),oldColumnInfo.getColumnName());
                 jdbcDao.update("删除字段",sql);
@@ -423,7 +423,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
     public Map<String, String> generateCode(String tableName) {
         Result<ClassInfo> result = this.get(tableName);
         ClassInfo tableInfo = result.getData();
-        List<ColumnInfo> columnInfos = tableInfo.getColumnInfos();
+        List<FieldInfo> columnInfos = tableInfo.getColumnInfos();
         Map<String,String> java = new HashMap<>();
 
         Map<String,Object> params = new HashMap<>();
@@ -441,7 +441,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
         querySql += "\n\t"+alis+".id, -- 主键";
         exportSql += "\n\t"+alis+".id,-- 主键";
         String lastColumnName = columnInfos.get(columnInfos.size() - 1).getColumnName();
-        for(ColumnInfo columnInfo:columnInfos){
+        for(FieldInfo columnInfo:columnInfos){
             Map<String,Object> column = new HashMap<>();
             column.put("columnName",StringUtil.toFieldColumn(columnInfo.getColumnName()));
             column.put("columnComment",columnInfo.getColumnComment());

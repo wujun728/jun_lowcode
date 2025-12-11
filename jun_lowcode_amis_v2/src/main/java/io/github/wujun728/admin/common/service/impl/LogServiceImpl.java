@@ -13,7 +13,7 @@ import io.github.wujun728.record.common.data.LogTable;
 import io.github.wujun728.admin.common.service.DataListenerService;
 import io.github.wujun728.record.common.service.LogService;
 import io.github.wujun728.record.common.service.impl.DbCacheServiceImpl;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
@@ -101,9 +101,9 @@ public class LogServiceImpl implements LogService {
             globalLog.setOptionType(operation);
             globalLog.setRefId(Long.valueOf(beforeObj.get("id").toString()));
             Result<ClassInfo> tableInfo = tableService.get(tableName);
-            List<ColumnInfo> columnInfos = tableInfo.getData().getColumnInfos();
+            List<FieldInfo> columnInfos = tableInfo.getData().getColumnInfos();
             boolean isUpdate = false;
-            for(ColumnInfo columnInfo:columnInfos){
+            for(FieldInfo columnInfo:columnInfos){
                 String field = StringUtil.toFieldColumn(columnInfo.getColumnName());
                 Object beforeValue = beforeObj.get(field);
                 Object afterValue = afterObj.get(field);

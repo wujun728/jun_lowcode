@@ -8,7 +8,7 @@ import java.util.Objects;
  * 字段信息
  */
 @Data
-public class ColumnInfo {
+public class FieldInfo {
     //字段名,用来区分新增更新
     private String oldColumnName;
     //字段名称
@@ -57,7 +57,7 @@ public class ColumnInfo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ColumnInfo that = (ColumnInfo) o;
+        FieldInfo that = (FieldInfo) o;
         return columnName.equals(that.columnName) && Objects.equals(columnComment, that.columnComment) && columnType.equals(that.columnType) && isNullable.equals(that.isNullable);
     }
 

@@ -20,7 +20,7 @@ public class ClassInfo {
     //表行数
     private int tableRows;
     //列信息
-    private List<ColumnInfo> columnInfos = new ArrayList<>();
+    private List<FieldInfo> columnInfos = new ArrayList<>();
     //索引信息
     private List<IndexInfo> indexInfos = new ArrayList<>();
     //外键信息
@@ -30,7 +30,7 @@ public class ClassInfo {
 //    private String tableName;
     private String className;
     private String classComment;
-	private List<ColumnInfo> fieldList;
+	private List<FieldInfo> fieldList;
 
     @Override
     public boolean equals(Object o) {

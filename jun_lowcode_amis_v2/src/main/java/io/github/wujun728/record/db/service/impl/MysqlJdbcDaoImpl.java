@@ -7,7 +7,7 @@ import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.annotations.OrderBy;
 //import io.github.wujun728.record.db.config.DbConfig;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.service.JdbcDao;
 import io.github.wujun728.record.util.RowMapperUtil;
 import io.github.wujun728.record.util.StringUtil;
@@ -160,21 +160,21 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
         return StringUtil.toSqlColumn(clz.getSimpleName());
     }
     @Override
-    public List<ColumnInfo> columnMeta(String sql) {
+    public List<FieldInfo> columnMeta(String sql) {
         return columnMeta(sql,jdbcTemplate);
     }
 
     @Override
-    public List<ColumnInfo> namedColumnMeta(String sql) {
+    public List<FieldInfo> namedColumnMeta(String sql) {
         return columnMeta(sql,namedParameterJdbcTemplate);
     }
 
-    private List<ColumnInfo> columnMeta(String sql, Object template) {
+    private List<FieldInfo> columnMeta(String sql, Object template) {
 
-        List<ColumnInfo> columnMetas = new ArrayList<>();
+        List<FieldInfo> columnMetas = new ArrayList<>();
 
         List<String> tableColumns = new ArrayList<>();
-        Map<String,ColumnInfo> metaMap = new HashMap<>();
+        Map<String, FieldInfo> metaMap = new HashMap<>();
         sql = sql + " limit 0 ";
 
         PreparedStatementCallback<Object> psc = (PreparedStatementCallback<Object>) ps -> {
@@ -192,7 +192,7 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
             int columnCount = resultSetMetaData.getColumnCount();
 
             for (int i = 1; i <=columnCount; i++) {
-                ColumnInfo columnMeta = new ColumnInfo();
+                FieldInfo columnMeta = new FieldInfo();
 
                 String columnLabel = resultSetMetaData.getColumnLabel(i);
                 String columnTypeName = resultSetMetaData.getColumnTypeName(i);

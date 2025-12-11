@@ -5,7 +5,7 @@ import io.github.wujun728.record.common.Result;
 import io.github.wujun728.admin.common.constants.ImportDataType;
 import io.github.wujun728.admin.common.data.DataImportTemplate;
 import io.github.wujun728.admin.common.data.DataImportTemplateField;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
@@ -62,7 +62,7 @@ public class DataImportTemplateController {
         for(DataImportTemplateField field:template.getFields()){
             names.add(field.getColumnName().toUpperCase());
         }
-        for(ColumnInfo columnInfo : tableInfo.getColumnInfos()){
+        for(FieldInfo columnInfo : tableInfo.getColumnInfos()){
             if(names.contains(columnInfo.getColumnName())){
                 continue;
             }

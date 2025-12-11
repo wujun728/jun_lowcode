@@ -12,7 +12,7 @@ import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.service.TemplateService;
 import io.github.wujun728.record.common.service.impl.AbstractCacheService;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.ConfigUtils;
 import io.github.wujun728.admin.page.constants.*;
@@ -563,8 +563,8 @@ public class PageServiceImpl extends AbstractCacheService<Page> implements PageS
         }
         page.getResultFields().clear();
 
-        List<ColumnInfo> columnMetas = jdbcService.columnMeta(this.getQuerySql(page.getQuerySql()));
-        for(ColumnInfo columnMeta:columnMetas){
+        List<FieldInfo> columnMetas = jdbcService.columnMeta(this.getQuerySql(page.getQuerySql()));
+        for(FieldInfo columnMeta:columnMetas){
             if(fieldMap.containsKey(columnMeta.getColumnLabel())){
                 page.getResultFields().add(fieldMap.get(columnMeta.getColumnLabel()));
                 continue;

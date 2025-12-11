@@ -14,7 +14,7 @@ import io.github.wujun728.admin.common.data.DataImportTemplate;
 import io.github.wujun728.admin.common.data.DataImportTemplateField;
 import io.github.wujun728.admin.common.data.SysFile;
 import io.github.wujun728.admin.common.service.SysFileService;
-import io.github.wujun728.record.db.data.ColumnInfo;
+import io.github.wujun728.record.db.data.FieldInfo;
 import io.github.wujun728.record.db.data.ClassInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.record.db.service.TableService;
@@ -115,12 +115,12 @@ public class DataImportTaskApi implements DynamicTaskApi {
                     if(tableInfo == null){
                         throw new RuntimeException("关联表不存在["+table+"]");
                     }
-                    List<String> cols = tableInfo.getColumnInfos().stream().map(ColumnInfo::getColumnName).collect(Collectors.toList());
+                    List<String> cols = tableInfo.getColumnInfos().stream().map(FieldInfo::getColumnName).collect(Collectors.toList());
                     tableCache.put(table,cols);
                 }
             }
 
-            List<String> cols = tableService.get(template.getTableName()).getData().getColumnInfos().stream().map(ColumnInfo::getColumnName).collect(Collectors.toList());
+            List<String> cols = tableService.get(template.getTableName()).getData().getColumnInfos().stream().map(FieldInfo::getColumnName).collect(Collectors.toList());
             tableCache.put(template.getTableName(),cols);
 
             MultiValueMap<String,Integer> keyRowsMap = new LinkedMultiValueMap<>();
