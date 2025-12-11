@@ -268,37 +268,37 @@
                     </template>
                 </el-table-column>
 				<el-table-column label="是否隐藏" width="100"   >
-					<template  #default="scope">
-						<el-select v-model="scope.row.hidden"  placeholder="请选择" clearable >
-							<el-option label="YES" value="YES" ></el-option>
-							<el-option label="NO" value="NO" ></el-option>
-						</el-select>
-					</template>
-				</el-table-column>
-				<el-table-column label="是否多选" width="100"   >
-					<template  #default="scope">
-						<el-select v-model="scope.row.multi"  placeholder="请选择" clearable>
-							<el-option label="YES" value="YES" ></el-option>
-							<el-option label="NO" value="NO" ></el-option>
-						</el-select>
-					</template>
-				</el-table-column>
+				<template  #default="scope">
+					<el-checkbox
+							v-model="scope.row._hiddenBool"
+							@change="val => scope.row.hidden = val ? 'YES' : 'NO'"
+					>隐藏</el-checkbox>
+				</template>
+			</el-table-column>
+			<el-table-column label="是否多选" width="100"   >
+				<template  #default="scope">
+					<el-checkbox
+							v-model="scope.row._multiBool"
+							@change="val => scope.row.multi = val ? 'YES' : 'NO'"
+					>多选</el-checkbox>
+				</template>
+			</el-table-column>
 				<el-table-column label="是否必填" width="100"   >
-					<template  #default="scope">
-						<el-select v-model="scope.row.must" placeholder="请选择" clearable >
-							<el-option label="YES" value="YES" ></el-option>
-							<el-option label="NO" value="NO" ></el-option>
-						</el-select>
-					</template>
-				</el-table-column>
-				<el-table-column label="是否只读" width="100">
-					<template  #default="scope">
-						<el-select v-model="scope.row.disabled" placeholder="请选择" clearable   >
-							<el-option label="YES" value="YES" ></el-option>
-							<el-option label="NO" value="NO" ></el-option>
-						</el-select>
-					</template>
-				</el-table-column>
+				<template  #default="scope">
+					<el-checkbox
+							v-model="scope.row._mustBool"
+							@change="val => scope.row.must = val ? 'YES' : 'NO'"
+					>必填</el-checkbox>
+				</template>
+			</el-table-column>
+			<el-table-column label="是否只读" width="100">
+				<template  #default="scope">
+					<el-checkbox
+							v-model="scope.row._disabledBool"
+							@change="val => scope.row.disabled = val ? 'YES' : 'NO'"
+					>只读</el-checkbox>
+				</template>
+			</el-table-column>
 
 				<el-table-column label="标签提示" width="160" >
 					<template  #default="scope">
@@ -576,10 +576,19 @@ post:/xxx(会携带)requestBody参数
 					if(data.status !== 0){
 						ElementPlus.ElMessage(data.msg)
 					}else{
-						me.form = data.data;
-						me.reSeq(me.form.formFields);
-						me.reSeq(me.form.formRefs);
-						me.reSeq(me.form.formButtons);
+						me.form = data.data || {formFields:[], formRefs:[], formButtons:[]};
+						// 初始化布尔属性
+						if(me.form.formFields && me.form.formFields.length > 0){
+							me.form.formFields.forEach(field => {
+								field._hiddenBool = field.hidden === 'YES';
+								field._multiBool = field.multi === 'YES';
+								field._mustBool = field.must === 'YES';
+								field._disabledBool = field.disabled === 'YES';
+							});
+						}
+						if(me.form.formFields) me.reSeq(me.form.formFields);
+						if(me.form.formRefs) me.reSeq(me.form.formRefs);
+						if(me.form.formButtons) me.reSeq(me.form.formButtons);
 					}
 				}
 			});
@@ -602,11 +611,14 @@ post:/xxx(会携带)requestBody参数
 							dataType: 'json',
 							success:function(data){
 								if(data.status !== 0){
-									ElementPlus.ElMessage(data.msg)
-								}else{
-									parent.jQuery("*[data-tooltip='关闭']").get(0).click()
-									parent.jQuery("*[type='submit']").get(0).click()
-								}
+								ElementPlus.ElMessage(data.msg)
+							}else{
+								// 使用原生JavaScript替代jQuery，避免parent.jQuery未定义错误
+								let closeBtn = parent.document.querySelector("*[data-tooltip='关闭']");
+								if(closeBtn) closeBtn.click();
+								let submitBtn = parent.document.querySelector("*[type='submit']");
+								if(submitBtn) submitBtn.click();
+							}
 							}
 						});
 					}else{
@@ -630,10 +642,19 @@ post:/xxx(会携带)requestBody参数
 							if(data.status !== 0){
 								ElementPlus.ElMessage(data.msg)
 							}else{
-								me.form = data.data;
-								me.reSeq(me.form.formFields);
-								me.reSeq(me.form.formRefs);
-								me.reSeq(me.form.formButtons);
+								me.form = data.data || {formFields:[], formRefs:[], formButtons:[]};
+								// 初始化布尔属性
+								if(me.form.formFields && me.form.formFields.length > 0){
+									me.form.formFields.forEach(field => {
+										field._hiddenBool = field.hidden === 'YES';
+										field._multiBool = field.multi === 'YES';
+										field._mustBool = field.must === 'YES';
+										field._disabledBool = field.disabled === 'YES';
+									});
+								}
+								if(me.form.formFields) me.reSeq(me.form.formFields);
+								if(me.form.formRefs) me.reSeq(me.form.formRefs);
+								if(me.form.formButtons) me.reSeq(me.form.formButtons);
 							}
 						}
 					});
@@ -672,7 +693,11 @@ post:/xxx(会携带)requestBody参数
 						"hidden":"NO",
 						"multi":"NO",
 						"disabled":"NO",
-						"must":"NO"
+						"must":"NO",
+						"_hiddenBool":false,
+						"_multiBool":false,
+						"_disabledBool":false,
+						"_mustBool":false
 					}
 				};
 

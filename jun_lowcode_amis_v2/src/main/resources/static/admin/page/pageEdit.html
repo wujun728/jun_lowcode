@@ -705,41 +705,45 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
           };
         },
 		mounted(){
-        	let me = this;
-			let id = $.getUrlParam("id");
-			let type = $.getUrlParam("type");
-			let url = "";
-			if(type === 'copy'){
-				url = "/admin/page/copyPage?id="+id;
-			}else{
-				url = "/admin/page/get?id="+$.getUrlParam("id");
-			}
-			$.ajax({
-				type:"get",
-				url:url,
-				dataType: 'json',
-				success:function(data){
-					//console.info(data);
-					if(data.status !== 0){
-						ElementPlus.ElMessage(data.msg)
-					}else{
-						me.page = data.data;
-					// 初始化查询结果字段的_hiddenBool属性
+         let me = this;
+		let id = $.getUrlParam("id");
+		let type = $.getUrlParam("type");
+		let url = "";
+		if(type === 'copy'){
+			url = "/admin/page/copyPage?id="+id;
+		}else{
+			url = "/admin/page/get?id="+$.getUrlParam("id");
+		}
+		$.ajax({
+			type:"get",
+			url:url,
+			dataType: 'json',
+			success:function(data){
+				//console.info(data);
+				if(data.status !== 0){
+					ElementPlus.ElMessage(data.msg)
+				}else{
+					me.page = data.data || {resultFields:[], queryFields:[], pageRefs:[], pageButtons:[]};
+				// 初始化查询结果字段的_hiddenBool属性
+				if(me.page.resultFields && me.page.resultFields.length > 0){
 					me.page.resultFields.forEach(field => {
 						field._hiddenBool = field.hidden === 'YES';
 					});
-					// 初始化查询条件字段的_hiddenBool属性
+				}
+				// 初始化查询条件字段的_hiddenBool属性
+				if(me.page.queryFields && me.page.queryFields.length > 0){
 					me.page.queryFields.forEach(field => {
 						field._hiddenBool = field.hidden === 'YES';
 					});
-						me.reSeq(me.page.resultFields);
-						me.reSeq(me.page.queryFields);
-						me.reSeq(me.page.pageRefs);
-						me.reSeq(me.page.pageButtons);
-					}
 				}
-			});
-		},
+					if(me.page.resultFields) me.reSeq(me.page.resultFields);
+					if(me.page.queryFields) me.reSeq(me.page.queryFields);
+					if(me.page.pageRefs) me.reSeq(me.page.pageRefs);
+					if(me.page.pageButtons) me.reSeq(me.page.pageButtons);
+				}
+			}
+		});
+	},
 		methods:{
 			onSubmit(){
 				let me = this;
@@ -776,39 +780,43 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 
 			},
 			onReload(){
-				let me = this;
-				if(this.page.querySql && this.page.querySql != ''){
-					$.ajax({
-						type:"post",
-						url:"/admin/page/resultFields",
-						contentType: "application/json;charset=UTF-8",
-						processData: false,
-						data:JSON.stringify(this.page),
-						dataType: 'json',
-						success:function(data){
-							if(data.status !== 0){
-					ElementPlus.ElMessage(data.msg)
-				}else{
-					me.page = data.data;
+		let me = this;
+		if(this.page.querySql && this.page.querySql != ''){
+			$.ajax({
+				type:"post",
+				url:"/admin/page/resultFields",
+				contentType: "application/json;charset=UTF-8",
+				processData: false,
+				data:JSON.stringify(this.page),
+				dataType: 'json',
+				success:function(data){
+					if(data.status !== 0){
+						ElementPlus.ElMessage(data.msg)
+					}else{
+						me.page = data.data || {resultFields:[], queryFields:[], pageRefs:[], pageButtons:[]};
 					// 初始化查询结果字段的_hiddenBool属性
-					me.page.resultFields.forEach(field => {
-						field._hiddenBool = field.hidden === 'YES';
-					});
+					if(me.page.resultFields && me.page.resultFields.length > 0){
+						me.page.resultFields.forEach(field => {
+							field._hiddenBool = field.hidden === 'YES';
+						});
+					}
 					// 初始化查询条件字段的_hiddenBool属性
-					me.page.queryFields.forEach(field => {
-						field._hiddenBool = field.hidden === 'YES';
-					});
-					me.reSeq(me.page.resultFields);
-					me.reSeq(me.page.queryFields);
-					me.reSeq(me.page.pageRefs);
-					me.reSeq(me.page.pageButtons);
+					if(me.page.queryFields && me.page.queryFields.length > 0){
+						me.page.queryFields.forEach(field => {
+							field._hiddenBool = field.hidden === 'YES';
+						});
+					}
+						if(me.page.resultFields) me.reSeq(me.page.resultFields);
+						if(me.page.queryFields) me.reSeq(me.page.queryFields);
+						if(me.page.pageRefs) me.reSeq(me.page.pageRefs);
+						if(me.page.pageButtons) me.reSeq(me.page.pageButtons);
+					}
 				}
-						}
-					});
-				}else{
-					ElementPlus.ElMessage("填写查询sql后才能加载字段")
-				}
-			},
+			});
+		}else{
+			ElementPlus.ElMessage("填写查询sql后才能加载字段")
+		}
+	},
 			onDeleteResultField(row,index){
 				this.deleteItem(this.page.resultFields,row,index,'resultField');
 			},
