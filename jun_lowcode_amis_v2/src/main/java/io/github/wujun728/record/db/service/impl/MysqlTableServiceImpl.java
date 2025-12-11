@@ -3,6 +3,7 @@ package io.github.wujun728.record.db.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
@@ -18,8 +19,13 @@ import io.github.wujun728.record.db.data.IndexInfo;
 import io.github.wujun728.record.db.data.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,7 +69,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
         });
         return result;
     }
-
+    DataSource dataSource = SpringUtil.getBean(DataSource.class);
     private String getTableSql(){
         //排除工作流表
         return "select t.TABLE_NAME,t.TABLE_COMMENT,t.TABLE_ROWS from "+
@@ -71,7 +77,8 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
                 "information_schema"
                 +".`TABLES` t where t.TABLE_SCHEMA = '"+
 //                dbConfig.getSchema()
-                "db_qixing_v2"
+//                "db_qixing_v2"
+            getDefaultSchema(dataSource)
                 +"' and t.table_name not like 'act_%'";
     }
 
@@ -100,7 +107,8 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
         "information_schema"
                 +".`COLUMNS` c where c.TABLE_SCHEMA = '"+
 //                dbConfig.getSchema()
-                "db_qixing_v2"
+//                "db_qixing_v2"
+            getDefaultSchema(dataSource)
                 +"' and c.TABLE_NAME = '"+tableName+"' and c.column_name <> 'id' ";
         List<FieldInfo> columnInfos = jdbcDao.find(columnSql, FieldInfo.class);
         for(FieldInfo c:columnInfos){
@@ -126,7 +134,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
                 "where s.table_schema ='${schema}'\n" +
                 "  and s.REFERENCED_COLUMN_NAME is not null\n" +
                 "  and upper(t.TABLE_NAME) = upper(?)";
-        foreignKeySql = TemplateUtil.getValue(foreignKeySql, MapUtil.builder("schema", /*dbConfig.getSchema()*/ "db_qixing_v2" ).map());
+        foreignKeySql = TemplateUtil.getValue(foreignKeySql, MapUtil.builder("schema", /*dbConfig.getSchema()*/ /*"db_qixing_v2"*/ getDefaultSchema(dataSource) ).map());
 //        String foreignKeySql = StrUtil.format("select\n" +
 //                "s.CONSTRAINT_NAME\n" +
 //                "from {}.KEY_COLUMN_USAGE s\n" +
@@ -478,5 +486,52 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<ClassInfo
         java.put("querySql",querySql);
         java.put("exportSql",exportSql);
         return java;
+    }
+
+
+    /**
+     * 获取当前数据源的默认 Schema（不同数据库适配，兼容Java 11）
+     * @param dataSource 数据源
+     * @return 默认Schema名称
+     * @throws SQLException SQL异常
+     */
+    public static String getDefaultSchema(DataSource dataSource) {
+        Assert.notNull(dataSource, "DataSource 不能为空");
+        try {
+            try (Connection conn = dataSource.getConnection()) {
+                DatabaseMetaData metaData = conn.getMetaData();
+                String databaseProductName = metaData.getDatabaseProductName().toLowerCase();
+
+                // 替换增强switch为传统switch-case（适配Java 11）
+                String defaultSchema;
+                switch (databaseProductName) {
+                    case "mysql":
+                    case "mariadb":
+                        // MySQL用database名替代schema
+                        defaultSchema = conn.getCatalog();
+                        break;
+                    case "oracle":
+                        // Oracle默认Schema是当前用户名（大写）
+                        defaultSchema = metaData.getUserName().toUpperCase();
+                        break;
+                    case "postgresql":
+                        // PostgreSQL默认Schema
+                        defaultSchema = "public";
+                        break;
+                    case "sql server":
+                        // SQL Server默认Schema
+                        defaultSchema = metaData.getUserName();
+                        break;
+                    default:
+                        // 其他数据库默认值
+                        defaultSchema = metaData.getSchemaTerm();
+                        break;
+                }
+                return defaultSchema;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

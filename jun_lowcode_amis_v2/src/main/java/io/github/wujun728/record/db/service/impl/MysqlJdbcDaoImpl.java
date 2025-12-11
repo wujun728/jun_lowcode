@@ -2,6 +2,7 @@ package io.github.wujun728.record.db.service.impl;
 
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
@@ -20,12 +21,11 @@ import org.springframework.jdbc.core.namedparam.ParsedSql;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.sql.ParameterMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -146,6 +146,7 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
         return list.isEmpty() ? null :list.get(0);
     }
 
+
     @Override
     public <T> T getById(Class<T> clz, Long id) {
         if(id==null){
@@ -159,95 +160,7 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
     private String getTableName(Class clz){
         return StringUtil.toSqlColumn(clz.getSimpleName());
     }
-    @Override
-    public List<FieldInfo> columnMeta(String sql) {
-        return columnMeta(sql,jdbcTemplate);
-    }
 
-    @Override
-    public List<FieldInfo> namedColumnMeta(String sql) {
-        return columnMeta(sql,namedParameterJdbcTemplate);
-    }
-
-    private List<FieldInfo> columnMeta(String sql, Object template) {
-
-        List<FieldInfo> columnMetas = new ArrayList<>();
-
-        List<String> tableColumns = new ArrayList<>();
-        Map<String, FieldInfo> metaMap = new HashMap<>();
-        sql = sql + " limit 0 ";
-
-        PreparedStatementCallback<Object> psc = (PreparedStatementCallback<Object>) ps -> {
-            ParameterMetaData parameterMetaData = ps.getParameterMetaData();
-            ResultSetMetaData resultSetMetaData = ps.getMetaData();
-
-//            int parameterCount = parameterMetaData.getParameterCount();
-//            log.info("parameterCount,{}",parameterCount);
-            //下面无法获取
-//            for(int i=1;i<=parameterCount;i++){
-//                String parameterClassName = parameterMetaData.getParameterClassName(i);
-//                String typeName = parameterMetaData.getParameterTypeName(i);
-//                log.info("参数类型,{},{}",typeName,parameterClassName);
-//            }
-            int columnCount = resultSetMetaData.getColumnCount();
-
-            for (int i = 1; i <=columnCount; i++) {
-                FieldInfo columnMeta = new FieldInfo();
-
-                String columnLabel = resultSetMetaData.getColumnLabel(i);
-                String columnTypeName = resultSetMetaData.getColumnTypeName(i);
-                String columnClassName = resultSetMetaData.getColumnClassName(i);
-                String tableName = resultSetMetaData.getTableName(i);
-                String columnName = resultSetMetaData.getColumnName(i);
-                log.info("返回数据类型,{},{},{},{},{}",tableName,columnName,columnLabel,columnClassName,columnTypeName);
-
-                columnMeta.setColumnLabel(columnLabel);
-                columnMeta.setColumnType(columnTypeName);
-                columnMeta.setColumnClassName(columnClassName);
-                columnMeta.setTableName(tableName);
-                columnMeta.setColumnName(columnName);
-                columnMetas.add(columnMeta);
-                if(StrUtil.isNotBlank(tableName) && StrUtil.isNotBlank(columnName)){
-                    tableColumns.add(StrUtil.format("(c.table_name = '{}' and c.column_name = '{}')",tableName,columnName));
-
-                    metaMap.put(StrUtil.format("{}-{}",tableName,columnName),columnMeta);
-                }
-            }
-            return null;
-        };
-        if (template instanceof JdbcTemplate){
-            ((JdbcTemplate)template).execute(sql,psc );
-        }else if(template instanceof NamedParameterJdbcTemplate){
-            ParsedSql parsedSql = NamedParameterUtils.parseSqlStatement(sql);
-            List<String> names = ReflectUtil.invoke(parsedSql,"getParameterNames");
-            Map<String,Object> params = new HashMap<>();
-            for(String name:names){
-                params.put(name,"");
-            }
-            ((NamedParameterJdbcTemplate)template).execute(sql,params,psc);
-        }
-        if(!tableColumns.isEmpty()){
-            StringBuffer commentSql = new StringBuffer(StrUtil.format(
-                    "select c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_COMMENT from {}.`COLUMNS` c where c.TABLE_SCHEMA = '{}' and ({})",
-//                    dbConfig.getManageSchema(),
-                    "information_schema",
-//                    dbConfig.getSchema(),
-                    "db_qixing_v2",
-                    StringUtil.concatStr(tableColumns," or \n ")
-            ));
-            log.info(commentSql.toString());
-
-            List<Map<String, Object>> maps = this.find(commentSql.toString());
-            for(Map<String,Object> en:maps){
-                String key = StrUtil.format("{}-{}",en.get("tableName"),en.get("columnName"));
-                String columnComment = (String) en.get("columnComment");
-                if(metaMap.containsKey(key)){
-                    metaMap.get(key).setColumnComment(columnComment);
-                }
-            }
-        }
-        return columnMetas;
-    }
 
     @Override
     public <T> List<T> find(Class<T> clz, String[] fields, Object[] args) {
@@ -323,4 +236,144 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
         log.info("sql:{},params:{}",sql,params);
         return namedParameterJdbcTemplate.queryForList(sql,params,clz);
     }
+
+
+    @Override
+    public List<FieldInfo> columnMeta(String sql) {
+        return columnMeta(sql,jdbcTemplate);
+    }
+
+    @Override
+    public List<FieldInfo> namedColumnMeta(String sql) {
+        return columnMeta(sql,namedParameterJdbcTemplate);
+    }
+
+    private List<FieldInfo> columnMeta(String sql, Object template) {
+
+        List<FieldInfo> columnMetas = new ArrayList<>();
+
+        List<String> tableColumns = new ArrayList<>();
+        Map<String, FieldInfo> metaMap = new HashMap<>();
+        sql = sql + " limit 0 ";
+
+        PreparedStatementCallback<Object> psc = (PreparedStatementCallback<Object>) ps -> {
+            ParameterMetaData parameterMetaData = ps.getParameterMetaData();
+            ResultSetMetaData resultSetMetaData = ps.getMetaData();
+
+//            int parameterCount = parameterMetaData.getParameterCount();
+//            log.info("parameterCount,{}",parameterCount);
+            //下面无法获取
+//            for(int i=1;i<=parameterCount;i++){
+//                String parameterClassName = parameterMetaData.getParameterClassName(i);
+//                String typeName = parameterMetaData.getParameterTypeName(i);
+//                log.info("参数类型,{},{}",typeName,parameterClassName);
+//            }
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            for (int i = 1; i <=columnCount; i++) {
+                FieldInfo columnMeta = new FieldInfo();
+
+                String columnLabel = resultSetMetaData.getColumnLabel(i);
+                String columnTypeName = resultSetMetaData.getColumnTypeName(i);
+                String columnClassName = resultSetMetaData.getColumnClassName(i);
+                String tableName = resultSetMetaData.getTableName(i);
+                String columnName = resultSetMetaData.getColumnName(i);
+                log.info("返回数据类型,{},{},{},{},{}",tableName,columnName,columnLabel,columnClassName,columnTypeName);
+
+                columnMeta.setColumnLabel(columnLabel);
+                columnMeta.setColumnType(columnTypeName);
+                columnMeta.setColumnClassName(columnClassName);
+                columnMeta.setTableName(tableName);
+                columnMeta.setColumnName(columnName);
+                columnMetas.add(columnMeta);
+                if(StrUtil.isNotBlank(tableName) && StrUtil.isNotBlank(columnName)){
+                    tableColumns.add(StrUtil.format("(c.table_name = '{}' and c.column_name = '{}')",tableName,columnName));
+
+                    metaMap.put(StrUtil.format("{}-{}",tableName,columnName),columnMeta);
+                }
+            }
+            return null;
+        };
+        if (template instanceof JdbcTemplate){
+            ((JdbcTemplate)template).execute(sql,psc );
+        }else if(template instanceof NamedParameterJdbcTemplate){
+            ParsedSql parsedSql = NamedParameterUtils.parseSqlStatement(sql);
+            List<String> names = ReflectUtil.invoke(parsedSql,"getParameterNames");
+            Map<String,Object> params = new HashMap<>();
+            for(String name:names){
+                params.put(name,"");
+            }
+            ((NamedParameterJdbcTemplate)template).execute(sql,params,psc);
+        }
+        if(!tableColumns.isEmpty()){
+            DataSource dataSource = SpringUtil.getBean(DataSource.class);
+            StringBuffer commentSql = new StringBuffer(StrUtil.format(
+                    "select c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_COMMENT from {}.`COLUMNS` c where c.TABLE_SCHEMA = '{}' and ({})",
+//                    dbConfig.getManageSchema(),
+                    "information_schema",
+//                    dbConfig.getSchema(),
+//                    "db_qixing_v2",
+                    getDefaultSchema(dataSource),
+                    StringUtil.concatStr(tableColumns," or \n ")
+            ));
+            log.info(commentSql.toString());
+
+            List<Map<String, Object>> maps = this.find(commentSql.toString());
+            for(Map<String,Object> en:maps){
+                String key = StrUtil.format("{}-{}",en.get("tableName"),en.get("columnName"));
+                String columnComment = (String) en.get("columnComment");
+                if(metaMap.containsKey(key)){
+                    metaMap.get(key).setColumnComment(columnComment);
+                }
+            }
+        }
+        return columnMetas;
+    }
+
+    /**
+     * 获取当前数据源的默认 Schema（不同数据库适配，兼容Java 11）
+     * @param dataSource 数据源
+     * @return 默认Schema名称
+     * @throws SQLException SQL异常
+     */
+    public static String getDefaultSchema(DataSource dataSource) {
+        Assert.notNull(dataSource, "DataSource 不能为空");
+        try {
+            try (Connection conn = dataSource.getConnection()) {
+                DatabaseMetaData metaData = conn.getMetaData();
+                String databaseProductName = metaData.getDatabaseProductName().toLowerCase();
+
+                // 替换增强switch为传统switch-case（适配Java 11）
+                String defaultSchema;
+                switch (databaseProductName) {
+                    case "mysql":
+                    case "mariadb":
+                        // MySQL用database名替代schema
+                        defaultSchema = conn.getCatalog();
+                        break;
+                    case "oracle":
+                        // Oracle默认Schema是当前用户名（大写）
+                        defaultSchema = metaData.getUserName().toUpperCase();
+                        break;
+                    case "postgresql":
+                        // PostgreSQL默认Schema
+                        defaultSchema = "public";
+                        break;
+                    case "sql server":
+                        // SQL Server默认Schema
+                        defaultSchema = metaData.getUserName();
+                        break;
+                    default:
+                        // 其他数据库默认值
+                        defaultSchema = metaData.getSchemaTerm();
+                        break;
+                }
+                return defaultSchema;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -252,8 +252,13 @@
 								if(data.status !== 0){
 									ElementPlus.ElMessage(data.msg)
 								}else{
-									parent.jQuery("*[data-tooltip='关闭']").get(0).click()
-									parent.jQuery("*[type='submit']").get(0).click()
+									//parent.jQuery("*[data-tooltip='关闭']").get(0).click()
+									//parent.jQuery("*[type='submit']").get(0).click()
+									// 核心修复：原生JS操作父页面元素，不依赖父页面jQuery
+                                    const closeBtn = window.parent.document.querySelector("*[data-tooltip='关闭']");
+                                    const submitBtn = window.parent.document.querySelector("*[type='submit']");
+                                    if(closeBtn) closeBtn.click();
+                                    if(submitBtn) submitBtn.click();
 								}
 							}
 						});
