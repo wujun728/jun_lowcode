@@ -221,12 +221,12 @@
                         >隐藏</el-checkbox>
                     </template>
                 </el-table-column>
-				<el-table-column label="是否展示" width="100"   >
-					<template  #default="scope">
-						<el-select v-model="scope.row.toggled"  placeholder="配置为展示,需要在选择列哪里勾选" clearable >
-							<el-option label="YES" value="YES" ></el-option>
-							<el-option label="NO" value="NO" ></el-option>
-						</el-select>
+				<el-table-column label="是否展示" width="100">
+					<template #default="scope">
+						<el-checkbox
+								v-model="scope.row._toggledBool"
+								@change="val => scope.row.toggled = val ? 'YES' : 'NO'"
+						>展示</el-checkbox>
 					</template>
 				</el-table-column>
 				<el-table-column label="冻结位置" width="100"   >
@@ -724,14 +724,15 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 						ElementPlus.ElMessage(data.msg)
 					}else{
 						me.page = data.data;
-						// 初始化查询结果字段的_hiddenBool属性
-						me.page.resultFields.forEach(field => {
-							field._hiddenBool = field.hidden === 'YES';
-						});
-						// 初始化查询条件字段的_hiddenBool属性
-						me.page.queryFields.forEach(field => {
-							field._hiddenBool = field.hidden === 'YES';
-						});
+					// 初始化查询结果字段的_hiddenBool和_toggledBool属性
+					me.page.resultFields.forEach(field => {
+						field._hiddenBool = field.hidden === 'YES';
+						field._toggledBool = field.toggled === 'YES';
+					});
+					// 初始化查询条件字段的_hiddenBool属性
+					me.page.queryFields.forEach(field => {
+						field._hiddenBool = field.hidden === 'YES';
+					});
 						me.reSeq(me.page.resultFields);
 						me.reSeq(me.page.queryFields);
 						me.reSeq(me.page.pageRefs);
@@ -790,9 +791,10 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 					ElementPlus.ElMessage(data.msg)
 				}else{
 					me.page = data.data;
-					// 初始化查询结果字段的_hiddenBool属性
+					// 初始化查询结果字段的_hiddenBool和_toggledBool属性
 					me.page.resultFields.forEach(field => {
 						field._hiddenBool = field.hidden === 'YES';
+						field._toggledBool = field.toggled === 'YES';
 					});
 					// 初始化查询条件字段的_hiddenBool属性
 					me.page.queryFields.forEach(field => {
@@ -859,8 +861,11 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 						seq:row.seq+5,
 						...defaultObj[type]
 					};
-					// 初始化新添加字段的_hiddenBool属性
-					if(['resultField', 'queryField'].includes(type)){
+					// 初始化新添加字段的_hiddenBool和_toggledBool属性
+					if(type === 'resultField'){
+						newField._hiddenBool = newField.hidden === 'YES';
+						newField._toggledBool = newField.toggled === 'YES';
+					}else if(type === 'queryField'){
 						newField._hiddenBool = newField.hidden === 'YES';
 					}
 					arr.splice(index+1,0,newField);
@@ -873,8 +878,11 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 						seq:seq,
 						...defaultObj[type]
 					};
-					// 初始化新添加字段的_hiddenBool属性
-					if(['resultField', 'queryField'].includes(type)){
+					// 初始化新添加字段的_hiddenBool和_toggledBool属性
+					if(type === 'resultField'){
+						newField._hiddenBool = newField.hidden === 'YES';
+						newField._toggledBool = newField.toggled === 'YES';
+					}else if(type === 'queryField'){
 						newField._hiddenBool = newField.hidden === 'YES';
 					}
 					arr.push(newField);
