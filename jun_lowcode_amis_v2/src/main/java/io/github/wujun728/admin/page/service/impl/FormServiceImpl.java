@@ -7,7 +7,7 @@ import cn.hutool.json.JSONUtil;
 import io.github.wujun728.record.common.BaseData;
 import io.github.wujun728.admin.common.config.SessionContext;
 import io.github.wujun728.record.common.service.impl.AbstractCacheService;
-import io.github.wujun728.record.db.data.ColumnMeta;
+import io.github.wujun728.record.db.data.ColumnInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.page.ConfigUtils;
 import io.github.wujun728.admin.page.constants.ComponentType;
@@ -485,8 +485,8 @@ public class FormServiceImpl extends AbstractCacheService<Form> implements FormS
         Map<String, FormField> fieldMap = form.getFormFields().stream().collect(Collectors.toMap(FormField::getField, f -> f));
 
         form.getFormFields().clear();
-        List<ColumnMeta> columnMetas = jdbcService.columnMeta(StrUtil.format("select * from {} ",form.getTableName()));
-        for(ColumnMeta columnMeta:columnMetas){
+        List<ColumnInfo> columnMetas = jdbcService.columnMeta(StrUtil.format("select * from {} ",form.getTableName()));
+        for(ColumnInfo columnMeta:columnMetas){
             String name = StringUtil.toFieldColumn(columnMeta.getColumnLabel());
             if(fieldMap.containsKey(name)){
                 form.getFormFields().add(fieldMap.get(name));

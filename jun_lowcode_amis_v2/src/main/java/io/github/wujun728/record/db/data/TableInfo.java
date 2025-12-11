@@ -26,6 +26,11 @@ public class TableInfo {
     //外键信息
     private List<ForeignKey> foreignKeys = new ArrayList<>();
 
+//    ClassInfo
+//    private String tableName;
+    private String className;
+    private String classComment;
+	private List<ColumnInfo> fieldList;
 
     @Override
     public boolean equals(Object o) {

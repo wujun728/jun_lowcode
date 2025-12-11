@@ -6,8 +6,8 @@ import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.annotations.OrderBy;
-import io.github.wujun728.record.db.config.DbConfig;
-import io.github.wujun728.record.db.data.ColumnMeta;
+//import io.github.wujun728.record.db.config.DbConfig;
+import io.github.wujun728.record.db.data.ColumnInfo;
 import io.github.wujun728.record.db.service.JdbcDao;
 import io.github.wujun728.record.util.RowMapperUtil;
 import io.github.wujun728.record.util.StringUtil;
@@ -39,8 +39,8 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
     @Resource
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Resource
-    private DbConfig dbConfig;
+//    @Resource
+//    private DbConfig dbConfig;
 
     @Override
     public int update(String msg,String sql, Object... args) {
@@ -160,21 +160,21 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
         return StringUtil.toSqlColumn(clz.getSimpleName());
     }
     @Override
-    public List<ColumnMeta> columnMeta(String sql) {
+    public List<ColumnInfo> columnMeta(String sql) {
         return columnMeta(sql,jdbcTemplate);
     }
 
     @Override
-    public List<ColumnMeta> namedColumnMeta(String sql) {
+    public List<ColumnInfo> namedColumnMeta(String sql) {
         return columnMeta(sql,namedParameterJdbcTemplate);
     }
 
-    private List<ColumnMeta> columnMeta(String sql, Object template) {
+    private List<ColumnInfo> columnMeta(String sql, Object template) {
 
-        List<ColumnMeta> columnMetas = new ArrayList<>();
+        List<ColumnInfo> columnMetas = new ArrayList<>();
 
         List<String> tableColumns = new ArrayList<>();
-        Map<String,ColumnMeta> metaMap = new HashMap<>();
+        Map<String,ColumnInfo> metaMap = new HashMap<>();
         sql = sql + " limit 0 ";
 
         PreparedStatementCallback<Object> psc = (PreparedStatementCallback<Object>) ps -> {
@@ -192,7 +192,7 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
             int columnCount = resultSetMetaData.getColumnCount();
 
             for (int i = 1; i <=columnCount; i++) {
-                ColumnMeta columnMeta = new ColumnMeta();
+                ColumnInfo columnMeta = new ColumnInfo();
 
                 String columnLabel = resultSetMetaData.getColumnLabel(i);
                 String columnTypeName = resultSetMetaData.getColumnTypeName(i);
@@ -229,8 +229,10 @@ public class MysqlJdbcDaoImpl implements JdbcDao {
         if(!tableColumns.isEmpty()){
             StringBuffer commentSql = new StringBuffer(StrUtil.format(
                     "select c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_COMMENT from {}.`COLUMNS` c where c.TABLE_SCHEMA = '{}' and ({})",
-                    dbConfig.getManageSchema(),
-                    dbConfig.getSchema(),
+//                    dbConfig.getManageSchema(),
+                    "information_schema",
+//                    dbConfig.getSchema(),
+                    "db_qixing_v2",
                     StringUtil.concatStr(tableColumns," or \n ")
             ));
             log.info(commentSql.toString());

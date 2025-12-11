@@ -7,7 +7,7 @@ import io.github.wujun728.record.common.PageData;
 import io.github.wujun728.record.common.PageParam;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.service.impl.AbstractCacheService;
-import io.github.wujun728.record.db.config.DbConfig;
+//import io.github.wujun728.record.db.config.DbConfig;
 import io.github.wujun728.record.db.data.*;
 import io.github.wujun728.record.db.service.JdbcDao;
 import io.github.wujun728.record.db.service.TableService;
@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 //@ConditionalOnProperty(value="db.type",havingValue = "mysql")
 @Slf4j
 public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo>> implements TableService {
-    @Resource
-    private DbConfig dbConfig;
+//    @Resource
+//    private DbConfig dbConfig;
 
     @Resource
     private JdbcDao jdbcDao;
@@ -67,7 +67,13 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
 
     private String getTableSql(){
         //排除工作流表
-        return "select t.TABLE_NAME,t.TABLE_COMMENT,t.TABLE_ROWS from "+dbConfig.getManageSchema()+".`TABLES` t where t.TABLE_SCHEMA = '"+dbConfig.getSchema()+"' and t.table_name not like 'act_%'";
+        return "select t.TABLE_NAME,t.TABLE_COMMENT,t.TABLE_ROWS from "+
+//                dbConfig.getManageSchema()
+                "information_schema"
+                +".`TABLES` t where t.TABLE_SCHEMA = '"+
+//                dbConfig.getSchema()
+                "db_qixing_v2"
+                +"' and t.table_name not like 'act_%'";
     }
 
     @Override
@@ -90,7 +96,13 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
         tableInfo.setOldTableName(tableInfo.getTableName());
         tableInfo.setId(tableInfo.getTableName());
 
-        String columnSql = "select c.COLUMN_NAME,c.COLUMN_COMMENT,c.COLUMN_TYPE,c.IS_NULLABLE from "+dbConfig.getManageSchema()+".`COLUMNS` c where c.TABLE_SCHEMA = '"+dbConfig.getSchema()+"' and c.TABLE_NAME = '"+tableName+"' and c.column_name <> 'id' ";
+        String columnSql = "select c.COLUMN_NAME,c.COLUMN_COMMENT,c.COLUMN_TYPE,c.IS_NULLABLE from "+
+//                dbConfig.getManageSchema()
+        "information_schema"
+                +".`COLUMNS` c where c.TABLE_SCHEMA = '"+
+//                dbConfig.getSchema()
+                "db_qixing_v2"
+                +"' and c.TABLE_NAME = '"+tableName+"' and c.column_name <> 'id' ";
         List<ColumnInfo> columnInfos = jdbcDao.find(columnSql, ColumnInfo.class);
         for(ColumnInfo c:columnInfos){
             c.setOldColumnName(c.getColumnName());
@@ -115,7 +127,7 @@ public class MysqlTableServiceImpl extends AbstractCacheService<Result<TableInfo
                 "where s.table_schema ='${schema}'\n" +
                 "  and s.REFERENCED_COLUMN_NAME is not null\n" +
                 "  and upper(t.TABLE_NAME) = upper(?)";
-        foreignKeySql = TemplateUtil.getValue(foreignKeySql, MapUtil.builder("schema", dbConfig.getSchema()).map());
+        foreignKeySql = TemplateUtil.getValue(foreignKeySql, MapUtil.builder("schema", /*dbConfig.getSchema()*/ "db_qixing_v2" ).map());
 //        String foreignKeySql = StrUtil.format("select\n" +
 //                "s.CONSTRAINT_NAME\n" +
 //                "from {}.KEY_COLUMN_USAGE s\n" +

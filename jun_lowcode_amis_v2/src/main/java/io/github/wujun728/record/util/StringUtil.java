@@ -593,9 +593,9 @@ public class StringUtil {
             }
         }
         String alis = name.toString().toLowerCase();
-        if(MySQLUtil.isKeyword(alis)){
+        /*if(MySQLUtil.isKeyword(alis)){
             alis += "_";
-        }
+        }*/
         return alis;
     }
 

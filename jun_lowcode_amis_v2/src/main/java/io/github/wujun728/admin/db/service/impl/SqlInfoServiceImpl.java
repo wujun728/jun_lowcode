@@ -5,7 +5,7 @@ import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.wujun728.record.common.Result;
 import io.github.wujun728.record.common.service.impl.AbstractCacheService;
-import io.github.wujun728.record.db.data.ColumnMeta;
+import io.github.wujun728.record.db.data.ColumnInfo;
 import io.github.wujun728.record.db.service.JdbcService;
 import io.github.wujun728.admin.db.service.SqlInfoService;
 import io.github.wujun728.admin.page.constants.ParamType;
@@ -87,8 +87,8 @@ public class SqlInfoServiceImpl extends AbstractCacheService<SqlInfo> implements
             }
             sqlInfo.getSqlResults().clear();
 
-            List<ColumnMeta> columnMetas = jdbcService.namedColumnMeta(sql);
-            for(ColumnMeta columnMeta:columnMetas){
+            List<ColumnInfo> columnMetas = jdbcService.namedColumnMeta(sql);
+            for(ColumnInfo columnMeta:columnMetas){
                 if(fieldMap.containsKey(columnMeta.getColumnLabel())){
                     sqlInfo.getSqlResults().add(fieldMap.get(columnMeta.getColumnLabel()));
                     continue;
