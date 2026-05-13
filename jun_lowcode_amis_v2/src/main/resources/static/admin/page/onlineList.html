@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线表设计列表</title>
+    <!--
+      <script src="https://unpkg.com/vue@next"></script>
+      -->
+    <script type="text/javascript" src="../js/vue3.2.36/vue.js"></script>
+    <!-- import CSS -->
+    <!--
+  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+  -->
+    <link rel="stylesheet" href="../js/element-plus2.2.28/index.css"></link>
+    <!-- import JavaScript -->
+    <!-- 111
+  <script src="https://unpkg.com/element-plus"></script>
+  -->
+    <script type="text/javascript" src="../js/element-plus2.2.28/index.full.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="admin-container">
+            <div class="admin-main">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3>在线表设计列表</h3>
+                        <div class="admin-card-extra">
+                            <el-button type="primary" @click="onAdd">新增</el-button>
+                        </div>
+                    </div>
+                    <div class="admin-card-body">
+                        <!-- 查询条件 -->
+                        <el-form :model="queryForm" label-width="80px" inline class="mb-4">
+                            <el-form-item label="表名称">
+                                <el-input v-model="queryForm.name" placeholder="请输入表名称" clearable style="width: 200px;"></el-input>
+                            </el-form-item>
+                            <el-form-item label="表类型">
+                                <el-select v-model="queryForm.tableType" placeholder="请选择表类型" clearable style="width: 150px;">
+                                    <el-option label="单表" value="1"></el-option>
+                                    <el-option label="主从表" value="2"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="onQuery">查询</el-button>
+                                <el-button @click="onReset">重置</el-button>
+                            </el-form-item>
+                        </el-form>
+
+                        <!-- 列表 -->
+                        <el-table :data="tableList" stripe style="width: 100%" v-loading="loading">
+                            <el-table-column prop="name" label="表名称" min-width="180"></el-table-column>
+                            <el-table-column prop="comments" label="表描述" min-width="250"></el-table-column>
+                            <el-table-column prop="tableType" label="表类型" width="100">
+                                <template #default="scope">
+                                    <el-tag v-if="scope.row.tableType === 1">单表</el-tag>
+                                    <el-tag type="success" v-else>主从表</el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="formLayout" label="表单布局" width="100">
+                                <template #default="scope">
+                                    <el-tag size="small">{{ scope.row.formLayout === 1 ? '单列' : '双列' }}</el-tag>
+                                </template>
+                            </el-table-column>
+
+                            <el-table-column prop="createTime" label="创建时间" width="180"></el-table-column>
+                            <el-table-column prop="updateTime" label="更新时间" width="180"></el-table-column>
+                            <el-table-column label="操作" width="200" fixed="right">
+                                <template #default="scope">
+                                    <el-button type="primary" size="small" @click="onEdit(scope.row)">编辑</el-button>
+                                    <el-button type="info" size="small" @click="onDetail(scope.row)">详情</el-button>
+                                    <el-button type="warning" size="small" @click="onCopy(scope.row)">复制</el-button>
+                                    <el-button type="danger" size="small" @click="onDelete(scope.row)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+
+                        <!-- 分页 -->
+                        <div class="admin-pagination mt-4">
+                            <el-pagination
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page="currentPage"
+                                :page-sizes="[10, 20, 50, 100]"
+                                :page-size="pageSize"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="total">
+                            </el-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const App = {
+            data() {
+                return {
+                    tableList: [],
+                    queryForm: {
+                        name: '',
+                        tableType: ''
+                    },
+                    loading: false,
+                    currentPage: 1,
+                    pageSize: 10,
+                    total: 0
+                };
+            },
+            mounted() {
+                this.loadData();
+            },
+            methods: {
+                // 加载数据
+                loadData() {
+                    this.loading = true;
+                    
+                    // 构建查询参数
+                    const params = {
+                        currentPage: this.currentPage,
+                        pageSize: this.pageSize,
+                        name: this.queryForm.name,
+                        tableType: this.queryForm.tableType
+                    };
+                    
+                    fetch('/api/onlineTable/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(params)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.loading = false;
+                        if (data.status === 0) {
+                            this.tableList = data.data.items || [];
+                            this.total = data.data.total || 0;
+                        } else {
+                            this.$message.error(data.msg || '加载数据失败');
+                        }
+                    })
+                    .catch(error => {
+                        this.loading = false;
+                        console.error('加载数据失败:', error);
+                        this.$message.error('加载数据失败');
+                    });
+                },
+                
+                // 查询
+                onQuery() {
+                    this.currentPage = 1;
+                    this.loadData();
+                },
+                
+                // 重置
+                onReset() {
+                    this.queryForm = {
+                        name: '',
+                        tableType: ''
+                    };
+                    this.currentPage = 1;
+                    this.loadData();
+                },
+                
+                // 新增
+                onAdd() {
+                    window.location.href = '/admin/page/onlineEdit.html';
+                },
+                
+                // 编辑
+                onEdit(row) {
+                    window.location.href = `/admin/page/onlineEdit.html?id=${row.id}`;
+                },
+                
+                // 详情
+                onDetail(row) {
+                    window.open(`/admin/page/onlineEdit.html?id=${row.id}`);
+                },
+                
+                // 复制
+                onCopy(row) {
+                    fetch('/api/onlineTable/copy', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({id: row.id})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.code === 200) {
+                            this.$message.success('复制成功');
+                            this.loadData();
+                        } else {
+                            this.$message.error(data.msg || '复制失败');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('复制失败:', error);
+                        this.$message.error('复制失败');
+                    });
+                },
+                
+                // 删除
+                onDelete(row) {
+                    this.$confirm(`确定要删除表 "${row.name}" 吗？`, '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    })
+                    .then(() => {
+                        fetch('/api/onlineTable/del', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({id: row.id})
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.code === 200) {
+                                this.$message.success('删除成功');
+                                this.loadData();
+                            } else {
+                                this.$message.error(data.msg || '删除失败');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('删除失败:', error);
+                            this.$message.error('删除失败');
+                        });
+                    })
+                    .catch(() => {
+                        this.$message.info('已取消删除');
+                    });
+                },
+                
+                // 每页条数变化
+                handleSizeChange(val) {
+                    this.pageSize = val;
+                    this.currentPage = 1;
+                    this.loadData();
+                },
+                
+                // 当前页变化
+                handleCurrentChange(val) {
+                    this.currentPage = val;
+                    this.loadData();
+                }
+            }
+        };
+
+        const app = Vue.createApp(App);
+        app.use(ElementPlus);
+        app.mount('#app');
+    </script>
+</body>
+</html>

@@ -177,8 +177,18 @@
             <version>${minio.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>3.5.14</version>
+        </dependency>
+        <dependency>
             <groupId>io.github.wujun728</groupId>
-            <artifactId>jun-groovy-api</artifactId>
+            <artifactId>jun-groovy-api-spring-boot-starter</artifactId>
+            <version>1.0.25</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.wujun728</groupId>
+            <artifactId>jun-db-activerecord</artifactId>
             <version>1.0.25</version>
         </dependency>
     </dependencies>
@@ -204,6 +214,8 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.3.1</version>
             </plugin>
+
+    
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

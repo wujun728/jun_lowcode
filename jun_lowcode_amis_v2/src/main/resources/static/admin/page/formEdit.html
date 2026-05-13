@@ -186,7 +186,7 @@
 				</el-table-column>
 				<el-table-column label="字段类型" width="150" >
 					<template  #default="scope">
-						<el-select v-model="scope.row.type" placeholder="请选择" clearable  >
+						<el-select v-model="scope.row.type" placeholder="请选择" clearable @change="autoSetComponentType(scope.row)" >
 							<el-option label="字符串" value="string"  ></el-option>
 							<el-option label="数据字典" value="dic" ></el-option>
 							<el-option label="日期" value="date" ></el-option>
@@ -547,7 +547,7 @@ post:/xxx(会携带)requestBody参数
 		  let form = {
 			formFields:[],
 			formButtons:[],
-			formRefs:[]
+		  formRefs:[]
 		  };
           return {
 			form:form,
@@ -643,13 +643,15 @@ post:/xxx(会携带)requestBody参数
 								ElementPlus.ElMessage(data.msg)
 							}else{
 								me.form = data.data || {formFields:[], formRefs:[], formButtons:[]};
-								// 初始化布尔属性
+								// 初始化布尔属性并自动设置组件类型
 								if(me.form.formFields && me.form.formFields.length > 0){
 									me.form.formFields.forEach(field => {
 										field._hiddenBool = field.hidden === 'YES';
 										field._multiBool = field.multi === 'YES';
 										field._mustBool = field.must === 'YES';
 										field._disabledBool = field.disabled === 'YES';
+										// 自动设置组件类型
+										me.autoSetComponentType(field);
 									});
 								}
 								if(me.form.formFields) me.reSeq(me.form.formFields);
@@ -678,12 +680,34 @@ post:/xxx(会携带)requestBody参数
 				this.deleteItem(this.form.formRefs,row,index,'ref');
 			},
 			onAddRef(row,index){
-				this.pushArr(this.form.formRefs,row,index,'ref');
-			},
-			deleteItem(arr,row,index,type){
-				arr.splice(index, 1);
-				this.reSeq(arr);
-			},
+					this.pushArr(this.form.formRefs,row,index,'ref');
+				},
+				deleteItem(arr,row,index,type){
+					arr.splice(index, 1);
+					this.reSeq(arr);
+				},
+				// 字段类型到组件类型的映射关系
+				typeToComponentMap: {
+					'string': 'input-text',
+					'dic': 'select',
+					'date': 'input-date',
+					'int': 'input-number',
+					'long': 'input-number',
+					'double': 'input-number',
+					'selector': 'selector',
+					'long-string': 'textarea',
+					'big-string': 'textarea',
+					'sql': 'textarea',
+					'js': 'textarea',
+					'article': 'input-rich-text'
+				},
+				// 自动根据字段类型设置组件类型
+				autoSetComponentType(row) {
+					const componentType = this.typeToComponentMap[row.type];
+					if (componentType && !row.componentType) {
+						row.componentType = componentType;
+					}
+				},
 			pushArr(arr,row,index,type){
 				let defaultObj = {
 					"ref":{},
@@ -702,19 +726,25 @@ post:/xxx(会携带)requestBody参数
 				};
 
 				if(index){
-					arr.splice(index+1,0,{
+					const newField = {
 						seq:row.seq+5,
 						...defaultObj[type]
-					});
+					};
+					arr.splice(index+1,0,newField);
+					// 自动设置组件类型
+					this.autoSetComponentType(newField);
 				}else{
 					let seq = (arr.length+1)*10;
 					if(arr.length>0){
 						seq = arr[arr.length-1].seq + 10;
 					}
-					arr.push({
+					const newField = {
 						seq:seq,
 						...defaultObj[type]
-					});
+					};
+					arr.push(newField);
+					// 自动设置组件类型
+					this.autoSetComponentType(newField);
 				}
 				this.reSeq(arr);
 			},

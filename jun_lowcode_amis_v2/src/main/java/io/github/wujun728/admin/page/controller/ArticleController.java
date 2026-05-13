@@ -17,10 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
+@Deprecated
 @RestController
-@RequestMapping("/admin/article")
+@RequestMapping("/api/article")
 @Slf4j
 public class ArticleController {
+	/**
+	 * 未使用的类 - 已标记为过时
+	 */
     @Resource
     private JdbcService jdbcService;
     @RequestMapping("/pdfView/{id}")

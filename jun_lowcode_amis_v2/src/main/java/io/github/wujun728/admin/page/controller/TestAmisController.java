@@ -12,10 +12,14 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 @RestController
-@Slf4j
 @RequestMapping("/test")
+@Slf4j
 public class TestAmisController {
+	/**
+	 * 未使用的类 - 已标记为过时
+	 */
 
 
 //    @Resource

@@ -1,0 +1,263 @@
+{
+  "type": "page",
+  "body": [
+    {
+      "type": "crud",
+      "syncLocation": false,
+      "api": {
+        "method": "post",
+        "url": "/admin/jqpUser/query"
+      },
+      "bulkActions": [],
+      "itemActions": [],
+      "headerToolbar": [
+        {
+          "label": "新增",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "editorSetting": {
+            "behavior": "create"
+          },
+          "dialog": {
+            "type": "dialog",
+            "title": "新增",
+            "body": [
+              {
+                "type": "form",
+                "api": {
+                  "method": "post",
+                  "url": "/admin/jqpUser/save",
+                  "requestAdaptor": "",
+                  "adaptor": "",
+                  "messages": {}
+                },
+                "body": [
+                  {
+                    "type": "input-text",
+                    "name": "name",
+                    "label": "姓名",
+                    "id": "u:71fe33c04b2a",
+                    "required": true
+                  },
+                  {
+                    "type": "input-text",
+                    "name": "account",
+                    "label": "账号",
+                    "id": "u:fe7b6dad35b0",
+                    "required": true
+                  },
+                  {
+                    "type": "input-text",
+                    "label": "密码",
+                    "name": "password",
+                    "id": "u:efb0a4495492",
+                    "required": true
+                  },
+                  {
+                    "type": "select",
+                    "label": "角色",
+                    "name": "role_ids",
+                    "id": "u:cb2b91220fd0",
+                    "multiple": true,
+                    "searchable": true,
+                    "source": {
+                      "url": "/admin/jqpRole/query",
+                      "method": "post",
+                      "requestAdaptor": "",
+                      "adaptor": "",
+                      "messages": {}
+                    },
+                    "labelField": "name",
+                    "valueField": "id",
+                    "checkAll": false,
+                    "clearable": true
+                  }
+                ],
+                "id": "u:1a307cd29e98",
+                "actions": [
+                  {
+                    "type": "submit",
+                    "label": "提交",
+                    "primary": true
+                  }
+                ],
+                "feat": "Insert",
+                "dsType": "api"
+              }
+            ],
+            "id": "u:e4a4a4abc179",
+            "actions": [
+              {
+                "type": "button",
+                "actionType": "cancel",
+                "label": "取消",
+                "id": "u:285b669aa30f"
+              },
+              {
+                "type": "button",
+                "actionType": "confirm",
+                "label": "确定",
+                "primary": true,
+                "id": "u:762d5728df38"
+              }
+            ]
+          },
+          "id": "u:07f24a170674"
+        },
+        "bulkActions"
+      ],
+      "columns": [
+        {
+          "name": "name",
+          "label": "姓名",
+          "type": "text",
+          "id": "u:3053b32a333a"
+        },
+        {
+          "type": "text",
+          "label": "账号",
+          "name": "account",
+          "id": "u:10a0f4cf634c"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "label": "编辑",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "primary",
+              "editorSetting": {
+                "behavior": "update"
+              },
+              "dialog": {
+                "title": "编辑",
+                "body": [
+                  {
+                    "type": "form",
+                    "api": {
+                      "method": "post",
+                      "url": "/admin/jqpUser/save",
+                      "requestAdaptor": "",
+                      "adaptor": "",
+                      "messages": {}
+                    },
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "label": "主键",
+                        "name": "id",
+                        "id": "u:a4ba48a75db6",
+                        "visible": false
+                      },
+                      {
+                        "name": "name",
+                        "label": "姓名",
+                        "type": "input-text",
+                        "id": "u:508c56e79a8f",
+                        "required": true
+                      },
+                      {
+                        "label": "账号",
+                        "name": "account",
+                        "type": "input-text",
+                        "id": "u:9c661f974668",
+                        "required": true
+                      },
+                      {
+                        "type": "input-password",
+                        "label": "密码",
+                        "name": "password",
+                        "id": "u:822a7d2cbe06",
+                        "showCounter": false,
+                        "validations": {},
+                        "validationErrors": {},
+                        "placeholder": "修改时填写,不修改可不填"
+                      },
+                      {
+                        "type": "select",
+                        "label": "角色",
+                        "name": "role_ids",
+                        "id": "u:f0ec614867f9",
+                        "multiple": true,
+                        "clearable": true,
+                        "searchable": true,
+                        "checkAll": false,
+                        "source": {
+                          "url": "/admin/jqpRole/query",
+                          "method": "post",
+                          "requestAdaptor": "",
+                          "adaptor": "",
+                          "messages": {}
+                        },
+                        "labelField": "name",
+                        "valueField": "id"
+                      }
+                    ],
+                    "id": "u:56df4303f01d",
+                    "actions": [
+                      {
+                        "type": "submit",
+                        "label": "提交",
+                        "primary": true
+                      }
+                    ],
+                    "feat": "Insert",
+                    "dsType": "api"
+                  }
+                ],
+                "type": "dialog",
+                "id": "u:84a3355118c0",
+                "actions": [
+                  {
+                    "type": "button",
+                    "actionType": "cancel",
+                    "label": "取消",
+                    "id": "u:b83d251eb990"
+                  },
+                  {
+                    "type": "button",
+                    "actionType": "confirm",
+                    "label": "确定",
+                    "primary": true,
+                    "id": "u:b225360b8f47"
+                  }
+                ]
+              },
+              "id": "u:068cc8d1ca2c"
+            },
+            {
+              "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
+              "level": "danger",
+              "className": "danger",
+              "confirmText": "确定要删除？",
+              "api": {
+                "method": "post",
+                "url": "/admin/common/jqp_user/delete/${id}"
+              },
+              "editorSetting": {
+                "behavior": "delete"
+              },
+              "id": "u:fae3ece92daf"
+            }
+          ],
+          "id": "u:b9ee2231a201"
+        }
+      ],
+      "id": "u:0f5b7af4d5f4"
+    }
+  ],
+  "title": "",
+  "id": "u:d88804c9c796",
+  "asideResizor": false,
+  "pullRefresh": {
+    "disabled": true
+  },
+  "regions": [
+    "body"
+  ]
+}

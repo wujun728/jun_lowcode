@@ -1,317 +1,477 @@
 <!DOCTYPE html>
-<html lang="en" >
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-	  <!--
-        <script src="https://unpkg.com/vue@next"></script>
-        -->
-	  <script type="text/javascript" src="../js/vue3.2.36/vue.js"></script>
-	  <!-- import CSS -->
-	  <!--
-    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
-    -->
-	  <link rel="stylesheet" href="../js/element-plus2.2.28/index.css"></link>
-	  <!-- import JavaScript -->
-	  <!--
-    <script src="https://unpkg.com/element-plus"></script>
-    -->
-	  <script type="text/javascript" src="../js/element-plus2.2.28/index.full.min.js"></script>
-	  <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <title>数据库表编辑</title>
-	  <style>
-		  html,body{
-			  padding:0;
-			  margin:0;
-		  }
-	  </style>
-  </head>
-  <body>
-    <div id="app" style="height:100%;">
-	  <el-button type="primary" @click="onSubmit" style="position:fixed;bottom:10px;right:10px;z-index:999;" >保存</el-button>
-	  <el-tabs class="demo-tabs" model-value="basic" >
-		<el-tab-pane label="基本信息" name="basic">
-			<el-form :model="table" ref="table" :rules="rules" label-width="120px"  >
-				<el-form-item label="表名"  prop="tableName">
-				  <el-input v-model="table.tableName" />
-				</el-form-item>
-				<el-form-item label="注释"  prop="tableComment">
-				  <el-input v-model="table.tableComment" />
-				</el-form-item>
-			  </el-form>
-		</el-tab-pane>
-		<el-tab-pane label="字段" name="columnInfos"  >
-			<el-button type="primary" @click="onAddField">添加</el-button>
-			<el-table :data="table.columnInfos"  border height="500" >
-				<el-table-column fixed  label="名称" width="300" >
-					<template  #default="scope">
-						<div class='el_input'>
-							<div class="el-input__wrapper" style="width:100%;">
-								<input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.columnName" />
-							</div>
-						</div>
-					</template>
-				</el-table-column>
-				<el-table-column label="类型" width="300" >
-					<template  #default="scope">
-						<el-select v-model="scope.row.columnType"  filterable placeholder="请选择" clearable  >
-							<el-option label="整数(11)" value="int(11)"  ></el-option>
-							<el-option label="整数(20)" value="bigint(20)" ></el-option>
-							<el-option label="字符串(20)" value="varchar(20)" ></el-option>
-							<el-option label="字符串(64)" value="varchar(64)" ></el-option>
-							<el-option label="字符串(256)" value="varchar(256)" ></el-option>
-							<el-option label="字符串(1024)" value="varchar(1024)" ></el-option>
-							<el-option label="大文本类型" value="longtext" ></el-option>
-							<el-option label="日期类型" value="datetime"  ></el-option>
-							<el-option label="小数" value="float"  ></el-option>
-							<el-option label="小数-保留小数点后两位" value="float(19,2)"  ></el-option>
-							<el-option label="小数-保留小数点后四位" value="float(19,4)" ></el-option>
-						</el-select>
-					</template>
-				</el-table-column>
-				<el-table-column  label="注释" width="300" >
-					<template  #default="scope">
-						<div class='el_input'>
-							<div class="el-input__wrapper" style="width:100%;">
-								<input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.columnComment" />
-							</div>
-						</div>
-					</template>
-				</el-table-column>
-				<el-table-column label="允许为空" width="100"   >
-					<template  #default="scope">
-						<el-select v-model="scope.row.isNullable"  placeholder="请选择" clearable >
-							<el-option label="YES" value="YES" ></el-option>
-							<el-option label="NO" value="NO" ></el-option>
-						</el-select>
-					</template>
-				</el-table-column>
-				<el-table-column fixed="right" label="操作" width="200" >
-					<template  #default="{row,column,$index}">
-						<el-button type="primary" @click="onAddField(row,$index)">添加</el-button>
-						<el-button type="primary" @click="onDeleteField(row,$index)">删除</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线表设计</title>
+    <!--
+      <script src="https://unpkg.com/vue@next"></script>
+      -->
+    <script type="text/javascript" src="../js/vue3.2.36/vue.js"></script>
+    <!-- import CSS -->
+    <!--
+  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+  -->
+    <link rel="stylesheet" href="../js/element-plus2.2.28/index.css"></link>
+    <!-- import JavaScript -->
+    <!-- 111
+  <script src="https://unpkg.com/element-plus"></script>
+  -->
+    <script type="text/javascript" src="../js/element-plus2.2.28/index.full.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="admin-container">
+            <div class="admin-main">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3>{{ table.id ? '编辑表结构' : '新增表结构' }}</h3>
+                    </div>
+                    <div class="admin-card-body">
+                        <!-- 主表表单 -->
+                        <el-form :model="table" label-width="120px" class="mb-4">
+                            <el-row :gutter="20">
+                                <el-col :span="12">
+                                    <el-form-item label="表类型">
+                                        <el-select v-model="table.tableType" style="width: 100%">
+                                            <el-option label="单表" value="1"></el-option>
+                                            <el-option label="主从表" value="2"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="表名称">
+                                        <el-input v-model="table.name" placeholder="请输入表名称"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24">
+                                    <el-form-item label="表描述">
+                                        <el-input v-model="table.comments" type="textarea" :rows="2" placeholder="请输入表描述"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="12">
+                                    <el-form-item label="表单布局">
+                                        <el-radio-group v-model="table.formLayout">
+                                            <el-radio label="1">单列</el-radio>
+                                            <el-radio label="2">双列</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="是否分页">
+                                        <el-switch v-model="table.isPagination"></el-switch>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="12">
+                                    <el-form-item label="表单宽度">
+                                        <el-input v-model="table.formWidth" placeholder="请输入表单宽度，如800px"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </el-form>
 
-		</el-tab-pane>
-		<el-tab-pane label="索引" name="indexInfos">
-			<el-button type="primary" @click="onAddIndex">添加</el-button>
-			<el-table :data="table.indexInfos"  border  style="width: 100%" height="500">
-				<el-table-column  label="名称" fixed width="300" >
-					<template  #default="scope">
-						<div class='el_input'>
-							<div class="el-input__wrapper" style="width:100%;" >
-								<input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.keyName" />
-							</div>
-						</div>
-					</template>
-				</el-table-column>
-				<el-table-column  label="字段列表" fixed width="300" >
-					<template  #default="scope">
-						<div class='el_input'>
-							<div class="el-input__wrapper" style="width:100%;" >
-								<input class="el-input__inner" style="width:100%;" placeholder="用英文逗号隔开" v-model.lazy="scope.row.columnName" />
-							</div>
-						</div>
-					</template>
-				</el-table-column>
-				<el-table-column  label="注释" fixed width="300" >
-					<template  #default="scope">
-						<div class='el_input'>
-							<div class="el-input__wrapper" style="width:100%;" >
-								<input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.indexComment" />
-							</div>
-						</div>
-					</template>
-				</el-table-column>
-				<el-table-column fixed="right" label="操作" width="200" >
-					<template  #default="{row,column,$index}">
-						<el-button type="primary" @click="onAddIndex(row,$index)">添加</el-button>
-						<el-button type="primary" @click="onDeleteIndex(row,$index)">删除</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
-		</el-tab-pane>
-		  <el-tab-pane label="外键" name="foreignKeys">
-			  <el-button type="primary" @click="onAddForeignKey">添加</el-button>
-			  <el-table :data="table.foreignKeys"  border  style="width: 100%" height="500">
-				  <el-table-column  label="名称" fixed width="300" >
-					  <template  #default="scope">
-						  <div class='el_input'>
-							  <div class="el-input__wrapper" style="width:100%;" >
-								  <input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.constraintName" />
-							  </div>
-						  </div>
-					  </template>
-				  </el-table-column>
-				  <el-table-column  label="字段" fixed width="300" >
-					  <template  #default="scope">
-						  <div class='el_input'>
-							  <div class="el-input__wrapper" style="width:100%;" >
-								  <input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.columnName" />
-							  </div>
-						  </div>
-					  </template>
-				  </el-table-column>
-				  <el-table-column  label="关联表" fixed width="300" >
-					  <template  #default="scope">
-						  <div class='el_input'>
-							  <div class="el-input__wrapper" style="width:100%;" >
-								  <input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.referencedTableName" />
-							  </div>
-						  </div>
-					  </template>
-				  </el-table-column>
-				  <el-table-column  label="关联字段" fixed width="300" >
-					  <template  #default="scope">
-						  <div class='el_input'>
-							  <div class="el-input__wrapper" style="width:100%;" >
-								  <input class="el-input__inner" style="width:100%;" v-model.lazy="scope.row.referencedColumnName" />
-							  </div>
-						  </div>
-					  </template>
-				  </el-table-column>
-				  <el-table-column fixed="right" label="操作" width="200" >
-					  <template  #default="{row,column,$index}">
-						  <el-button type="primary" @click="onAddForeignKey(row,$index)">添加</el-button>
-						  <el-button type="primary" @click="onDeleteForeignKey(row,$index)">删除</el-button>
-					  </template>
-				  </el-table-column>
-			  </el-table>
-		  </el-tab-pane>
-	  </el-tabs>
+                        <!-- 子表tab页签 -->
+                        <el-tabs v-model="activeTab">
+                            <!-- 数据库字段配置 -->
+                            <el-tab-pane label="数据库字段" name="column">
+                                <div class="mb-3">
+                                    <el-button type="primary" @click="onAddField">新增字段</el-button>
+                                </div>
+                                <el-table :data="table.columns" stripe style="width: 100%">
+                                    <el-table-column type="selection" width="55"></el-table-column>
+                                    <el-table-column prop="name" label="字段名称" width="180">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.name" placeholder="请输入字段名称"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="comments" label="字段描述" width="200">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.comments" placeholder="请输入字段描述"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="columnType" label="字段类型" width="150">
+                                        <template #default="scope">
+                                            <el-select v-model="scope.row.columnType" @change="onColumnTypeChange(scope.row)" style="width: 100%">
+                                                <el-option label="varchar" value="varchar"></el-option>
+                                                <el-option label="int" value="int"></el-option>
+                                                <el-option label="bigint" value="bigint"></el-option>
+                                                <el-option label="double" value="double"></el-option>
+                                                <el-option label="decimal" value="decimal"></el-option>
+                                                <el-option label="date" value="date"></el-option>
+                                                <el-option label="datetime" value="datetime"></el-option>
+                                                <el-option label="text" value="text"></el-option>
+                                                <el-option label="tinyint" value="tinyint"></el-option>
+                                                <el-option label="smallint" value="smallint"></el-option>
+                                                <el-option label="mediumint" value="mediumint"></el-option>
+                                                <el-option label="longtext" value="longtext"></el-option>
+                                            </el-select>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="length" label="字段长度" width="120">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.length" placeholder="请输入长度"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="pointLength" label="小数位数" width="120">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.pointLength" placeholder="请输入小数位数"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="defaultValue" label="默认值" width="150">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.defaultValue" placeholder="请输入默认值"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="columnPk" label="主键" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.columnPk"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="columnNull" label="允许空值" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.columnNull"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="操作" width="80">
+                                        <template #default="scope">
+                                            <el-button type="danger" size="small" @click="onDeleteField(scope.$index)">删除</el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-tab-pane>
 
+                            <!-- 表单配置 -->
+                            <el-tab-pane label="表单配置" name="form">
+                                <el-table :data="table.columns" stripe style="width: 100%">
+                                    <el-table-column prop="name" label="字段名称" width="180"></el-table-column>
+                                    <el-table-column prop="comments" label="字段描述" width="200"></el-table-column>
+                                    <el-table-column prop="formItem" label="表单显示" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.formItem"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="formRequired" label="表单必填" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.formRequired"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="formInput" label="控件类型" width="150">
+                                        <template #default="scope">
+                                            <el-select v-model="scope.row.formInput" style="width: 100%">
+                                                <el-option label="文本框" value="text"></el-option>
+                                                <el-option label="文本域" value="textarea"></el-option>
+                                                <el-option label="下拉框" value="select"></el-option>
+                                                <el-option label="单选框" value="radio"></el-option>
+                                                <el-option label="复选框" value="checkbox"></el-option>
+                                                <el-option label="日期选择器" value="date"></el-option>
+                                                <el-option label="时间选择器" value="time"></el-option>
+                                                <el-option label="日期时间选择器" value="datetime"></el-option>
+                                                <el-option label="数字输入框" value="number"></el-option>
+                                                <el-option label="开关" value="switch"></el-option>
+                                                <el-option label="上传组件" value="upload"></el-option>
+                                                <el-option label="富文本编辑器" value="rich-text"></el-option>
+                                            </el-select>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="formDefault" label="控件默认值" width="150">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.formDefault" placeholder="请输入默认值"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="formDict" label="字典Code" width="120">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.formDict" placeholder="请输入字典Code"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="extParams" label="扩展参数" width="200">
+                                        <template #default="scope">
+                                            <el-input v-model="scope.row.extParams" type="textarea" :rows="2" placeholder="请输入扩展参数"></el-input>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-tab-pane>
+
+                            <!-- 查询配置 -->
+                            <el-tab-pane label="查询配置" name="query">
+                                <el-table :data="table.columns" stripe style="width: 100%">
+                                    <el-table-column prop="name" label="字段名称" width="180"></el-table-column>
+                                    <el-table-column prop="comments" label="字段描述" width="200"></el-table-column>
+                                    <el-table-column prop="queryItem" label="查询显示" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.queryItem"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="queryType" label="查询方式" width="120">
+                                        <template #default="scope">
+                                            <el-select v-model="scope.row.queryType" style="width: 100%">
+                                                <el-option label="等于" value="eq"></el-option>
+                                                <el-option label="不等于" value="neq"></el-option>
+                                                <el-option label="大于" value="gt"></el-option>
+                                                <el-option label="大于等于" value="gte"></el-option>
+                                                <el-option label="小于" value="lt"></el-option>
+                                                <el-option label="小于等于" value="lte"></el-option>
+                                                <el-option label="包含" value="like"></el-option>
+                                                <el-option label="不包含" value="nlike"></el-option>
+                                                <el-option label="在范围内" value="in"></el-option>
+                                                <el-option label="不在范围内" value="nin"></el-option>
+                                            </el-select>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="queryInput" label="控件类型" width="150">
+                                        <template #default="scope">
+                                            <el-select v-model="scope.row.queryInput" style="width: 100%">
+                                                <el-option label="文本框" value="text"></el-option>
+                                                <el-option label="下拉框" value="select"></el-option>
+                                                <el-option label="日期选择器" value="date"></el-option>
+                                                <el-option label="时间选择器" value="time"></el-option>
+                                                <el-option label="日期时间选择器" value="datetime"></el-option>
+                                                <el-option label="数字输入框" value="number"></el-option>
+                                            </el-select>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-tab-pane>
+
+                            <!-- 列表配置 -->
+                            <el-tab-pane label="列表配置" name="list">
+                                <el-table :data="table.columns" stripe style="width: 100%">
+                                    <el-table-column prop="name" label="字段名称" width="180"></el-table-column>
+                                    <el-table-column prop="comments" label="字段描述" width="200"></el-table-column>
+                                    <el-table-column prop="gridItem" label="列表显示" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.gridItem"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="gridSort" label="是否排序" width="80">
+                                        <template #default="scope">
+                                            <el-switch v-model="scope.row.gridSort"></el-switch>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </el-tab-pane>
+                        </el-tabs>
+
+                        <!-- 保存按钮 -->
+                        <div class="admin-form-footer mt-4">
+                            <el-button type="primary" @click="onSubmit">保存</el-button>
+                            <el-button @click="onCancel">取消</el-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script>
-		let tableHeight = $(window).height() -90;
-		$("el-table").attr("height",tableHeight);
-		// 获取页面 url 参数
-		$.getUrlParam = function (name) {
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-			var r = window.location.search.substr(1).match(reg);
-			if (r != null) return unescape(r[2]);
-			return '';
-		}
-      const App = {
-        data() {
-		  let table = {
-		  	columnInfos:[],
-			indexInfos:[],
-			foreignKeys:[],
-		  };
-          return {
-			table:table,
-			rules:{
-				tableName:[{required:true,trigger: 'change',message:"必填"}],
-				tableComment:[{required:true,trigger: 'change',message:"必填"}]
-			}
-          };
-        },
-		mounted(){
-        	let me = this;
-			let tableName = $.getUrlParam("tableName");
-			let type = $.getUrlParam("type");
-			let url = "";
-			if(type === 'copy'){
-				url = "/tableInfo/copyTableInfo?tableName="+tableName;
-			}else{
-				url = "/tableInfo/tableInfo?tableName="+tableName;
-			}
-			$.ajax({
-				type:"get",
-				url:url,
-				dataType: 'json',
-				success:function(data){
-					//console.info(data);
-					if(data.status !== 0){
-						ElementPlus.ElMessage(data.msg)
-					}else{
-						me.table = data.data;
-					}
-				}
-			});
-		},
-		methods:{
-			onSubmit(){
-				let me = this;
-				if(this.table.columnInfos.length == 0){
-					ElementPlus.ElMessage("请配置字段")
-					return;
-				}
-				this.$refs.table.validate((valid,fields)=>{
-					if(valid){
-						$.ajax({
-							type:"post",
-							url:"/tableInfo/updateTable",
-							contentType: "application/json;charset=UTF-8",
-							processData: false,
-							data:JSON.stringify(me.table),
-							dataType: 'json',
-							success:function(data){
-								if(data.status !== 0){
-									ElementPlus.ElMessage(data.msg)
-								}else{
-									parent.jQuery("*[data-tooltip='关闭']").get(0).click()
-									parent.jQuery("*[type='submit']").get(0).click()
-								}
-							}
-						});
-					}else{
-						ElementPlus.ElMessage("请填写必填信息")
-					}
+        // 字段类型到组件类型的映射
+        const typeToComponentMap = {
+            "varchar": "text",
+            "text": "textarea",
+            "longtext": "textarea",
+            "int": "number",
+            "bigint": "number",
+            "smallint": "number",
+            "mediumint": "number",
+            "double": "number",
+            "decimal": "number",
+            "date": "date",
+            "datetime": "datetime",
+            "tinyint": "switch"
+        }
 
-				});
+        const App = {
+            data() {
+                return {
+                    activeTab: 'column',
+                    table: {
+                        id: null,
+                        name: '',
+                        comments: '',
+                        tableType: '1',
+                        formLayout: '1',
+                        isPagination: true,
+                        formWidth: '800px',
+                        columns: []
+                    },
+                    tableId: null
+                };
+            },
+            mounted() {
+                // 获取URL参数
+                const urlParams = new URLSearchParams(window.location.search);
+                this.tableId = urlParams.get('id');
+                
+                if (this.tableId) {
+                    this.loadData();
+                } else {
+                    // 初始化空数据
+                    this.table.columns = [];
+                }
+            },
+            methods: {
+                // 根据字段类型自动设置组件类型
+                autoSetComponentType(column) {
+                    if (!column.formInput && column.columnType) {
+                        column.formInput = typeToComponentMap[column.columnType] || 'text';
+                    }
+                    if (!column.queryInput && column.columnType) {
+                        column.queryInput = typeToComponentMap[column.columnType] || 'text';
+                    }
+                },
+                
+                // 字段类型变更时自动设置组件类型
+                onColumnTypeChange(column) {
+                    this.autoSetComponentType(column);
+                },
+                
+                // 加载数据
+                loadData() {
+                    fetch(`/api/onlineTable/get?id=${this.tableId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 0) {
+                                this.table = data.data;
+                                // 确保columns数组存在
+                                if (!this.table.columns) {
+                                    this.table.columns = [];
+                                }
+                                // 确保必要字段有值
+                                if (this.table.formLayout === null) {
+                                    this.table.formLayout = '1';
+                                }
+                                if (this.table.isPagination === null) {
+                                    this.table.isPagination = true;
+                                }
+                                if (this.table.tableType === null) {
+                                    this.table.tableType = '1';
+                                }
+                                // 为每个字段自动设置组件类型和默认值
+                                this.table.columns.forEach(column => {
+                                    // 默认字段配置
+                                    const defaultColumn = {
+                                        formItem: true,
+                                        queryItem: false,
+                                        gridItem: true,
+                                        gridSort: false,
+                                        columnNull: true,
+                                        columnPk: false,
+                                        formRequired: false,
+                                        queryType: 'eq',
+                                        queryInput: '',
+                                        formInput: '',
+                                        formDefault: '',
+                                        formDict: '',
+                                        extParams: ''
+                                    };
+                                    
+                                    // 为每个默认字段设置值（如果当前值为null或undefined）
+                                    Object.keys(defaultColumn).forEach(key => {
+                                        if (column[key] === null || column[key] === undefined) {
+                                            column[key] = defaultColumn[key];
+                                        }
+                                    });
+                                    
+                                    this.autoSetComponentType(column);
+                                });
+                            } else {
+                                this.$message.error(data.msg || '加载数据失败');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('加载数据失败:', error);
+                            this.$message.error('加载数据失败');
+                        });
+                },
+                
+                // 新增字段
+                onAddField() {
+                    const newField = {
+                        id: null,
+                        tableId: this.table.id,
+                        name: '',
+                        comments: '',
+                        columnType: 'varchar',
+                        length: '255',
+                        pointLength: '0',
+                        defaultValue: '',
+                        columnPk: false,
+                        columnNull: true,
+                        formItem: true,
+                        formRequired: false,
+                        formInput: 'text',
+                        formDefault: '',
+                        formDict: '',
+                        extParams: '',
+                        queryItem: false,
+                        queryType: 'eq',
+                        queryInput: 'text',
+                        gridItem: true,
+                        gridSort: false
+                    };
+                    this.table.columns.push(newField);
+                },
+                
+                // 删除字段
+                onDeleteField(index) {
+                    this.table.columns.splice(index, 1);
+                },
+                
+                // 保存数据
+                onSubmit() {
+                    // 验证表单
+                    if (!this.table.name) {
+                        this.$message.error('请输入表名称');
+                        return;
+                    }
+                    
+                    // 准备要提交的数据，确保字段名与API一致
+                    const submitData = {
+                        ...this.table,
+                        // 确保必要字段格式正确
+                        tableType: String(this.table.tableType),
+                        formLayout: String(this.table.formLayout)
+                    };
+                    
+                    fetch('/api/onlineTable/save', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(submitData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 0) {
+                            this.$message.success('保存成功');
+                            // 跳转到列表页面
+                            window.location.href = '/admin/page/onlineList.html';
+                        } else {
+                            this.$message.error(data.msg || '保存失败');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('保存失败:', error);
+                        this.$message.error('保存失败');
+                    });
+                },
+                
+                // 取消操作
+                onCancel() {
+                    window.location.href = '/admin/page/onlineList.html';
+                }
+            }
+        };
 
-			},
-			onDeleteField(row,index){
-				this.deleteItem(this.table.columnInfos,row,index,'column');
-			},
-			onAddField(row,index){
-				this.pushArr(this.table.columnInfos,row,index,'column');
-			},
-			onDeleteIndex(row,index){
-				this.deleteItem(this.table.indexInfos,row,index,'index');
-			},
-			onAddIndex(row,index){
-				this.pushArr(this.table.indexInfos,row,index,'index');
-			},
-			onDeleteForeignKey(row,index){
-				this.deleteItem(this.table.foreignKeys,row,index,'foreignKey');
-			},
-			onAddForeignKey(row,index){
-				this.pushArr(this.table.foreignKeys,row,index,'foreignKey');
-			},
-			deleteItem(arr,row,index,type){
-				arr.splice(index, 1);
-			},
-			pushArr(arr,row,index,type){
-				let defaultObj = {
-					"index":{},
-					"column":{
-						"columnType":"varchar(64)",
-						"isNullable":"YES"
-					}
-				};
-
-				if(index){
-					arr.splice(index+1,0,{
-						...defaultObj[type]
-					});
-				}else{
-					arr.push({
-						...defaultObj[type]
-					});
-				}
-			}
-		}
-
-      };
-      const app = Vue.createApp(App);
-      app.use(ElementPlus);
-      app.mount("#app");
-
-
+        const app = Vue.createApp(App);
+        app.use(ElementPlus);
+        app.mount('#app');
     </script>
-  </body>
+</body>
 </html>

@@ -70,8 +70,11 @@ public class MysqlJdbcServiceImpl extends MysqlJdbcDaoImpl implements JdbcServic
         }
         ClassInfo table = tableInfo.getData();
         List<FieldInfo> columnInfos = table.getColumnInfos();
-        List<String> columns = columnInfos.stream().map(FieldInfo::getColumnName).collect(Collectors.toList());
-        List<String> args = columnInfos.stream().map(columnInfo -> "?").collect(Collectors.toList());
+        // 排除id列，让数据库自动生成
+        List<String> columns = columnInfos.stream()
+                .filter(columnInfo -> !"id".equals(columnInfo.getColumnName()))
+                .map(FieldInfo::getColumnName).collect(Collectors.toList());
+        List<String> args = columns.stream().map(columnInfo -> "?").collect(Collectors.toList());
         String sql = StrUtil.format("insert into {} ({}) values ({})",table.getTableName(),StringUtil.concatStr(columns,","),StringUtil.concatStr(args,","));
         List<Object> values = new ArrayList<>();
 

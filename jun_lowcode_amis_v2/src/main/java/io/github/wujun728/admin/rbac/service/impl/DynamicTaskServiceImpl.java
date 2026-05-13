@@ -61,7 +61,9 @@ public class DynamicTaskServiceImpl implements DynamicTaskService {
     }
 
     @Override
+    @Deprecated
     public void stop() {
+        // 未使用的方法 - 已标记为过时
     }
 
     @Override
@@ -141,13 +143,13 @@ public class DynamicTaskServiceImpl implements DynamicTaskService {
     }
 
     @Override
+    @Deprecated
     public void stop(Long id) {
+        // 未使用的方法 - 已标记为过时
         String taskId = taskIds.get(id);
         DynamicTask task = jdbcService.getById(DynamicTask.class, id);
         if(!(StringUtils.isBlank(task.getTimerTaskStatus())
-                || TimerTaskRecordStatus.Running.equals(task.getTimerTaskStatus()))){
-            return;
-        }
+                || TimerTaskRecordStatus.Running.equals(task.getTimerTaskStatus()))){return;}
         if(taskId != null){
             StaticLog.info("停用任务:"+task.getName());
             CronUtil.remove(taskId);

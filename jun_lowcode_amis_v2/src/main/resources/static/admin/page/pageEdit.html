@@ -178,7 +178,7 @@
 				</el-table-column>
 				<el-table-column label="字段类型" width="140" >
 					<template  #default="scope">
-						<el-select v-model="scope.row.type" placeholder="请选择" clearable  >
+						<el-select v-model="scope.row.type" placeholder="请选择" clearable @change="autoSetComponentType(scope.row)" >
 							<el-option label="字符串" value="string"  ></el-option>
 							<el-option label="数据字典" value="dic" ></el-option>
 							<el-option label="日期" value="date" ></el-option>
@@ -844,6 +844,28 @@ iframe:配置url地址携带参数?key=${value}"  v-model.lazy="scope.row.refPag
 			deleteItem(arr,row,index,type){
 				arr.splice(index, 1);
 				this.reSeq(arr);
+			},
+			// 字段类型到组件类型的映射关系
+			typeToComponentMap: {
+				'string': 'input-text',
+				'dic': 'select',
+				'date': 'input-date',
+				'int': 'input-number',
+				'long': 'input-number',
+				'double': 'input-number',
+				'selector': 'selector',
+				'long-string': 'textarea',
+				'big-string': 'textarea',
+				'sql': 'textarea',
+				'js': 'textarea',
+				'article': 'input-rich-text'
+			},
+			// 自动根据字段类型设置组件类型
+			autoSetComponentType(row) {
+				const componentType = this.typeToComponentMap[row.type];
+				if (componentType && !row.componentType) {
+					row.componentType = componentType;
+				}
 			},
 			pushArr(arr,row,index,type){
 				let defaultObj = {

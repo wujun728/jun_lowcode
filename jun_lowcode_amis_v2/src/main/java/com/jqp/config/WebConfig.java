@@ -28,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
                 "/rest/**",
                 "/bizrest/**",
                 "/magic/web/**",
+                "/magic/web/**",
                 "/admin/jqpUser/captcha.png",
         },"/sysConfig/adminInterceptor"));
 
